@@ -12,7 +12,7 @@ function App() {
         <header>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container">
-              <Link className="navbar-brand" to="/">Your Website</Link>
+              <Link className="navbar-brand" to="/">Remove Sad</Link>
               <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
               </button>
@@ -41,7 +41,7 @@ function App() {
         </main>
         <footer className="bg-dark text-light py-3">
           <div className="container text-center">
-            &copy; {new Date().getFullYear()} Your Website. All Rights Reserved.
+            &copy; {new Date().getFullYear()} Remove Sad. All Rights Reserved.
           </div>
         </footer>
       </div>
