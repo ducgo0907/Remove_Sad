@@ -32,7 +32,7 @@ function Chat() {
 				content: message,
 				id: id
 			}
-			socketRef.current.emit('sendDataClient', msg);	
+			socketRef.current.emit('sendDataClient', msg);
 			setMessage('');
 		}
 	}
