@@ -9,16 +9,30 @@ const host = "http://localhost:3001";
 
 function Chat() {
 	const [message, setMessage] = useState('');
-	const [mess, setMess] = useState([{ sender: 'admin', message: 'Hi, welcome to PilyrChat! Go ahead and send me a message. 😄' }]);
-	const [user, setUser] = useState("admin");
+	const [mess, setMess] = useState([]);
+	const [user, setUser] = useState("trungnqhe161514@fpt.edu.vn");
 	const [users, setUsers] = useState([]);
+	const [isAdmin, setIsAdmin] = useState(false);
 	const location = useLocation();
 	const socketRef = useRef();
 
-	const userName = location.state.userName;
+	const accessToken = localStorage.getItem('accessToken');
+	let userInfo = localStorage.getItem('userInfo');
+
+	let userName = location.state.userName;
+	if (userInfo && userInfo !== null) {
+		let userInformation = JSON.parse(userInfo);
+		userName = userInformation.email;
+	}
 
 	useEffect(() => {
 		socketRef.current = socketIOClient.connect(host);
+
+		if (userInfo && userInfo !== null) {
+			let userInformation = JSON.parse(userInfo);
+			userName = userInformation.email;
+			setIsAdmin(userInformation.isAdmin);
+		}
 
 		socketRef.current.emit('storeUserId', userName);
 
@@ -36,11 +50,11 @@ function Chat() {
 
 			// Remove dataGot.sender from the current users array (if it exists)
 			const updatedUsers = users.filter(user => user !== dataGot.sender);
-
+			console.log(dataGot);
 			// Add dataGot.sender to the beginning of the updated users array
 			setUsers([dataGot.sender, ...updatedUsers]);
 
-			if(dataGot.sender !== 'admin'){
+			if (dataGot.sender !== 'admin') {
 				setUser(dataGot.sender);
 			}
 		})
@@ -52,7 +66,11 @@ function Chat() {
 
 	useEffect(() => {
 		setMess([]);
-		if (userName != "" && user != "") {
+		if (userName !== "" && user !== "") {
+			const params = JSON.stringify({
+				sender: userName,
+				receiver: user
+			})
 			axios({
 				method: 'get',
 				url: `${host}/messages/all`,
@@ -72,7 +90,10 @@ function Chat() {
 						element.createdAt = `${formattedHours}:${formattedMinutes}`
 					});
 					setMess(listMessage);
-				});
+				})
+				.catch(function (error) {
+					console.log(error);
+				})
 		}
 	}, [user])
 
@@ -81,8 +102,10 @@ function Chat() {
 			const msg = {
 				message: message,
 				sender: userName,
-				receiver: user
+				receiver: user,
+				fakeName: location.state.userName
 			}
+			console.log(msg, "1");
 			await socketRef.current.emit('privateMessage', msg);
 			setMess(oldMsg => [...oldMsg, msg]);
 			setMessage('');
@@ -98,9 +121,9 @@ function Chat() {
 	return (
 		<div className="flex justify-center w-full">
 			<div>
-				<h2>Hello {userName} {userName === 'admin' && ', these are your connected friends'}</h2>
+				<h2>Hello {userName} {isAdmin && ', these are your connected friends'}</h2>
 				<ul className="user-list"> {/* Apply the user-list class */}
-					{users.map((userDetail) => userDetail !== userName && userName === 'admin' ? (
+					{users.map((userDetail) => userDetail !== userName && isAdmin ? (
 						<li key={userDetail} onClick={() => setUser(userDetail)} className={userDetail === user ? "isSelected user-item" : "user-item"}> {/* Apply the user-item class */}
 							{/* Add user avatar and username here */}
 							<span className="user-name">{userDetail}</span> {/* Apply the user-name class */}
@@ -121,7 +144,7 @@ function Chat() {
 				<main className="msger-chat">
 					<ScrollToBottom className="message-container">
 						{mess.map(message => {
-							return message.sender === 'admin' ?
+							return message.sender === 'trungnqhe161514@fpt.edu.vn' ?
 								(
 									<div className="msg left-msg">
 										<div
@@ -149,7 +172,7 @@ function Chat() {
 
 										<div className="msg-bubble">
 											<div className="msg-info">
-												<div className="msg-info-name">{message.sender}</div>
+												<div className="msg-info-name">{message.fakeName}</div>
 												<div className="msg-info-time">{message.createdAt}</div>
 											</div>
 

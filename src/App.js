@@ -4,9 +4,13 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
 import Chat from './pages/Chat/Chat';
-
+import PrivateRoute from './components/PrivateRoute';
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
+import DirectRouter from './components/DirectRouter';
 
 function App() {
+	const token = localStorage.getItem("accessToken");
 	return (
 		<Router>
 			<div className="App">
@@ -24,7 +28,9 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/about" element={<About />} />
-						<Route path="/chat" element={<Chat />} />
+						<Route path="/login" element={<DirectRouter path="/" element={<Login />} />} />
+						<Route path="/chat" element={<PrivateRoute path="/login" element={<Chat />} />} />
+						<Route path='/register' element={<DirectRouter path="/" element={<Register />} />}/>
 					</Routes>
 				</main>
 				<footer className="bg-dark text-light py-3">
