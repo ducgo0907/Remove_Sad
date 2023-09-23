@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../Home/home.css";
 import avatar from "../../asset/O2.jpg"
 
@@ -14,10 +14,13 @@ function Home() {
 	const goToChat = (e) => {
 		e.preventDefault(); // Prevent the default form submission behavior
 		if (userName.trim() !== "") {
-			nav("/chat");
+			nav("/chat", {
+				state: { userName }
+			});
 		} else {
 			alert("Please enter your name.");
 		}
+
 	};
 
 	return (
@@ -37,7 +40,7 @@ function Home() {
 							onChange={handleNameChange}
 							required
 						/>
-						<hr/>
+						<hr />
 						<div className="user-photos flex-col gap">
 							<div className="col-span-12">
 								<h3 className="text-center mt-4">Pick your avatar.</h3>
@@ -45,39 +48,39 @@ function Home() {
 							<div className="photo-gallery grid grid-cols-3 gap-4 p-5">
 								<div className="flex justify-center">
 									<div class="flex justify-center">
-										<img class="rounded-full" src={avatar} /></div>
+										<img class="rounded-full" src={avatar} alt="avatar" /></div>
 								</div>
 								<div className="flex justify-center">
 									<div class="flex justify-center">
-										<img class="rounded-full" src={avatar} /></div>
+										<img class="rounded-full" src={avatar} alt="avatar" /></div>
 								</div>
 								<div className="flex justify-center">
 									<div class="flex justify-center">
-										<img class="rounded-full" src={avatar} /></div>
+										<img class="rounded-full" src={avatar} alt="avatar" /></div>
 								</div>
 								<div className="flex justify-center">
 									<div class="flex justify-center">
-										<img class="rounded-full" src={avatar} /></div>
+										<img class="rounded-full" src={avatar} alt="avatar" /></div>
 								</div>
 								<div className="flex justify-center">
 									<div class="flex justify-center">
-										<img class="rounded-full" src={avatar} /></div>
+										<img class="rounded-full" src={avatar} alt="avatar" /></div>
 								</div>
 								<div className="flex justify-center">
 									<div class="flex justify-center">
-										<img class="rounded-full" src={avatar} /></div>
+										<img class="rounded-full" src={avatar} alt="avatar" /></div>
 								</div>
 								<div className="flex justify-center">
 									<div class="flex justify-center">
-										<img class="rounded-full" src={avatar} /></div>
+										<img class="rounded-full" src={avatar} alt="avatar" /></div>
 								</div>
 								<div className="flex justify-center">
 									<div class="flex justify-center">
-										<img class="rounded-full" src={avatar} /></div>
+										<img class="rounded-full" src={avatar} alt="avatar" /></div>
 								</div>
 								<div className="flex justify-center">
 									<div class="flex justify-center">
-										<img class="rounded-full" src={avatar} /></div>
+										<img class="rounded-full" src={avatar} alt="avatar" /></div>
 								</div>
 							</div>
 							<div className="row-span-6 p-3">
