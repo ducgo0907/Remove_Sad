@@ -10,7 +10,6 @@ import Register from './pages/Register/Register';
 import DirectRouter from './components/DirectRouter';
 
 function App() {
-	const token = localStorage.getItem("accessToken");
 	return (
 		<Router>
 			<div className="App">
