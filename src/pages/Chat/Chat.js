@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
 
-const host = "http://localhost:3000";
+const host = "https://copper-tadpole-gear.cyclic.cloud/";
 
 function Chat() {
 	const [message, setMessage] = useState('');

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Home() {
 	return (
 		<div>
-			<h1>Welcome to Remoe Sad</h1>
+			<h1>Welcome to Remove Sad</h1>
 			<Link to="/about">Learn more about us</Link>
 		</div>
 	);
