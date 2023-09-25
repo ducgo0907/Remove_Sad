@@ -11,7 +11,7 @@ import DirectRouter from './components/DirectRouter';
 
 function App() {
 	return (
-		<Router>
+		<Router basename='/Remove_Sad'>
 			<div className="App">
 				<header>
 					<nav className="navbar navbar-expand-lg navbar-light bg-light">
