@@ -5,7 +5,7 @@ import socketIOClient from "socket.io-client";
 import ScrollToBottom from "react-scroll-to-bottom";
 import axios from "axios";
 
-const host = "http://localhost:3001";
+const host = "https://s9fyy9-3001.csb.app";
 
 function Chat() {
 	const [message, setMessage] = useState('');
