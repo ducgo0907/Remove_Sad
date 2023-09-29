@@ -3,7 +3,9 @@ import { useState } from "react";
 import "./login.css";
 import axios from "axios";
 
-const host = 'https://s9fyy9-3001.csb.app/users'
+// const host = 'https://s9fyy9-3001.csb.app/users'
+
+const host= "http://localhost:3001/users";
 
 function Login() {
 	const [username, setUsername] = useState('');
@@ -35,13 +37,13 @@ function Login() {
 			},
 		})
 			.then(function (response) {
+				console.log(response);
 				const { accessToken, email, name, isAdmin } = response.data;
 				localStorage.setItem('accessToken', JSON.stringify(accessToken));
 				localStorage.setItem('userInfo', JSON.stringify({ email, name, isAdmin }));
 				nav("/");
 			})
 			.catch(function (error) {
-
 				console.log(error);
 			})
 	};

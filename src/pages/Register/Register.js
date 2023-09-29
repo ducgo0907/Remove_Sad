@@ -4,7 +4,10 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 
-const host = 'https://s9fyy9-3001.csb.app/users'
+// const host = 'https://s9fyy9-3001.csb.app/users'
+
+const host= "http://localhost:3001";
+
 
 function Register() {
 	const [name, setName] = useState('');
