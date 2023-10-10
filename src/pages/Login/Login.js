@@ -3,7 +3,8 @@ import { useState } from "react";
 import "./login.css";
 import axios from "axios";
 
-const host = 'https://s9fyy9-3001.csb.app/users'
+// const host = 'https://s9fyy9-3001.csb.app/users'
+const host = 'http://localhost:3001/users'
 
 function Login() {
 	const [username, setUsername] = useState('');

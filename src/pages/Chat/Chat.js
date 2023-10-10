@@ -22,7 +22,7 @@ function Chat() {
 	let userName = location.state.userName;
 	if (userInfo && userInfo !== null) {
 		let userInformation = JSON.parse(userInfo);
-		userName = userInformation.email;
+		userName = userInformation.name; // change email => name
 	}
 
 	useEffect(() => {
@@ -119,8 +119,8 @@ function Chat() {
 	}
 
 	return (
-		<div className="flex justify-center w-full">
-			<div>
+		<div className="flex justify-center w-full chat-container">
+			<div className="text-left">
 				<h2>Hello {userName} {isAdmin && ', these are your connected friends'}</h2>
 				<ul className="user-list"> {/* Apply the user-list class */}
 					{users.map((userDetail) => userDetail !== userName && isAdmin ? (
@@ -131,7 +131,7 @@ function Chat() {
 					) : (<></>))}
 				</ul>
 			</div>
-			<section className="msger w-full h-full">
+			<section className="msger w-full">
 				<header className="msger-header">
 					<div className="msger-header-title">
 						<i className="fas fa-comment-alt"></i> Pilyr Chat
@@ -176,7 +176,7 @@ function Chat() {
 												<div className="msg-info-time">{message.createdAt}</div>
 											</div>
 
-											<div className="msg-text">
+											<div className="msg-text whitespace-pre-wrap">
 												{message.message}
 											</div>
 										</div>
@@ -185,12 +185,14 @@ function Chat() {
 						})}
 					</ScrollToBottom>
 				</main>
-				<input type="text" className="msger-input"
-					placeholder="Enter your message..."
-					value={message}
-					onKeyDown={onEnterPerss}
-					onChange={e => setMessage(e.target.value)} />
-				<button type="submit" className="msger-send-btn" onClick={sendMessage} >Send</button>
+				<div className="send-msg">
+					<input type="text" className="msger-input"
+						placeholder="Enter your message..."
+						value={message}
+						onKeyDown={onEnterPerss}
+						onChange={e => setMessage(e.target.value)} />
+					<button type="submit" className="msger-send-btn m-0" onClick={sendMessage} >Send</button>
+				</div>
 			</section>
 		</div>
 	);

@@ -35,7 +35,7 @@ function Home() {
 	return (
 		<div className="container">
 			<div className="row-auto">
-				<div>
+				<div className="text-center">
 					<h1>Pilyr online chat</h1>
 				</div>
 				{!isAdmin ? (
@@ -58,14 +58,14 @@ function Home() {
 									{/* You can map through an array of avatars and generate the elements */}
 									{Array.from({ length: 9 }).map((_, index) => (
 										<div key={index} className="flex justify-center">
-											<div className="flex justify-center">
+											<div className="flex justify-center w-auto">
 												<img className="rounded-full" src={avatar} alt={`Avatar ${index + 1}`} />
 											</div>
 										</div>
 									))}
 								</div>
-								<div className="row-span-6 p-3">
-									<button className="rounded-full bg-sky-500" type="submit">
+								<div className="row-span-6 p-3 flex justify-center">
+									<button className="rounded-full bg-sky-500 w-auto" type="submit">
 										Let's Chat
 									</button>
 								</div>

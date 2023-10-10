@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from './pages/Home/Home';
@@ -10,6 +10,13 @@ import Register from './pages/Register/Register';
 import DirectRouter from './components/DirectRouter';
 
 function App() {
+	// const [token, setToken] = useState(localStorage.getItem('accessToken'));
+
+	// const handleLogOut = () =>{
+	// 	localStorage.clear()
+	// }
+
+
 	return (
 		<Router basename='/Remove_Sad'>
 			<div className="App">
@@ -20,6 +27,9 @@ function App() {
 							<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 								<span className="navbar-toggler-icon"></span>
 							</button>
+							{/* {token && <div>
+								<a href='/Remove_Sad' className='flex-wrap'><button onClick={() =>handleLogOut()}>Logout</button></a>
+							</div>} */}
 						</div>
 					</nav>
 				</header>

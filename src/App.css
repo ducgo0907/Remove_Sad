@@ -1,7 +1,7 @@
-.App {
+/* .App {
 	text-align: center;
-	/* background: linear-gradient(gray, black); */
-}
+	background: linear-gradient(gray, black);
+} */
 
 
 /* body {
@@ -115,10 +115,8 @@ footer {
 	height: 100%;
 	overflow-y: scroll;
 	overflow-x: hidden;
-  }
-  
-  .chat-window .chat-body .message-container::-webkit-scrollbar {
+}
+
+.chat-window .chat-body .message-container::-webkit-scrollbar {
 	display: none;
-  }
-
-
+}
