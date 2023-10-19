@@ -4,8 +4,8 @@ import { Navigate } from 'react-router-dom';
 
 let isAuthenticated = false;
 function DirectRouter({ element, path, ...rest }) {
-	const accessToken = localStorage.getItem('accessToken');
-	if (accessToken !== null) {
+	const user = localStorage.getItem('user');
+	if (user !== null) {
 		isAuthenticated = true;
 	}
 	return isAuthenticated ? (

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import authService from '../services/auth.service';
 
 
 let isAuthenticated = false;
-function PrivateRoute({ element, path, ...rest }) {
-	const user = localStorage.getItem('user');
-	if (user !== null) {
+function AdminRouter({ element, path, ...rest }) {
+	const user = authService.getCurrentUser();
+	if (user !== null && user.isAdmin) {
 		isAuthenticated = true;
 	}
 	return isAuthenticated ? (
@@ -15,4 +16,4 @@ function PrivateRoute({ element, path, ...rest }) {
 	);
 }
 
-export default PrivateRoute;
+export default AdminRouter;

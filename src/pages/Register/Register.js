@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import './register.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import CONSTANT from '../../utils/Iconstant';
 
 
 // const host = 'https://s9fyy9-3001.csb.app/users'
 
-const host= "http://localhost:3001";
+const host= `${CONSTANT.host}/users`;
 
 
 function Register() {

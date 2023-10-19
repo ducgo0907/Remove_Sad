@@ -182,3 +182,7 @@
 .isSelected {
 	background-color: #3498db;
 }
+
+.msger-chat{
+	max-height: 450px;
+}

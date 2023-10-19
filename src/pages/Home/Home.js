@@ -2,45 +2,76 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Home/home.css";
 import avatar from "../../asset/O2.jpg";
+import CONSTANT from "../../utils/Iconstant";
+import socketIOClient from "socket.io-client";
 
-function Home() {
-	const nav = useNavigate();
+const host = CONSTANT.host;
+
+function Home({ user }) {
 	const [isAdmin, setIsAdmin] = useState(false);
 	const [userName, setUserName] = useState("");
-
-	const userInfo = localStorage.getItem("userInfo");
+	const [socket, setSocket] = useState(null);
+	const [isAvailable, setIsAvailable] = useState(false);
+	const nav = useNavigate();
 
 	useEffect(() => {
-		if (userInfo !== null) {
-			let userInformation = JSON.parse(userInfo);
-			console.log(userInformation);
-			setIsAdmin(userInformation.isAdmin);
+		const newSocket = socketIOClient.connect(host);
+		setSocket(newSocket);
+		if (user && user.isAdmin){
+			newSocket.emit("storeAdminId", user.email);
 		}
-	}, [])
+
+		newSocket.emit('getConnectedAdmin');
+		newSocket.on('getConnectedAdmin', data => {
+			console.log(data);
+			if (data.length > 0) {
+				setIsAvailable(true);
+			}else{
+				setIsAvailable(false);
+			}
+		})
+
+		return () => {
+			newSocket.disconnect();
+		}
+	}, []);
+
+	useEffect(() => {
+		if (socket) {
+
+		}
+	}, [socket]);
+
+	useEffect(() => {
+		if (user !== null) {
+			setIsAdmin(user.isAdmin);
+		}
+	}, [user])
 
 	const handleNameChange = (e) => {
 		setUserName(e.target.value);
 	};
 
-	const goToChat = (e) => {
+	const goToChat = (e, path) => {
 		e.preventDefault(); // Prevent the default form submission behavior
 		if (userName.trim() !== "" || isAdmin) {
 			// You can also pass the username and selected avatar to the chat route
-			nav("/chat", { state: { userName } });
+			nav(path, { state: { userName } });
 		} else {
 			alert("Please enter your name.");
 		}
 	};
-	console.log(isAdmin);
+
 	return (
 		<div className="container">
 			<div className="row-auto">
 				<div>
 					<h1>Pilyr online chat</h1>
+					<div>{isAvailable ? 'Pylir is available' : 'Pylir is not available. Get a schedule'}</div>
 				</div>
 				{!isAdmin ? (
 					<div className="login">
-						<form onSubmit={goToChat}>
+						<form onSubmit={(e) => goToChat(e, '/schedule')}>
 							<input
 								type="text"
 								className="name required:border-red-500 mt-4 text-lg min-w-full"
@@ -66,7 +97,7 @@ function Home() {
 								</div>
 								<div className="row-span-6 p-3">
 									<button className="rounded-full bg-sky-500" type="submit">
-										Let's Chat
+										Schedule now
 									</button>
 								</div>
 							</div>
@@ -75,7 +106,7 @@ function Home() {
 				) : (
 					<div>
 						<p>Welcome to admin doashboard</p>
-						<input type="button" onClick={goToChat} className="btn btn-success" value="Go to chat"/>
+						<input type="button" onClick={(e) => goToChat(e, '/chat')} className="btn btn-success mr-3" value="Go to chat" />
 					</div>)}
 			</div>
 		</div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from './pages/Home/Home';
@@ -8,8 +8,18 @@ import PrivateRoute from './components/PrivateRoute';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import DirectRouter from './components/DirectRouter';
+import authService from './services/auth.service';
+import 'react-datepicker/dist/react-datepicker.module.css'
+import Schedule from './pages/Schedule/Schedule';
 
 function App() {
+	const [user, setUser] = useState(authService.getCurrentUser());
+
+	const logOut = () => {
+		authService.logout();
+		setUser(null);
+		window.location.reload();
+	}
 	return (
 		<Router basename='/Remove_Sad'>
 			<div className="App">
@@ -17,6 +27,9 @@ function App() {
 					<nav className="navbar navbar-expand-lg navbar-light bg-light">
 						<div className="container">
 							<Link className="navbar-brand" to="/">Pilyr</Link>
+							{user
+								? (<div className='narbar-brand logout-btn' onClick={() => logOut()}>Logout</div>)
+								: (<Link className='navbar-brand' to="/login">Login</Link>)}
 							<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 								<span className="navbar-toggler-icon"></span>
 							</button>
@@ -25,11 +38,12 @@ function App() {
 				</header>
 				<main>
 					<Routes>
-						<Route path="/" element={<Home />} />
+						<Route path="/" element={<Home user={user} />} />
 						<Route path="/about" element={<About />} />
 						<Route path="/login" element={<DirectRouter path="/" element={<Login />} />} />
-						<Route path="/chat" element={<PrivateRoute path="/login" element={<Chat />} />} />
-						<Route path='/register' element={<DirectRouter path="/" element={<Register />} />}/>
+						<Route path="/chat" element={<PrivateRoute path="/login" element={<Chat userLogged={user} />} />} />
+						<Route path='/register' element={<DirectRouter path="/" element={<Register />} />} />
+						<Route path='/schedule' element={<Schedule user={user} />} />
 					</Routes>
 				</main>
 				<footer className="bg-dark text-light py-3">

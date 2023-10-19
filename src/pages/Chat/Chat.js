@@ -3,58 +3,59 @@ import "../Chat/chat.css"
 import { useLocation } from "react-router-dom";
 import socketIOClient from "socket.io-client";
 import ScrollToBottom from "react-scroll-to-bottom";
-import axios from "axios";
+import CONSTANT from "../../utils/Iconstant";
+import messageService from "../../services/message.service";
+import { v4 as uuidv4 } from "uuid";
 
 // const host = "https://s9fyy9-3001.csb.app";
-const host= "http://localhost:3001";
+const host = CONSTANT.host;
 
-function Chat() {
+function Chat({ userLogged }) {
 	const [message, setMessage] = useState('');
 	const [mess, setMess] = useState([]);
-	const [user, setUser] = useState("trungnqhe161514@fpt.edu.vn");
+	const [user, setUser] = useState("");
 	const [users, setUsers] = useState([]);
 	const [isAdmin, setIsAdmin] = useState(false);
 	const location = useLocation();
 	const socketRef = useRef();
 
-	const accessToken = localStorage.getItem('accessToken');
-	let userInfo = localStorage.getItem('userInfo');
-
 	let userName = location.state.userName;
-	if (userInfo && userInfo !== null) {
-		let userInformation = JSON.parse(userInfo);
-		userName = userInformation.email;
-	}
 
 	useEffect(() => {
 		socketRef.current = socketIOClient.connect(host);
-
-		if (userInfo && userInfo !== null) {
-			let userInformation = JSON.parse(userInfo);
-			userName = userInformation.email;
-			setIsAdmin(userInformation.isAdmin);
+		if (userLogged && userLogged !== null) {
+			setIsAdmin(userLogged.isAdmin);
+			if (userLogged.isAdmin) {
+				messageService.getListUser(userLogged.email)
+					.then(res => {
+						setUsers(res.data.data);
+					})
+					.catch(err => {
+						console.log(err);
+					})
+			}
 		}
 
-		socketRef.current.emit('storeUserId', userName);
+		messageService.getListPilyr()
+			.then(res => {
+				if (res.status === 200) {
+					setUser(res.data.data.email);
+				}
+			})
+			.catch(err => console.log(err))
 
+		socketRef.current.emit('storeUserId', userLogged.email);
+		
 		// Fetch connected users from the server
 		socketRef.current.emit('getConnectedUsers');
 
-		// Listen for the list of connected users from the server
-		socketRef.current.on('connectedUsers', (userList) => {
-			setUsers(userList);
-		});
-
 		socketRef.current.on('privateMessage', dataGot => {
-			// Het chatGPT, here is my question: I want to check users have include dataGot.sender or not. If not, I need setUsers add dataGot.sender
 			setMess(oldMsg => [...oldMsg, dataGot]);
 
 			// Remove dataGot.sender from the current users array (if it exists)
-			const updatedUsers = users.filter(user => user !== dataGot.sender);
-			console.log(dataGot);
+			const updatedUsers = users.filter(user => user.sender !== dataGot.sender);
 			// Add dataGot.sender to the beginning of the updated users array
-			setUsers([dataGot.sender, ...updatedUsers]);
-
+			setUsers([{ sender: dataGot.sender }, ...updatedUsers]);
 			if (dataGot.sender !== 'admin') {
 				setUser(dataGot.sender);
 			}
@@ -67,19 +68,8 @@ function Chat() {
 
 	useEffect(() => {
 		setMess([]);
-		if (userName !== "" && user !== "") {
-			const params = JSON.stringify({
-				sender: userName,
-				receiver: user
-			})
-			axios({
-				method: 'get',
-				url: `${host}/messages/all`,
-				params: {
-					sender: userName,
-					receiver: user
-				},
-			})
+		if (userLogged !== "" && user !== "") {
+			messageService.getAllMessage({ receiver: userLogged.email, sender: user })
 				.then(function (response) {
 					const listMessage = response.data.data;
 					listMessage.forEach(element => {
@@ -102,11 +92,10 @@ function Chat() {
 		if (message !== null) {
 			const msg = {
 				message: message,
-				sender: userName,
+				sender: userLogged.email,
 				receiver: user,
 				fakeName: location.state.userName
 			}
-			console.log(msg, "1");
 			await socketRef.current.emit('privateMessage', msg);
 			setMess(oldMsg => [...oldMsg, msg]);
 			setMessage('');
@@ -122,12 +111,11 @@ function Chat() {
 	return (
 		<div className="flex justify-center w-full">
 			<div>
-				<h2>Hello {userName} {isAdmin && ', these are your connected friends'}</h2>
+				<h2>Hello {userName} {isAdmin && ', these are your list customer: '}</h2>
 				<ul className="user-list"> {/* Apply the user-list class */}
-					{users.map((userDetail) => userDetail !== userName && isAdmin ? (
-						<li key={userDetail} onClick={() => setUser(userDetail)} className={userDetail === user ? "isSelected user-item" : "user-item"}> {/* Apply the user-item class */}
-							{/* Add user avatar and username here */}
-							<span className="user-name">{userDetail}</span> {/* Apply the user-name class */}
+					{users.map((userDetail) => userDetail.sender !== userLogged.email && isAdmin ? (
+						<li key={userDetail.sender} onClick={() => setUser(userDetail.sender)} className={userDetail.sender === user ? "isSelected user-item" : "user-item"}> {/* Apply the user-item class */}
+							<span className="user-name">{userDetail.sender}</span> {/* Apply the user-name class */}
 						</li>
 					) : (<></>))}
 				</ul>
@@ -145,9 +133,9 @@ function Chat() {
 				<main className="msger-chat">
 					<ScrollToBottom className="message-container">
 						{mess.map(message => {
-							return message.sender === 'trungnqhe161514@fpt.edu.vn' ?
+							return message.sender === user ?
 								(
-									<div className="msg left-msg">
+									<div className="msg left-msg" key={uuidv4()}>
 										<div
 											className="msg-img"
 											style={{ backgroundImage: "url(https://ih1.redbubble.net/image.2610089591.4691/pp,504x498-pad,600x600,f8f8f8.jpg)" }}
@@ -166,7 +154,7 @@ function Chat() {
 									</div>
 								) :
 								(
-									<div className="msg right-msg">
+									<div className="msg right-msg" key={uuidv4()}>
 										<div
 											className="msg-img"
 										></div>
