@@ -1,7 +1,6 @@
 import axios from "axios";
-import CONSTANT from "../utils/Iconstant";
 
-const API_URL = `${CONSTANT.host}/users/`;
+const API_URL = `${process.env.REACT_APP_BASE_URL}users/`;
 
 class AuthService {
 	async login(loginData) {

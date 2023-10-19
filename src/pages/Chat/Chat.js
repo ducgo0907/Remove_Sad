@@ -20,10 +20,11 @@ function Chat({ userLogged }) {
 	const socketRef = useRef();
 
 	let userName = location.state.userName;
-	if (userInfo && userInfo !== null) {
-		let userInformation = JSON.parse(userInfo);
-		userName = userInformation.name; // change email => name
-	}
+
+	// if (userInfo && userInfo !== null) {
+	// 	let userInformation = JSON.parse(userInfo);
+	// 	userName = userInformation.name; // change email => name
+	// }
 
 	useEffect(() => {
 		socketRef.current = socketIOClient.connect(host);
@@ -49,7 +50,7 @@ function Chat({ userLogged }) {
 			.catch(err => console.log(err))
 
 		socketRef.current.emit('storeUserId', userLogged.email);
-		
+
 		// Fetch connected users from the server
 		socketRef.current.emit('getConnectedUsers');
 
@@ -137,7 +138,7 @@ function Chat({ userLogged }) {
 				<main className="msger-chat">
 					<ScrollToBottom className="message-container">
 						{mess.map(message => {
-							return message.sender === user ?
+							return message.sender !== user && userLogged.isAdmin?
 								(
 									<div className="msg left-msg" key={uuidv4()}>
 										<div

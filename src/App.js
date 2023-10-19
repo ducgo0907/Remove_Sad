@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from './pages/Home/Home';
@@ -22,10 +22,34 @@ function App() {
 	}
 	// const [token, setToken] = useState(localStorage.getItem('accessToken'));
 
-	// const handleLogOut = () =>{
-	// 	localStorage.clear()
-	// }
+	const genGuestAccount = () => {
+		const guestUser = {
+			email: "guest" + makeid(50),
+			id: makeid(20),
+			isAdmin: false,
+			accessToken: ""
+		}
+		localStorage.setItem("user", JSON.stringify(guestUser));
+		setUser(guestUser);
+	}
 
+	useEffect(() => {
+		if (!user && user == undefined && user == null) {
+			genGuestAccount();
+		}
+	}, [])
+
+	function makeid(length) {
+		let result = '';
+		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		const charactersLength = characters.length;
+		let counter = 0;
+		while (counter < length) {
+			result += characters.charAt(Math.floor(Math.random() * charactersLength));
+			counter += 1;
+		}
+		return result;
+	}
 
 	return (
 		<Router basename='/Remove_Sad'>
@@ -34,7 +58,7 @@ function App() {
 					<nav className="navbar navbar-expand-lg navbar-light bg-light">
 						<div className="container">
 							<Link className="navbar-brand" to="/">Pilyr</Link>
-							{user
+							{user && user.email.includes("@")
 								? (<div className='narbar-brand logout-btn' onClick={() => logOut()}>Logout</div>)
 								: (<Link className='navbar-brand' to="/login">Login</Link>)}
 							<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +75,8 @@ function App() {
 						<Route path="/" element={<Home user={user} />} />
 						<Route path="/about" element={<About />} />
 						<Route path="/login" element={<DirectRouter path="/" element={<Login />} />} />
-						<Route path="/chat" element={<PrivateRoute path="/login" element={<Chat userLogged={user} />} />} />
+						{/* <Route path="/chat" element={<PrivateRoute path="/login" element={<Chat userLogged={user} />} />} /> */}
+						<Route path="/chat" element={<Chat userLogged={user} />} />
 						<Route path='/register' element={<DirectRouter path="/" element={<Register />} />} />
 						<Route path='/schedule' element={<Schedule user={user} />} />
 					</Routes>

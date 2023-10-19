@@ -3,8 +3,7 @@ import { useState } from "react";
 import "./login.css";
 import authService from "../../services/auth.service";
 
-// const host = 'https://s9fyy9-3001.csb.app/users'
-const host = 'http://localhost:3001/users';
+const host = `${process.env.REACT_APP_BASE_URL}users`;
 
 function Login() {
 	const [username, setUsername] = useState('');
