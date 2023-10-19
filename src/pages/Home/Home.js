@@ -65,13 +65,13 @@ function Home({ user }) {
 	return (
 		<div className="container">
 			<div className="row-auto">
-				<div>
+				<div className="text-center">
 					<h1>Pilyr online chat</h1>
 					<div>{isAvailable ? 'Pylir is available' : 'Pylir is not available. Get a schedule'}</div>
 				</div>
 				{!isAdmin ? (
 					<div className="login">
-						<form onSubmit={(e) => goToChat(e, '/schedule')}>
+						<form onSubmit={(e) => goToChat(e, '/chat')}>
 							<input
 								type="text"
 								className="name required:border-red-500 mt-4 text-lg min-w-full"
@@ -89,15 +89,15 @@ function Home({ user }) {
 									{/* You can map through an array of avatars and generate the elements */}
 									{Array.from({ length: 9 }).map((_, index) => (
 										<div key={index} className="flex justify-center">
-											<div className="flex justify-center">
+											<div className="flex justify-center w-auto">
 												<img className="rounded-full" src={avatar} alt={`Avatar ${index + 1}`} />
 											</div>
 										</div>
 									))}
 								</div>
-								<div className="row-span-6 p-3">
-									<button className="rounded-full bg-sky-500" type="submit">
-										Schedule now
+								<div className="row-span-6 p-3 flex justify-center">
+									<button className="rounded-full bg-sky-500 w-auto" type="submit">
+										Let's Chat
 									</button>
 								</div>
 							</div>

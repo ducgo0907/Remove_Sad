@@ -20,6 +20,10 @@ function Chat({ userLogged }) {
 	const socketRef = useRef();
 
 	let userName = location.state.userName;
+	if (userInfo && userInfo !== null) {
+		let userInformation = JSON.parse(userInfo);
+		userName = userInformation.name; // change email => name
+	}
 
 	useEffect(() => {
 		socketRef.current = socketIOClient.connect(host);
@@ -120,7 +124,7 @@ function Chat({ userLogged }) {
 					) : (<></>))}
 				</ul>
 			</div>
-			<section className="msger w-full h-full">
+			<section className="msger w-full">
 				<header className="msger-header">
 					<div className="msger-header-title">
 						<i className="fas fa-comment-alt"></i> Pilyr Chat
@@ -165,7 +169,7 @@ function Chat({ userLogged }) {
 												<div className="msg-info-time">{message.createdAt}</div>
 											</div>
 
-											<div className="msg-text">
+											<div className="msg-text whitespace-pre-wrap">
 												{message.message}
 											</div>
 										</div>
@@ -174,12 +178,14 @@ function Chat({ userLogged }) {
 						})}
 					</ScrollToBottom>
 				</main>
-				<input type="text" className="msger-input"
-					placeholder="Enter your message..."
-					value={message}
-					onKeyDown={onEnterPerss}
-					onChange={e => setMessage(e.target.value)} />
-				<button type="submit" className="msger-send-btn" onClick={sendMessage} >Send</button>
+				<div className="send-msg">
+					<input type="text" className="msger-input"
+						placeholder="Enter your message..."
+						value={message}
+						onKeyDown={onEnterPerss}
+						onChange={e => setMessage(e.target.value)} />
+					<button type="submit" className="msger-send-btn m-0" onClick={sendMessage} >Send</button>
+				</div>
 			</section>
 		</div>
 	);
