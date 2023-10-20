@@ -107,6 +107,7 @@ function Home({ user }) {
 					<div>
 						<p>Welcome to admin doashboard</p>
 						<input type="button" onClick={(e) => goToChat(e, '/chat')} className="btn btn-success mr-3" value="Go to chat" />
+						<input type="button" onClick={(e) => goToChat(e, '/listPending')} className="btn btn-warning mr-3" value="Go to chat" />
 					</div>)}
 			</div>
 		</div>

@@ -1,0 +1,34 @@
+.waiting-text {
+	font-size: 24px;
+	text-align: center;
+	position: relative;
+	z-index: 2; /* Place it above other content */
+  }
+  
+  .waiting-text::before {
+	content: "Waiting for pylir...";
+	position: absolute;
+	top: 0;
+	left: 300;
+	font-size: 100px;
+	white-space: nowrap;
+	animation: wavy 2s linear infinite;
+  }
+  
+  @keyframes wavy {
+	0% {
+	  transform: translateY(0);
+	}
+	25% {
+	  transform: translateY(-5px);
+	}
+	50% {
+	  transform: translateY(0);
+	}
+	75% {
+	  transform: translateY(5px);
+	}
+	100% {
+	  transform: translateY(0);
+	}
+  }

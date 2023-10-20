@@ -6,16 +6,18 @@ import ScrollToBottom from "react-scroll-to-bottom";
 import CONSTANT from "../../utils/Iconstant";
 import messageService from "../../services/message.service";
 import { v4 as uuidv4 } from "uuid";
+import TextNoti from "../TextNofitication/TextNoti";
 
 // const host = "https://s9fyy9-3001.csb.app";
 const host = CONSTANT.host;
 
-function Chat({ userLogged }) {
+function Chat({ userLogged, setSocket, socket }) {
 	const [message, setMessage] = useState('');
 	const [mess, setMess] = useState([]);
 	const [user, setUser] = useState("");
 	const [users, setUsers] = useState([]);
 	const [isAdmin, setIsAdmin] = useState(false);
+	const [isConnect, setIsConnect] = useState(false);
 	const location = useLocation();
 	const socketRef = useRef();
 
@@ -49,7 +51,7 @@ function Chat({ userLogged }) {
 			})
 			.catch(err => console.log(err))
 
-		socketRef.current.emit('storeUserId', userLogged.email);
+		socketRef.current.emit('storeUserId', { userId: userLogged.email, isAdmin: userLogged.isAdmin, username: userName });
 
 		// Fetch connected users from the server
 		socketRef.current.emit('getConnectedUsers');
@@ -65,6 +67,12 @@ function Chat({ userLogged }) {
 				setUser(dataGot.sender);
 			}
 		})
+
+		socketRef.current.on("getAdminId", admin => {
+			setUser(admin);
+			setIsConnect(true);
+		})
+
 
 		return () => {
 			socketRef.current.disconnect();
@@ -99,7 +107,8 @@ function Chat({ userLogged }) {
 				message: message,
 				sender: userLogged.email,
 				receiver: user,
-				fakeName: location.state.userName
+				fakeName: location.state.userName,
+				isAdmin: userLogged.isAdmin
 			}
 			await socketRef.current.emit('privateMessage', msg);
 			setMess(oldMsg => [...oldMsg, msg]);
@@ -113,8 +122,16 @@ function Chat({ userLogged }) {
 		}
 	}
 
+	useEffect(() => {
+		if (socket) {
+			socket.on("getAdminId", (admin) => {
+				console.log("Day la chat", admin);
+			})
+		}
+	}, [socket])
 	return (
 		<div className="flex justify-center w-full">
+				{!userLogged.isAdmin && !isConnect && <TextNoti text={"watiting ...."} />}
 			<div>
 				<h2>Hello {userName} {isAdmin && ', these are your list customer: '}</h2>
 				<ul className="user-list"> {/* Apply the user-list class */}
@@ -138,7 +155,7 @@ function Chat({ userLogged }) {
 				<main className="msger-chat">
 					<ScrollToBottom className="message-container">
 						{mess.map(message => {
-							return message.sender !== user && userLogged.isAdmin?
+							return message.isAdmin ?
 								(
 									<div className="msg left-msg" key={uuidv4()}>
 										<div
@@ -149,7 +166,7 @@ function Chat({ userLogged }) {
 										<div className="msg-bubble">
 											<div className="msg-info">
 												<div className="msg-info-name">Pilyr</div>
-												<div className="msg-info-time">{message.createdAt}</div>
+												<div className="msg-info-time">{message.createdAt} {message.isAdmin}</div>
 											</div>
 
 											<div className="msg-text text-left">

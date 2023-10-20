@@ -11,9 +11,13 @@ import DirectRouter from './components/DirectRouter';
 import authService from './services/auth.service';
 import 'react-datepicker/dist/react-datepicker.module.css'
 import Schedule from './pages/Schedule/Schedule';
+import ListPending from './pages/ListPending/ListPending';
+import socketIOClient from 'socket.io-client';
 
 function App() {
 	const [user, setUser] = useState(authService.getCurrentUser());
+	const [users, setUsers] = useState([]);
+	const [socket, setSocket] = useState(null);
 
 	const logOut = () => {
 		authService.logout();
@@ -39,6 +43,15 @@ function App() {
 		}
 	}, [])
 
+	useEffect(() => {
+		const newSocket = socketIOClient.connect(process.env.REACT_APP_BASE_URL);
+		setSocket(newSocket);
+
+		return () => {
+			newSocket.disconnect();
+		}
+	}, [])
+
 	function makeid(length) {
 		let result = '';
 		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -50,7 +63,15 @@ function App() {
 		}
 		return result;
 	}
-
+	useEffect(() => {
+		if (socket) {
+			if (user.isAdmin) {
+				socket.on('getListUserPending', res => {
+					setUsers(res);
+				})
+			}
+		}
+	}, [socket])
 	return (
 		<Router basename='/Remove_Sad'>
 			<div className="App">
@@ -76,9 +97,10 @@ function App() {
 						<Route path="/about" element={<About />} />
 						<Route path="/login" element={<DirectRouter path="/" element={<Login />} />} />
 						{/* <Route path="/chat" element={<PrivateRoute path="/login" element={<Chat userLogged={user} />} />} /> */}
-						<Route path="/chat" element={<Chat userLogged={user} />} />
+						<Route path="/chat" element={<Chat userLogged={user} setSocket={setSocket} socket={socket} />} />
 						<Route path='/register' element={<DirectRouter path="/" element={<Register />} />} />
 						<Route path='/schedule' element={<Schedule user={user} />} />
+						<Route path='/listPending' element={<ListPending users={users} socket={socket} setUsers={setUsers} user={user}/>} />
 					</Routes>
 				</main>
 				<footer className="bg-dark text-light py-3">
