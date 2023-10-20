@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/Remove_Sad/static/css/main.966b6d03.css",
-    "main.js": "/Remove_Sad/static/js/main.3d6b2f8c.js",
+    "main.css": "/Remove_Sad/static/css/main.babfdaa0.css",
+    "main.js": "/Remove_Sad/static/js/main.5c537587.js",
     "static/media/Ubuntu-BoldItalic.ttf": "/Remove_Sad/static/media/Ubuntu-BoldItalic.cb07e3c467987cb3fbb3.ttf",
     "static/media/Ubuntu-Regular.ttf": "/Remove_Sad/static/media/Ubuntu-Regular.a6767dc546b61fb075f2.ttf",
     "static/media/Ubuntu-Bold.ttf": "/Remove_Sad/static/media/Ubuntu-Bold.995358969571c1c37362.ttf",
     "static/media/O2.jpg": "/Remove_Sad/static/media/O2.33917a187557f5980560.jpg",
     "index.html": "/Remove_Sad/index.html",
-    "main.966b6d03.css.map": "/Remove_Sad/static/css/main.966b6d03.css.map",
-    "main.3d6b2f8c.js.map": "/Remove_Sad/static/js/main.3d6b2f8c.js.map"
+    "main.babfdaa0.css.map": "/Remove_Sad/static/css/main.babfdaa0.css.map",
+    "main.5c537587.js.map": "/Remove_Sad/static/js/main.5c537587.js.map"
   },
   "entrypoints": [
-    "static/css/main.966b6d03.css",
-    "static/js/main.3d6b2f8c.js"
+    "static/css/main.babfdaa0.css",
+    "static/js/main.5c537587.js"
   ]
 }
