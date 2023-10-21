@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
+import './ListPending.css'
 import { useNavigate } from 'react-router-dom';
 
 function ListPending({ users, setUsers, socket, user }) {
@@ -40,13 +41,13 @@ function ListPending({ users, setUsers, socket, user }) {
 						<td>{user.email}</td>
 						<td>
 							<button
-								className="btn btn-success"
+								className="btn btn-success btn-pending"
 								onClick={() => handleApprove(user.email)}
 							>
 								Approve
 							</button>
 							<button
-								className="btn btn-danger"
+								className="btn btn-danger btn-pending"
 								onClick={() => handleReject(user.email)}
 							>
 								Reject

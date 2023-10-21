@@ -202,3 +202,7 @@ section{
 .send-msg{
 	display: flex;
 }
+
+.center{
+	text-align: center;
+}

@@ -131,7 +131,7 @@ function Chat({ userLogged, setSocket, socket }) {
 	}, [socket])
 	return (
 		<div className="flex justify-center w-full">
-				{!userLogged.isAdmin && !isConnect && <TextNoti text={"watiting ...."} />}
+			{!userLogged.isAdmin && !isConnect && <TextNoti text={"watiting ...."} />}
 			<div>
 				<h2>Hello {userName} {isAdmin && ', these are your list customer: '}</h2>
 				<ul className="user-list"> {/* Apply the user-list class */}

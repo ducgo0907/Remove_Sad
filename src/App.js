@@ -96,7 +96,6 @@ function App() {
 						<Route path="/" element={<Home user={user} />} />
 						<Route path="/about" element={<About />} />
 						<Route path="/login" element={<DirectRouter path="/" element={<Login />} />} />
-						{/* <Route path="/chat" element={<PrivateRoute path="/login" element={<Chat userLogged={user} />} />} /> */}
 						<Route path="/chat" element={<Chat userLogged={user} setSocket={setSocket} socket={socket} />} />
 						<Route path='/register' element={<DirectRouter path="/" element={<Register />} />} />
 						<Route path='/schedule' element={<Schedule user={user} />} />
