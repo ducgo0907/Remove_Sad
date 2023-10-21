@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../Home/home.css";
 import avatar from "../../asset/O2.jpg";
 import CONSTANT from "../../utils/Iconstant";
@@ -20,16 +20,9 @@ function Home({ user }) {
 		if (user && user.isAdmin){
 			newSocket.emit("storeAdminId", user.email);
 		}
-
-		newSocket.emit('getConnectedAdmin');
-		newSocket.on('getConnectedAdmin', data => {
-			console.log(data);
-			if (data.length > 0) {
-				setIsAvailable(true);
-			}else{
-				setIsAvailable(false);
-			}
-		})
+		if(user.name){
+			setUserName(user.name)
+		}
 
 		return () => {
 			newSocket.disconnect();
@@ -67,7 +60,7 @@ function Home({ user }) {
 			<div className="row-auto">
 				<div className="text-center">
 					<h1>Pilyr online chat</h1>
-					<div>{isAvailable ? 'Pylir is available' : 'Pylir is not available. Get a schedule'}</div>
+					{!user.isAdmin ? <h3>You can chat with pylir as guest without login now</h3> : <></>}
 				</div>
 				{!isAdmin ? (
 					<div className="login">
