@@ -5,7 +5,7 @@
 	justify-content: space-between;
 	width: 100%;
 	max-width: 867px;
-	margin: 25px 50px;
+	margin: 25px 0px;
 	/* height: calc(100% - 80px); */
 	height: 80%;
 	border: var(--border);
