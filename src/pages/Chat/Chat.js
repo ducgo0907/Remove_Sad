@@ -7,7 +7,8 @@ import CONSTANT from "../../utils/Iconstant";
 import messageService from "../../services/message.service";
 import { v4 as uuidv4 } from "uuid";
 import TextNoti from "../TextNofitication/TextNoti";
-import AdminChat from "../AdminChat/AdminChat";
+import AdminChat from "../ChatPage/AdminChat";
+import UserChat from "../ChatPage/UserChat";
 
 // const host = "https://s9fyy9-3001.csb.app";
 const host = CONSTANT.host;
@@ -15,7 +16,7 @@ const host = CONSTANT.host;
 function Chat({ userLogged, setSocket, socket }) {
 	const [message, setMessage] = useState('');
 	const [mess, setMess] = useState([]);
-	const [user, setUser] = useState("");
+	const [user, setUser] = useState(localStorage.getItem("pylirConnect"));
 	const [users, setUsers] = useState([]);
 	const [isAdmin, setIsAdmin] = useState(false);
 	const [isConnect, setIsConnect] = useState(false);
@@ -70,10 +71,14 @@ function Chat({ userLogged, setSocket, socket }) {
 		})
 
 		socketRef.current.on("getAdminId", admin => {
+			localStorage.setItem("pylirConnect", admin);
 			setUser(admin);
 			setIsConnect(true);
 		})
-
+		
+		if(user && user !== ""){
+			setIsConnect(true);
+		}
 
 		return () => {
 			socketRef.current.disconnect();
@@ -132,19 +137,36 @@ function Chat({ userLogged, setSocket, socket }) {
 	}, [socket])
 	return (
 		<div>
-			<AdminChat
-				userLogged={userLogged}
-				isConnect={isConnect}
-				userName={userName}
-				isAdmin={isAdmin}
-				users={users}
-				user={user}
-				mess={mess}
-				setUser={setUser}
-				message={message}
-				onEnterPerss={onEnterPerss}
-				setMessage={setMessage}
-				sendMessage={sendMessage} />
+			{isAdmin ?
+				<AdminChat
+					userLogged={userLogged}
+					isConnect={isConnect}
+					userName={userName}
+					isAdmin={isAdmin}
+					users={users}
+					user={user}
+					mess={mess}
+					setUser={setUser}
+					message={message}
+					onEnterPerss={onEnterPerss}
+					setMessage={setMessage}
+					sendMessage={sendMessage} />
+				:
+				<UserChat
+					userLogged={userLogged}
+					isConnect={isConnect}
+					userName={userName}
+					isAdmin={isAdmin}
+					users={users}
+					user={user}
+					mess={mess}
+					setUser={setUser}
+					message={message}
+					onEnterPerss={onEnterPerss}
+					setMessage={setMessage}
+					sendMessage={sendMessage} />
+			}
+
 		</div>
 	);
 }
