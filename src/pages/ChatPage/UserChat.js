@@ -1,6 +1,7 @@
 import ScrollToBottom from "react-scroll-to-bottom";
 import TextNoti from "../TextNofitication/TextNoti";
 import { v4 as uuidv4 } from "uuid";
+import TicTacToe from "../Game/TicTacToe";
 
 const UserChat = ({
 	userLogged,
@@ -17,9 +18,13 @@ const UserChat = ({
 	sendMessage }) => {
 	return (
 		<div div className="row justify-content-center">
-			<div className="col-sm-3 bg-danger"></div>
-			<div className="col-sm-5 justify-content-center">
+			<div className="col-sm-12 justify-content-center">
 				{!isConnect && <TextNoti text={"watiting ...."} />}
+			</div>
+			<div className="col-sm-3">
+				<TicTacToe />
+			</div>
+			<div className="col-sm-5 justify-content-center">
 				<div>
 					<h2>Hello {userName} {isAdmin && ', these are your list customer: '}</h2>
 				</div>

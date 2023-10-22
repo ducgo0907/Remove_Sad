@@ -1,5 +1,5 @@
 .waiting-text {
-	font-size: 24px;
+	font-size: 30px;
 	text-align: center;
 	position: relative;
 	z-index: 2; /* Place it above other content */
@@ -9,8 +9,8 @@
 	content: "Waiting for pylir...";
 	position: absolute;
 	top: 0;
-	left: 300;
-	font-size: 100px;
+	left: 1;
+	font-size: 120px;
 	white-space: nowrap;
 	animation: wavy 2s linear infinite;
   }

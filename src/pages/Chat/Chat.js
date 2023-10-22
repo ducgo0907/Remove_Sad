@@ -74,6 +74,7 @@ function Chat({ userLogged, setSocket, socket }) {
 			localStorage.setItem("pylirConnect", admin);
 			setUser(admin);
 			setIsConnect(true);
+			alert("Pylir is connected with you. Have fun ^^!");
 		})
 		
 		if(user && user !== ""){
