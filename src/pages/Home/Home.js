@@ -20,8 +20,10 @@ function Home({ user }) {
 		if (user && user.isAdmin){
 			newSocket.emit("storeAdminId", user.email);
 		}
-		if(user.name){
+		if(user && user.name != null){
 			setUserName(user.name)
+		}else{
+			setUserName("");
 		}
 
 		return () => {
