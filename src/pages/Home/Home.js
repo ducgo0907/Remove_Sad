@@ -60,7 +60,7 @@ function Home({ user }) {
 			<div className="row-auto">
 				<div className="text-center">
 					<h1>Pilyr online chat</h1>
-					{!user.isAdmin ? <h3>You can chat with pylir as guest without login now</h3> : <></>}
+					{!user || !user.isAdmin ? <h3>You can chat with pylir as guest without login now</h3> : <></>}
 				</div>
 				{!isAdmin ? (
 					<div className="login">

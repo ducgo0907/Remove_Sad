@@ -65,7 +65,7 @@ function App() {
 	}
 	useEffect(() => {
 		if (socket) {
-			if (user.isAdmin) {
+			if (user && user.isAdmin) {
 				socket.on('getListUserPending', res => {
 					setUsers(res);
 				})
