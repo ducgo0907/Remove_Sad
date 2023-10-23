@@ -8,20 +8,98 @@ import PrivateRoute from './components/PrivateRoute';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import DirectRouter from './components/DirectRouter';
-import Header from './components/Header';
+import authService from './services/auth.service';
+import 'react-datepicker/dist/react-datepicker.module.css'
+import Schedule from './pages/Schedule/Schedule';
+import ListPending from './pages/ListPending/ListPending';
+import socketIOClient from 'socket.io-client';
 
 function App() {
-	const [token, setToken] = useState(localStorage.getItem('accessToken'));
+	const [user, setUser] = useState(authService.getCurrentUser());
+	const [users, setUsers] = useState([]);
+	const [socket, setSocket] = useState(null);
+
+	const logOut = () => {
+		authService.logout();
+		setUser(null);
+		window.location.reload();
+	}
+	// const [token, setToken] = useState(localStorage.getItem('accessToken'));
+
+	const genGuestAccount = () => {
+		const guestUser = {
+			email: "guest" + makeid(50),
+			id: makeid(20),
+			isAdmin: false,
+			accessToken: ""
+		}
+		localStorage.setItem("user", JSON.stringify(guestUser));
+		setUser(guestUser);
+	}
+
+	useEffect(() => {
+		if (!user && user == undefined && user == null) {
+			genGuestAccount();
+		}
+	}, [])
+
+	useEffect(() => {
+		const newSocket = socketIOClient.connect(process.env.REACT_APP_BASE_URL);
+		setSocket(newSocket);
+
+		return () => {
+			newSocket.disconnect();
+		}
+	}, [])
+
+	function makeid(length) {
+		let result = '';
+		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		const charactersLength = characters.length;
+		let counter = 0;
+		while (counter < length) {
+			result += characters.charAt(Math.floor(Math.random() * charactersLength));
+			counter += 1;
+		}
+		return result;
+	}
+	useEffect(() => {
+		if (socket) {
+			if (user && user.isAdmin) {
+				socket.on('getListUserPending', res => {
+					setUsers(res);
+				})
+			}
+		}
+	}, [socket])
 	return (
 		<Router basename='/Remove_Sad'>
 			<div className="App">
+				<header>
+					<nav className="navbar navbar-expand-lg navbar-light bg-light">
+						<div className="container">
+							<Link className="navbar-brand" to="/">Pilyr</Link>
+							{user && user.email.includes("@")
+								? (<div className='narbar-brand logout-btn' onClick={() => logOut()}>Logout</div>)
+								: (<Link className='navbar-brand' to="/login">Login</Link>)}
+							<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+								<span className="navbar-toggler-icon"></span>
+							</button>
+							{/* {token && <div>
+								<a href='/Remove_Sad' className='flex-wrap'><button onClick={() =>handleLogOut()}>Logout</button></a>
+							</div>} */}
+						</div>
+					</nav>
+				</header>
 				<main>
 					<Routes>
-						<Route path="/" element={<Home />} />
+						<Route path="/" element={<Home user={user} />} />
 						<Route path="/about" element={<About />} />
 						<Route path="/login" element={<DirectRouter path="/" element={<Login />} />} />
-						<Route path="/chat" element={<PrivateRoute path="/login" element={<Chat />} />} />
+						<Route path="/chat" element={<Chat userLogged={user} setSocket={setSocket} socket={socket} />} />
 						<Route path='/register' element={<DirectRouter path="/" element={<Register />} />} />
+						<Route path='/schedule' element={<Schedule user={user} />} />
+						<Route path='/listPending' element={<ListPending users={users} socket={socket} setUsers={setUsers} user={user}/>} />
 					</Routes>
 				</main>
 				<footer className="bg-dark text-light py-3">

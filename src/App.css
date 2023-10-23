@@ -120,3 +120,11 @@ footer {
 .chat-window .chat-body .message-container::-webkit-scrollbar {
 	display: none;
 }
+
+#root {
+	margin-bottom: 50px;
+}
+
+.logout-btn{
+	cursor: pointer;
+}

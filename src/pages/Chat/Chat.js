@@ -6,60 +6,85 @@ import ScrollToBottom from "react-scroll-to-bottom";
 import axios from "axios";
 import Header from "../../components/Header";
 
-const host = "https://s9fyy9-3001.csb.app";
+// const host = "https://s9fyy9-3001.csb.app";
 // const host = "https://remove-sad.onrender.com";
+import CONSTANT from "../../utils/Iconstant";
+import messageService from "../../services/message.service";
+import { v4 as uuidv4 } from "uuid";
+import TextNoti from "../TextNofitication/TextNoti";
+import AdminChat from "../ChatPage/AdminChat";
+import UserChat from "../ChatPage/UserChat";
 
-function Chat() {
+// const host = "https://s9fyy9-3001.csb.app";
+const host = CONSTANT.host;
+
+function Chat({ userLogged, setSocket, socket }) {
 	const [message, setMessage] = useState('');
 	const [mess, setMess] = useState([]);
-	const [user, setUser] = useState("trungnqhe161514@fpt.edu.vn");
+	const [user, setUser] = useState(localStorage.getItem("pylirConnect"));
 	const [users, setUsers] = useState([]);
 	const [isAdmin, setIsAdmin] = useState(false);
+	const [isConnect, setIsConnect] = useState(false);
 	const location = useLocation();
 	const socketRef = useRef();
 
-	const accessToken = localStorage.getItem('accessToken');
-	let userInfo = localStorage.getItem('userInfo');
-
 	let userName = location.state.userName;
-	if (userInfo && userInfo !== null) {
-		let userInformation = JSON.parse(userInfo);
-		userName = userInformation.name; // change email => name
-	}
+
+	// if (userInfo && userInfo !== null) {
+	// 	let userInformation = JSON.parse(userInfo);
+	// 	userName = userInformation.name; // change email => name
+	// }
 
 	useEffect(() => {
 		socketRef.current = socketIOClient.connect(host);
-
-		if (userInfo && userInfo !== null) {
-			let userInformation = JSON.parse(userInfo);
-			userName = userInformation.email;
-			setIsAdmin(userInformation.isAdmin);
+		if (userLogged && userLogged !== null) {
+			setIsAdmin(userLogged.isAdmin);
+			if (userLogged.isAdmin) {
+				messageService.getListUser(userLogged.email)
+					.then(res => {
+						setUsers(res.data.data);
+					})
+					.catch(err => {
+						console.log(err);
+					})
+			}
 		}
 
-		socketRef.current.emit('storeUserId', userName);
+		messageService.getListPilyr()
+			.then(res => {
+				if (res.status === 200) {
+					setUser(res.data.data.email);
+				}
+			})
+			.catch(err => console.log(err))
+
+		socketRef.current.emit('storeUserId', { userId: userLogged.email, isAdmin: userLogged.isAdmin, username: userName });
 
 		// Fetch connected users from the server
 		socketRef.current.emit('getConnectedUsers');
 
-		// Listen for the list of connected users from the server
-		socketRef.current.on('connectedUsers', (userList) => {
-			setUsers(userList);
-		});
-
 		socketRef.current.on('privateMessage', dataGot => {
-			// Het chatGPT, here is my question: I want to check users have include dataGot.sender or not. If not, I need setUsers add dataGot.sender
 			setMess(oldMsg => [...oldMsg, dataGot]);
 
 			// Remove dataGot.sender from the current users array (if it exists)
-			const updatedUsers = users.filter(user => user !== dataGot.sender);
-			console.log(dataGot);
+			const updatedUsers = users.filter(user => user.sender !== dataGot.sender);
 			// Add dataGot.sender to the beginning of the updated users array
-			setUsers([dataGot.sender, ...updatedUsers]);
-
+			setUsers([{ sender: dataGot.sender }, ...updatedUsers]);
 			if (dataGot.sender !== 'admin') {
 				setUser(dataGot.sender);
 			}
 		})
+
+		socketRef.current.on("getAdminId", admin => {
+			localStorage.setItem("pylirConnect", admin);
+			setUser(admin);
+			setIsConnect(true);
+			alert("Pylir is connected with you. Have fun ^^!");
+		})
+		
+		if(user && user !== ""){
+			setIsConnect(true);
+		}
 
 		return () => {
 			socketRef.current.disconnect();
@@ -68,19 +93,8 @@ function Chat() {
 
 	useEffect(() => {
 		setMess([]);
-		if (userName !== "" && user !== "") {
-			const params = JSON.stringify({
-				sender: userName,
-				receiver: user
-			})
-			axios({
-				method: 'get',
-				url: `${host}/messages/all`,
-				params: {
-					sender: userName,
-					receiver: user
-				},
-			})
+		if (userLogged !== "" && user !== "") {
+			messageService.getAllMessage({ receiver: userLogged.email, sender: user })
 				.then(function (response) {
 					const listMessage = response.data.data;
 					listMessage.forEach(element => {
@@ -103,11 +117,11 @@ function Chat() {
 		if (message !== null) {
 			const msg = {
 				message: message,
-				sender: userName,
+				sender: userLogged.email,
 				receiver: user,
-				fakeName: location.state.userName
+				fakeName: location.state.userName,
+				isAdmin: userLogged.isAdmin
 			}
-			console.log(msg, "1");
 			await socketRef.current.emit('privateMessage', msg);
 			setMess(oldMsg => [...oldMsg, msg]);
 			setMessage('');
@@ -120,87 +134,46 @@ function Chat() {
 		}
 	}
 
+	useEffect(() => {
+		if (socket) {
+			socket.on("getAdminId", (admin) => {
+				console.log("Day la chat", admin);
+			})
+		}
+	}, [socket])
 	return (
-		<>
-			<Header />
-			<div className="flex justify-center w-full chat-container">
-				<div className="text-left">
-					<h2>Hello {userName} {isAdmin && ', these are your connected friends'}</h2>
-					<ul className="user-list"> {/* Apply the user-list class */}
-						{users.map((userDetail) => userDetail !== userName && isAdmin ? (
-							<li key={userDetail} onClick={() => setUser(userDetail)} className={userDetail === user ? "isSelected user-item" : "user-item"}> {/* Apply the user-item class */}
-								{/* Add user avatar and username here */}
-								<span className="user-name">{userDetail}</span> {/* Apply the user-name class */}
-							</li>
-						) : (<></>))}
-					</ul>
-				</div>
-				<section className="msger w-full">
-					<header className="msger-header">
-						<div className="msger-header-title">
-							<i className="fas fa-comment-alt"></i> Pilyr Chat
-						</div>
-						<div className="msger-header-options">
-							<span><i className="fas fa-cog"></i></span>
-						</div>
-					</header>
+		<div>
+			{isAdmin ?
+				<AdminChat
+					userLogged={userLogged}
+					isConnect={isConnect}
+					userName={userName}
+					isAdmin={isAdmin}
+					users={users}
+					user={user}
+					mess={mess}
+					setUser={setUser}
+					message={message}
+					onEnterPerss={onEnterPerss}
+					setMessage={setMessage}
+					sendMessage={sendMessage} />
+				:
+				<UserChat
+					userLogged={userLogged}
+					isConnect={isConnect}
+					userName={userName}
+					isAdmin={isAdmin}
+					users={users}
+					user={user}
+					mess={mess}
+					setUser={setUser}
+					message={message}
+					onEnterPerss={onEnterPerss}
+					setMessage={setMessage}
+					sendMessage={sendMessage} />
+			}
 
-					<main className="msger-chat">
-						<ScrollToBottom className="message-container">
-							{mess.map(message => {
-								// return message.sender === 'trungnqhe161514@fpt.edu.vn' ?
-								return message.sender === 'Admin' ?
-									(
-										<div className="msg left-msg">
-											<div
-												className="msg-img"
-												style={{ backgroundImage: "url(https://ih1.redbubble.net/image.2610089591.4691/pp,504x498-pad,600x600,f8f8f8.jpg)" }}
-											></div>
-
-											<div className="msg-bubble">
-												<div className="msg-info">
-													<div className="msg-info-name">Pilyr</div>
-													<div className="msg-info-time">{message.createdAt}</div>
-												</div>
-
-												<div className="msg-text text-left">
-													{message.message}
-												</div>
-											</div>
-										</div>
-									) :
-									(
-										<div className="msg right-msg">
-											<div
-												className="msg-img"
-											></div>
-
-											<div className="msg-bubble">
-												<div className="msg-info">
-													<div className="msg-info-name">{message.fakeName}</div>
-													<div className="msg-info-time">{message.createdAt}</div>
-												</div>
-
-												<div className="msg-text whitespace-pre-wrap">
-													{message.message}
-												</div>
-											</div>
-										</div>
-									)
-							})}
-						</ScrollToBottom>
-					</main>
-					<div className="send-msg">
-						<input type="text" className="msger-input"
-							placeholder="Enter your message..."
-							value={message}
-							onKeyDown={onEnterPerss}
-							onChange={e => setMessage(e.target.value)} />
-						<button type="submit" className="msger-send-btn m-0" onClick={sendMessage} >Send</button>
-					</div>
-				</section>
-			</div>
-		</>
+		</div>
 	);
 }
 

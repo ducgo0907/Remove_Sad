@@ -5,7 +5,7 @@
 	justify-content: space-between;
 	width: 100%;
 	max-width: 867px;
-	margin: 25px 10px;
+	margin: 25px 0px;
 	/* height: calc(100% - 80px); */
 	height: 80%;
 	border: var(--border);
@@ -41,6 +41,10 @@
 
 .msger-chat::-webkit-scrollbar-thumb {
 	background: #bdbdbd;
+}
+
+.msger-chat{
+	max-height: 450px;
 }
 
 .msg {
@@ -187,6 +191,12 @@
 	background-color: #3498db;
 }
 
+.msger-chat-2{
+	max-height: 650px;
+	max-width: 100%;
+	border: 1px solid black;
+}
+
 .chat-container{
 	height: 100vh;
 }
@@ -197,4 +207,8 @@ section{
 
 .send-msg{
 	display: flex;
+}
+
+.center{
+	text-align: center;
 }

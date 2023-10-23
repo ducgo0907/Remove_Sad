@@ -1,13 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./login.css";
-import axios from "axios";
-import Header from "../../components/Header";
+import authService from "../../services/auth.service";
 
-// const host = 'https://s9fyy9-3001.csb.app/users'
-const host = 'http://localhost:3001/users'
-// const host = 'https://remove-sad.onrender.com'
-
+const host = `${process.env.REACT_APP_BASE_URL}users`;
 
 function Login() {
 	const [username, setUsername] = useState('');
@@ -30,23 +26,16 @@ function Login() {
 		// Here, you can implement your authentication logic.
 		// Check if the username and password are valid.
 		// If valid, you can redirect the user or perform other actions.
-		const registerInform = {
+		const loginForm = {
 			email: username,
 			password: password
 		}
-		axios.post(`${host}/login`, registerInform, {
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		})
+		authService.login(loginForm)
 			.then(function (response) {
-				const { accessToken, email, name, isAdmin } = response.data;
-				localStorage.setItem('accessToken', JSON.stringify(accessToken));
-				localStorage.setItem('userInfo', JSON.stringify({ email, name, isAdmin }));
+				window.location.reload();
 				nav("/");
 			})
 			.catch(function (error) {
-
 				console.log(error);
 			})
 	};

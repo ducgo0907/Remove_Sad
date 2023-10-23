@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import './register.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import CONSTANT from '../../utils/Iconstant';
 
 
 // const host = 'https://s9fyy9-3001.csb.app/users'
-const host = 'http://localhost:3001/users'
-// const host = 'https://remove-sad.onrender.com'
+
+const host= `${process.env.REACT_APP_BASE_URL}users`;
 
 function Register() {
 	const [name, setName] = useState('');
@@ -29,14 +30,6 @@ function Register() {
 		setPassword(e.target.value);
 	};
 
-	const handlePhoneNumberChange = (e) => {
-		setPhoneNumber(e.target.value);
-	};
-
-	const handleAddressChange = (e) => {
-		setAddress(e.target.value);
-	};
-
 	// Add a submit handler to handle form submission
 
 	const handleSubmit = (e) => {
@@ -49,11 +42,8 @@ function Register() {
 		const formData = {
 			name,
 			email,
-			password,
-			phoneNumber,
-			address,
+			password
 		};
-		console.log(formData);
 		axios.post(`${host}/register`, formData, {
 			headers: {
 				'Content-Type': 'application/json',
@@ -209,35 +199,6 @@ function Register() {
 										onChange={handlePasswordChange}
 										required
 										placeholder='Password'
-									/>
-								</div>
-
-								{/* Phone Number */}
-								<div className='wrap-input'>
-									<label htmlFor="phoneNumber"></label>
-									<input
-										className='register-input'
-										type="tel"
-										id="phoneNumber"
-										name="phoneNumber"
-										value={phoneNumber}
-										onChange={handlePhoneNumberChange}
-										required
-										placeholder='Phone Number'
-									/>
-								</div>
-
-								{/* Address */}
-								<div className='wrap-input mt-4'>
-									<label htmlFor="address"></label>
-									<textarea
-										className='register-input'
-										id="address"
-										name="address"
-										value={address}
-										onChange={handleAddressChange}
-										required
-										placeholder='Address'
 									/>
 								</div>
 
