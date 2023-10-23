@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 // const host = 'https://s9fyy9-3001.csb.app/users'
 const host = 'http://localhost:3001/users'
+// const host = 'https://remove-sad.onrender.com'
 
 function Register() {
 	const [name, setName] = useState('');

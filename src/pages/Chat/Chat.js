@@ -4,8 +4,10 @@ import { useLocation } from "react-router-dom";
 import socketIOClient from "socket.io-client";
 import ScrollToBottom from "react-scroll-to-bottom";
 import axios from "axios";
+import Header from "../../components/Header";
 
 const host = "https://s9fyy9-3001.csb.app";
+// const host = "https://remove-sad.onrender.com";
 
 function Chat() {
 	const [message, setMessage] = useState('');
@@ -119,82 +121,86 @@ function Chat() {
 	}
 
 	return (
-		<div className="flex justify-center w-full chat-container">
-			<div className="text-left">
-				<h2>Hello {userName} {isAdmin && ', these are your connected friends'}</h2>
-				<ul className="user-list"> {/* Apply the user-list class */}
-					{users.map((userDetail) => userDetail !== userName && isAdmin ? (
-						<li key={userDetail} onClick={() => setUser(userDetail)} className={userDetail === user ? "isSelected user-item" : "user-item"}> {/* Apply the user-item class */}
-							{/* Add user avatar and username here */}
-							<span className="user-name">{userDetail}</span> {/* Apply the user-name class */}
-						</li>
-					) : (<></>))}
-				</ul>
-			</div>
-			<section className="msger w-full">
-				<header className="msger-header">
-					<div className="msger-header-title">
-						<i className="fas fa-comment-alt"></i> Pilyr Chat
-					</div>
-					<div className="msger-header-options">
-						<span><i className="fas fa-cog"></i></span>
-					</div>
-				</header>
-
-				<main className="msger-chat">
-					<ScrollToBottom className="message-container">
-						{mess.map(message => {
-							return message.sender === 'trungnqhe161514@fpt.edu.vn' ?
-								(
-									<div className="msg left-msg">
-										<div
-											className="msg-img"
-											style={{ backgroundImage: "url(https://ih1.redbubble.net/image.2610089591.4691/pp,504x498-pad,600x600,f8f8f8.jpg)" }}
-										></div>
-
-										<div className="msg-bubble">
-											<div className="msg-info">
-												<div className="msg-info-name">Pilyr</div>
-												<div className="msg-info-time">{message.createdAt}</div>
-											</div>
-
-											<div className="msg-text text-left">
-												{message.message}
-											</div>
-										</div>
-									</div>
-								) :
-								(
-									<div className="msg right-msg">
-										<div
-											className="msg-img"
-										></div>
-
-										<div className="msg-bubble">
-											<div className="msg-info">
-												<div className="msg-info-name">{message.fakeName}</div>
-												<div className="msg-info-time">{message.createdAt}</div>
-											</div>
-
-											<div className="msg-text whitespace-pre-wrap">
-												{message.message}
-											</div>
-										</div>
-									</div>
-								)
-						})}
-					</ScrollToBottom>
-				</main>
-				<div className="send-msg">
-					<input type="text" className="msger-input"
-						placeholder="Enter your message..."
-						value={message}
-						onKeyDown={onEnterPerss}
-						onChange={e => setMessage(e.target.value)} />
-					<button type="submit" className="msger-send-btn m-0" onClick={sendMessage} >Send</button>
+		<>
+			<Header />
+			<div className="flex justify-center w-full chat-container">
+				<div className="text-left">
+					<h2>Hello {userName} {isAdmin && ', these are your connected friends'}</h2>
+					<ul className="user-list"> {/* Apply the user-list class */}
+						{users.map((userDetail) => userDetail !== userName && isAdmin ? (
+							<li key={userDetail} onClick={() => setUser(userDetail)} className={userDetail === user ? "isSelected user-item" : "user-item"}> {/* Apply the user-item class */}
+								{/* Add user avatar and username here */}
+								<span className="user-name">{userDetail}</span> {/* Apply the user-name class */}
+							</li>
+						) : (<></>))}
+					</ul>
 				</div>
-			</section>
-		</div>
+				<section className="msger w-full">
+					<header className="msger-header">
+						<div className="msger-header-title">
+							<i className="fas fa-comment-alt"></i> Pilyr Chat
+						</div>
+						<div className="msger-header-options">
+							<span><i className="fas fa-cog"></i></span>
+						</div>
+					</header>
+
+					<main className="msger-chat">
+						<ScrollToBottom className="message-container">
+							{mess.map(message => {
+								// return message.sender === 'trungnqhe161514@fpt.edu.vn' ?
+								return message.sender === 'Admin' ?
+									(
+										<div className="msg left-msg">
+											<div
+												className="msg-img"
+												style={{ backgroundImage: "url(https://ih1.redbubble.net/image.2610089591.4691/pp,504x498-pad,600x600,f8f8f8.jpg)" }}
+											></div>
+
+											<div className="msg-bubble">
+												<div className="msg-info">
+													<div className="msg-info-name">Pilyr</div>
+													<div className="msg-info-time">{message.createdAt}</div>
+												</div>
+
+												<div className="msg-text text-left">
+													{message.message}
+												</div>
+											</div>
+										</div>
+									) :
+									(
+										<div className="msg right-msg">
+											<div
+												className="msg-img"
+											></div>
+
+											<div className="msg-bubble">
+												<div className="msg-info">
+													<div className="msg-info-name">{message.fakeName}</div>
+													<div className="msg-info-time">{message.createdAt}</div>
+												</div>
+
+												<div className="msg-text whitespace-pre-wrap">
+													{message.message}
+												</div>
+											</div>
+										</div>
+									)
+							})}
+						</ScrollToBottom>
+					</main>
+					<div className="send-msg">
+						<input type="text" className="msger-input"
+							placeholder="Enter your message..."
+							value={message}
+							onKeyDown={onEnterPerss}
+							onChange={e => setMessage(e.target.value)} />
+						<button type="submit" className="msger-send-btn m-0" onClick={sendMessage} >Send</button>
+					</div>
+				</section>
+			</div>
+		</>
 	);
 }
 

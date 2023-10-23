@@ -192,7 +192,7 @@
 }
 
 section{
-	overflow: scroll;
+	overflow-y: scroll;
 }
 
 .send-msg{
