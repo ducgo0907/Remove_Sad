@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 function Header() {
     const [token, setToken] = useState(localStorage.getItem('accessToken'));
+    const nav = useNavigate();
 
     console.log(token);
 
 	const handleLogOut = () =>{
-		localStorage.clear()
+		localStorage.clear();
+        nav('/')
 	}
 
 

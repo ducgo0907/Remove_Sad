@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./login.css";
 import authService from "../../services/auth.service";
+import Header from "../../components/Header";
 
 const host = `${process.env.REACT_APP_BASE_URL}users`;
 
@@ -76,7 +77,7 @@ function Login() {
 
 	return (
 		<>
-			<Header />
+			{/* <Header /> */}
 			<div className="p-10">
 				<div className="login-form">
 					<div className="login-wrap">
