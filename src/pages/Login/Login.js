@@ -2,12 +2,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./login.css";
 import authService from "../../services/auth.service";
+import Header from "../../components/Header";
 
 const host = `${process.env.REACT_APP_BASE_URL}users`;
 
 function Login() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	localStorage.clear();
 
 	const nav = useNavigate();
 
@@ -19,7 +21,7 @@ function Login() {
 		setPassword(e.target.value);
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		// Here, you can implement your authentication logic.
@@ -74,51 +76,54 @@ function Login() {
 	// );
 
 	return (
-		<div className="p-10">
-			<div className="login-form">
-				<div className="login-wrap">
-					<div className="container p-0">
-						<div className="signIn">
-							Sign In
-						</div>
-						<div className="login-form">
-							<form className="login-form" onSubmit={handleSubmit}>
-								<div className="wrap-input">
-									<label htmlFor="username"></label>
-									<input
-									className="login-input"
-										type="text"
-										id="username"
-										name="username"
-										value={username}
-										onChange={handleUsernameChange}
-										placeholder="Email"
-										required
-									/>
-								</div>
-								<div className="wrap-input">
-									<label htmlFor="password"></label>
-									<input
-										className="login-input"
-										type="password"
-										id="password"
-										name="password"
-										value={password}
-										onChange={handlePasswordChange}
-										placeholder="Password"
-										required
-									/>
-								</div>
-								<div className="mt-3">
-									<button className="login-btn" type="submit">Login</button><br />
-									<Link className="link-register" to='/register'>Don't have account ? Go to register</Link>
-								</div>
-							</form>
+		<>
+			{/* <Header /> */}
+			<div className="p-10">
+				<div className="login-form">
+					<div className="login-wrap">
+						<div className="container p-0">
+							<div className="signIn">
+								Sign In
+							</div>
+							<div className="login-form">
+								<form className="login-form" onSubmit={handleSubmit}>
+									<div className="wrap-input">
+										<label htmlFor="username"></label>
+										<input
+											className="login-input"
+											type="text"
+											id="username"
+											name="username"
+											value={username}
+											onChange={handleUsernameChange}
+											placeholder="Email"
+											required
+										/>
+									</div>
+									<div className="wrap-input">
+										<label htmlFor="password"></label>
+										<input
+											className="login-input"
+											type="password"
+											id="password"
+											name="password"
+											value={password}
+											onChange={handlePasswordChange}
+											placeholder="Password"
+											required
+										/>
+									</div>
+									<div className="mt-3">
+										<button className="login-btn" type="submit">Login</button><br />
+										<Link className="link-register" to='/register'>Don't have account ? Go to register</Link>
+									</div>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	)
 
 }

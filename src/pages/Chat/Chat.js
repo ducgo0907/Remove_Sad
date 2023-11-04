@@ -3,6 +3,11 @@ import "../Chat/chat.css"
 import { useLocation } from "react-router-dom";
 import socketIOClient from "socket.io-client";
 import ScrollToBottom from "react-scroll-to-bottom";
+import axios from "axios";
+import Header from "../../components/Header";
+
+// const host = "https://s9fyy9-3001.csb.app";
+// const host = "https://remove-sad.onrender.com";
 import CONSTANT from "../../utils/Iconstant";
 import messageService from "../../services/message.service";
 import { v4 as uuidv4 } from "uuid";

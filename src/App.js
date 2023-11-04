@@ -19,10 +19,12 @@ function App() {
 	const [users, setUsers] = useState([]);
 	const [socket, setSocket] = useState(null);
 
+
 	const logOut = () => {
 		authService.logout();
 		setUser(null);
-		window.location.reload();
+		// window.location.reload();
+		window.location.replace('/Remove_Sad');
 	}
 	// const [token, setToken] = useState(localStorage.getItem('accessToken'));
 

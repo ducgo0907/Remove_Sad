@@ -1,6 +1,7 @@
 import ScrollToBottom from "react-scroll-to-bottom";
 import TextNoti from "../TextNofitication/TextNoti";
 import { v4 as uuidv4 } from "uuid";
+import "../ChatPage/chat.css"
 
 const AdminChat = ({
 	userLogged,
