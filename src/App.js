@@ -73,7 +73,7 @@ function App() {
 		}
 	}, [socket])
 	return (
-		<Router basename='/Remove_Sad'>
+		<Router basename='/'>
 			<div className="App">
 				<header>
 					<nav className="navbar navbar-expand-lg navbar-light bg-light">
