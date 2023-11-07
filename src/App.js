@@ -50,6 +50,7 @@ function App() {
 				authService.getMoney()
 					.then(res => {
 						localStorage.setItem("money", res.data.money);
+						setMoney(parseInt(res.data.money))
 					})
 					.catch(err => {
 						console.log(err);
