@@ -49,7 +49,8 @@ function App() {
 			if (user.email.includes("@")) {
 				authService.getMoney()
 					.then(res => {
-						localStorage.setItem("money", res.data.money);
+						console.log("money:", res.data.money);
+						window.localStorage.setItem("money", res.data.money);
 						setMoney(parseInt(res.data.money))
 					})
 					.catch(err => {
