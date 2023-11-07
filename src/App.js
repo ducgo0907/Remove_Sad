@@ -46,20 +46,23 @@ function App() {
 	useEffect(() => {
 		if (!user && user == undefined && user == null) {
 			genGuestAccount();
-			if (user.email.includes("@")) {
-				authService.getMoney()
-					.then(res => {
-						console.log("money:", res.data.money);
-						window.localStorage.setItem("money", res.data.money);
-						setMoney(parseInt(res.data.money))
-					})
-					.catch(err => {
-						console.log(err);
-					})
-			}
 		}
 
 	}, [])
+
+	useEffect(() => {
+		if (user && user.email && user.email.includes("@")) {
+			authService.getMoney()
+				.then(res => {
+					console.log("money:", res.data.money);
+					window.localStorage.setItem("money", res.data.money);
+					setMoney(parseInt(res.data.money))
+				})
+				.catch(err => {
+					console.log(err);
+				})
+		}
+	}, [user])
 
 	useEffect(() => {
 		const newSocket = socketIOClient.connect(process.env.REACT_APP_BASE_URL);
@@ -102,7 +105,7 @@ function App() {
 								<span className="navbar-toggler-icon"></span>
 							</button>
 							<div>
-								You have {money ? money/40000 : 0} coffe
+								You have {money ? money / 40000 : 0} coffe
 							</div>
 							<Link to='/payment'>Payment</Link>
 							{user && user.email.includes("@")
