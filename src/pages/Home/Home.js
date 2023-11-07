@@ -4,6 +4,7 @@ import "../Home/home.css";
 import avatar from "../../asset/O2.jpg";
 import CONSTANT from "../../utils/Iconstant";
 import socketIOClient from "socket.io-client";
+import authService from "../../services/auth.service";
 
 const host = CONSTANT.host;
 
@@ -17,12 +18,12 @@ function Home({ user }) {
 	useEffect(() => {
 		const newSocket = socketIOClient.connect(host);
 		setSocket(newSocket);
-		if (user && user.isAdmin){
+		if (user && user.isAdmin) {
 			newSocket.emit("storeAdminId", user.email);
 		}
-		if(user && user.name != null){
+		if (user && user.name != null) {
 			setUserName(user.name)
-		}else{
+		} else {
 			setUserName("");
 		}
 
@@ -49,9 +50,23 @@ function Home({ user }) {
 
 	const goToChat = (e, path) => {
 		e.preventDefault(); // Prevent the default form submission behavior
+		if (!window.confirm("Do you want to use coffe go to chat with pylir?")) {
+			return;
+		}
 		if (userName.trim() !== "" || isAdmin) {
+			if (!isAdmin) {
+				authService.goToChat()
+					.then(res => {
+						console.log(res);
+						if (res.data === 'Go to chat') {
+							nav(path, { state: { userName } });
+						}
+					})
+					.catch(err => {
+						console.log(err);
+					})
+			}
 			// You can also pass the username and selected avatar to the chat route
-			nav(path, { state: { userName } });
 		} else {
 			alert("Please enter your name.");
 		}

@@ -13,11 +13,15 @@ import 'react-datepicker/dist/react-datepicker.module.css'
 import Schedule from './pages/Schedule/Schedule';
 import ListPending from './pages/ListPending/ListPending';
 import socketIOClient from 'socket.io-client';
+import PaymentForm from './pages/Order/Order';
+import SuccessPage from './pages/Status/Success';
+import FailPage from './pages/Status/Failed';
 
 function App() {
 	const [user, setUser] = useState(authService.getCurrentUser());
 	const [users, setUsers] = useState([]);
 	const [socket, setSocket] = useState(null);
+	const [money, setMoney] = useState(authService.getCurrentMoney() || 0)
 
 
 	const logOut = () => {
@@ -42,7 +46,17 @@ function App() {
 	useEffect(() => {
 		if (!user && user == undefined && user == null) {
 			genGuestAccount();
+			if (user.email.includes("@")) {
+				authService.getMoney()
+					.then(res => {
+						localStorage.setItem("money", res.data.money);
+					})
+					.catch(err => {
+						console.log(err);
+					})
+			}
 		}
+
 	}, [])
 
 	useEffect(() => {
@@ -81,15 +95,17 @@ function App() {
 					<nav className="navbar navbar-expand-lg navbar-light bg-light">
 						<div className="container">
 							<Link className="navbar-brand" to="/">Pilyr</Link>
-							{user && user.email.includes("@")
-								? (<div className='narbar-brand logout-btn' onClick={() => logOut()}>Logout</div>)
-								: (<Link className='navbar-brand' to="/login">Login</Link>)}
+
 							<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 								<span className="navbar-toggler-icon"></span>
 							</button>
-							{/* {token && <div>
-								<a href='/Remove_Sad' className='flex-wrap'><button onClick={() =>handleLogOut()}>Logout</button></a>
-							</div>} */}
+							<div>
+								You have {money ? money/40000 : 0} coffe
+							</div>
+							<Link to='/payment'>Payment</Link>
+							{user && user.email.includes("@")
+								? (<div className='narbar-brand logout-btn' onClick={() => logOut()}>Logout</div>)
+								: (<Link className='navbar-brand' to="/login">Login</Link>)}
 						</div>
 					</nav>
 				</header>
@@ -97,11 +113,14 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Home user={user} />} />
 						<Route path="/about" element={<About />} />
+						<Route path='/payment' element={<PaymentForm />} />
+						<Route path='/success' element={<SuccessPage />} />
+						<Route path='/failed' element={<FailPage />} />
 						<Route path="/login" element={<DirectRouter path="/" element={<Login />} />} />
 						<Route path="/chat" element={<Chat userLogged={user} setSocket={setSocket} socket={socket} />} />
 						<Route path='/register' element={<DirectRouter path="/" element={<Register />} />} />
 						<Route path='/schedule' element={<Schedule user={user} />} />
-						<Route path='/listPending' element={<ListPending users={users} socket={socket} setUsers={setUsers} user={user}/>} />
+						<Route path='/listPending' element={<ListPending users={users} socket={socket} setUsers={setUsers} user={user} />} />
 					</Routes>
 				</main>
 				<footer className="bg-dark text-light py-3">
