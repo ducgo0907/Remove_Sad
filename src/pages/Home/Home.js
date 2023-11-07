@@ -61,9 +61,12 @@ function Home({ user }) {
 						console.log(res);
 						if (res.data === 'Go to chat') {
 							nav(path, { state: { userName } });
+						}else{
+							alert("You should go to payment to buy some coffe!");
 						}
 					})
 					.catch(err => {
+						alert("You should go to payment to buy some coffe!");
 						console.log(err);
 					})
 			} else {
