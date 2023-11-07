@@ -12,7 +12,6 @@ function Home({ user }) {
 	const [isAdmin, setIsAdmin] = useState(false);
 	const [userName, setUserName] = useState("");
 	const [socket, setSocket] = useState(null);
-	const [isAvailable, setIsAvailable] = useState(false);
 	const nav = useNavigate();
 
 	useEffect(() => {
@@ -50,8 +49,10 @@ function Home({ user }) {
 
 	const goToChat = (e, path) => {
 		e.preventDefault(); // Prevent the default form submission behavior
-		if (!window.confirm("Do you want to use coffe go to chat with pylir?")) {
-			return;
+		if (!isAdmin) {
+			if (!window.confirm("Do you want to use coffe go to chat with pylir?")) {
+				return;
+			}
 		}
 		if (userName.trim() !== "" || isAdmin) {
 			if (!isAdmin) {
@@ -65,6 +66,8 @@ function Home({ user }) {
 					.catch(err => {
 						console.log(err);
 					})
+			} else {
+				nav(path, { state: { userName } });
 			}
 			// You can also pass the username and selected avatar to the chat route
 		} else {

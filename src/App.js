@@ -28,7 +28,7 @@ function App() {
 		authService.logout();
 		setUser(null);
 		// window.location.reload();
-		window.location.replace('/Remove_Sad');
+		window.location.replace('/');
 	}
 	// const [token, setToken] = useState(localStorage.getItem('accessToken'));
 
