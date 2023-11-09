@@ -29,6 +29,16 @@ class MessageService {
 			headers: authHeader()
 		})
 	}
+
+	// Delete message by email of user
+	deleteMessage(user) {
+		return axios.get(API_URL + 'deleteMessage', {
+			headers: authHeader(),
+			params: {
+				user
+			}
+		})
+	}
 }
 
 export default new MessageService();
