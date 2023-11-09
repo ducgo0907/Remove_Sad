@@ -3,6 +3,8 @@ import { useState } from "react";
 import "./login.css";
 import authService from "../../services/auth.service";
 import Header from "../../components/Header";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const host = `${process.env.REACT_APP_BASE_URL}users`;
 
@@ -38,6 +40,16 @@ function Login() {
 			})
 			.catch(function (error) {
 				console.log(error);
+				toast.error('Login failed !!', {
+					position: "top-right",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "light",
+				});
 			})
 	};
 
@@ -123,6 +135,7 @@ function Login() {
 					</div>
 				</div>
 			</div>
+			<ToastContainer />
 		</>
 	)
 

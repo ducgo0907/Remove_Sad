@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
 import Chat from './pages/Chat/Chat';
@@ -22,6 +24,8 @@ function App() {
 	const [users, setUsers] = useState([]);
 	const [socket, setSocket] = useState(null);
 	const [money, setMoney] = useState(authService.getCurrentMoney() || 0)
+	const [isFree, setisFree] = useState("true");
+	localStorage.setItem("isFree", isFree)
 
 
 	const logOut = () => {
@@ -105,9 +109,9 @@ function App() {
 								<span className="navbar-toggler-icon"></span>
 							</button>
 							<div>
-								You have {money ? money / 40000 : 0} coffe
+								You have {money ? money / 40000 : 0} coffee
 							</div>
-							<Link to='/payment'>Payment</Link>
+							<Link to='/payment' style={{textDecoration: "none", fontSize: "1.25em"}}>Payment</Link>
 							{user && user.email.includes("@")
 								? (<div className='narbar-brand logout-btn' onClick={() => logOut()}>Logout</div>)
 								: (<Link className='navbar-brand' to="/login">Login</Link>)}
