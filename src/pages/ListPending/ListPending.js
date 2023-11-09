@@ -19,6 +19,7 @@ function ListPending({ users, setUsers, socket, user }) {
 	useEffect(() => {
 		if (socket) {
 			if (user.isAdmin) {
+				socket.emit('getListUserPendingInit', "hi");
 				socket.on('getListUserPending', res => {
 					setUsers(res);
 				})
