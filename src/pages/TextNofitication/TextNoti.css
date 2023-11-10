@@ -10,9 +10,13 @@
 	position: absolute;
 	top: 0;
 	left: 1;
+	/* right: 0; */
 	font-size: 120px;
 	white-space: nowrap;
 	animation: wavy 2s linear infinite;
+	/* background-color: lightslategray;
+	height: 100rem;
+	opacity: 50%; */
   }
   
   @keyframes wavy {
@@ -32,3 +36,20 @@
 	  transform: translateY(0);
 	}
   }
+  /* .game{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	opacity: 100%;
+  }
+
+  .noti-container{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-color: lightslategray;
+	opacity: 80%;
+  } */

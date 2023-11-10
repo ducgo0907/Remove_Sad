@@ -3,7 +3,8 @@ import './register.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import CONSTANT from '../../utils/Iconstant';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 // const host = 'https://s9fyy9-3001.csb.app/users'
 
@@ -54,10 +55,30 @@ function Register() {
 				console.log(response);
 				if (response.status === 201) {
 					setNotification('Created Successfully, check your email to activate account!!')
+					toast.success('Register successfully !!', {
+						position: "top-right",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "light",
+						});
 				}
 			})
 			.catch(error => {
 				console.log(error);
+				toast.error('Register failed !!', {
+					position: "top-right",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "light",
+				});
 			})
 
 		// Reset the form fields after submission
@@ -212,6 +233,7 @@ function Register() {
 					</div>
 				</div>
 			</div>
+			<ToastContainer/>
 		</div>
 	)
 }
