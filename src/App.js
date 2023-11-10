@@ -24,6 +24,12 @@ function App() {
 	const [money, setMoney] = useState(authService.getCurrentMoney() || 0)
 
 
+	useEffect(() => {
+		if (localStorage.getItem("isFree") === null) {
+			localStorage.setItem("isFree", true);
+		}
+	}, [])
+
 	const logOut = () => {
 		authService.logout();
 		setUser(null);

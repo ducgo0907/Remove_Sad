@@ -12,8 +12,8 @@ function Home({ user }) {
 	const [isAdmin, setIsAdmin] = useState(false);
 	const [userName, setUserName] = useState("");
 	const [socket, setSocket] = useState(null);
+    const [isFree, setIsFree] = useState(localStorage.getItem("isFree") === "true");
 	const nav = useNavigate();
-
 	useEffect(() => {
 		const newSocket = socketIOClient.connect(host);
 		setSocket(newSocket);
@@ -24,6 +24,10 @@ function Home({ user }) {
 			setUserName(user.name)
 		} else {
 			setUserName("");
+		}
+
+		if(localStorage.getItem("isFree") === null){
+			setIsFree(true);
 		}
 
 		return () => {
@@ -46,16 +50,17 @@ function Home({ user }) {
 	const handleNameChange = (e) => {
 		setUserName(e.target.value);
 	};
-
 	const goToChat = (e, path) => {
 		e.preventDefault(); // Prevent the default form submission behavior
+		
+		const title = isFree ? "Do you want use 30 minutes free?" : "Do you want to use coffe go to chat with pylir?"; 
 		if (!isAdmin) {
-			if (!window.confirm("Do you want to use coffe go to chat with pylir?")) {
+			if (!window.confirm(title)) {
 				return;
 			}
 		}
 		if (userName.trim() !== "" || isAdmin) {
-			if (!isAdmin) {
+			if (!isAdmin && !isFree) {
 				authService.goToChat()
 					.then(res => {
 						console.log(res);
@@ -70,6 +75,8 @@ function Home({ user }) {
 						console.log(err);
 					})
 			} else {
+				localStorage.setItem("isFree", false);
+				setIsFree(false);
 				nav(path, { state: { userName } });
 			}
 			// You can also pass the username and selected avatar to the chat route
