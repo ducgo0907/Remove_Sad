@@ -3,6 +3,8 @@ import TextNoti from "../TextNofitication/TextNoti";
 import { v4 as uuidv4 } from "uuid";
 import TicTacToe from "../Game/TicTacToe";
 import "../ChatPage/chat.css"
+import messageService from "../../services/message.service";
+import { useEffect } from "react";
 
 const UserChat = ({
 	userLogged,
@@ -17,6 +19,13 @@ const UserChat = ({
 	onEnterPerss,
 	setMessage,
 	sendMessage }) => {
+
+
+	const handleDeleteChat = async () =>{
+		await messageService.deleteMessage(userLogged.email	)
+		window.location.reload()
+	}
+	
 	return (
 		<div div className="row justify-content-center">
 			<div className="col-sm-12 justify-content-center">
@@ -33,7 +42,7 @@ const UserChat = ({
 					<header className="msger-header">
 						<div className="msger-header-title">
 							<i className="fas fa-comment-alt text-left">Pilyr Chat</i> 
-							<button className="btn-delete">Delete Chat</button>
+							<button className="btn-delete" onClick={handleDeleteChat}>Delete Chat</button>
 						</div>
 						<div className="msger-header-options">
 							<span><i className="fas fa-cog"></i></span>
