@@ -1,5 +1,7 @@
 import ScrollToBottom from "react-scroll-to-bottom";
 import TextNoti from "../TextNofitication/TextNoti";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 import { v4 as uuidv4 } from "uuid";
 import TicTacToe from "../Game/TicTacToe";
 import "../ChatPage/chat.css"
@@ -26,13 +28,33 @@ const UserChat = ({
 		if (!window.confirm("Are you want to delete this chat?")) {
 			return;
 		}
-		messageService.deleteMessage(userLogged.email)
+		await messageService.deleteMessage(userLogged.email)
 			.then(res => {
 				setMess([])
+				toast.success('Delete successfully !!', {
+					position: "top-right",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "light",
+					});
 			})
-			.err(err => {
+			.catch(err => {
 				alert("Have errors")
 				console.log(err);
+				toast.error('Delete failed !!', {
+					position: "top-right",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "light",
+				});
 			})
 	}
 
@@ -160,6 +182,7 @@ const UserChat = ({
 					</ScrollToBottom>
 				</div>
 			</div>
+			<ToastContainer/>
 		</div>
 	);
 }
