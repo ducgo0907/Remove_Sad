@@ -170,7 +170,8 @@ function Chat({ userLogged, setSocket, socket }) {
 					message={message}
 					onEnterPerss={onEnterPerss}
 					setMessage={setMessage}
-					sendMessage={sendMessage} />
+					sendMessage={sendMessage}
+					setMess={setMess} />
 			}
 
 		</div>

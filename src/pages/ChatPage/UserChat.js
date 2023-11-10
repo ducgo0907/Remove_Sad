@@ -18,14 +18,24 @@ const UserChat = ({
 	message,
 	onEnterPerss,
 	setMessage,
-	sendMessage }) => {
+	sendMessage,
+	setMess }) => {
 
 
-	const handleDeleteChat = async () =>{
-		await messageService.deleteMessage(userLogged.email	)
-		window.location.reload()
+	const handleDeleteChat = async () => {
+		if (!window.confirm("Are you want to delete this chat?")) {
+			return;
+		}
+		messageService.deleteMessage(userLogged.email)
+			.then(res => {
+				setMess([])
+			})
+			.err(err => {
+				alert("Have errors")
+				console.log(err);
+			})
 	}
-	
+
 	return (
 		<div div className="row justify-content-center">
 			<div className="col-sm-12 justify-content-center">
@@ -41,7 +51,7 @@ const UserChat = ({
 				<section className="msger w-full">
 					<header className="msger-header">
 						<div className="msger-header-title">
-							<i className="fas fa-comment-alt text-left">Pilyr Chat</i> 
+							<i className="fas fa-comment-alt text-left">Pilyr Chat</i>
 							<button className="btn-delete" onClick={handleDeleteChat}>Delete Chat</button>
 						</div>
 						<div className="msger-header-options">
