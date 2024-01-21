@@ -61,10 +61,9 @@ function App() {
 	}, [])
 
 	useEffect(() => {
-		if (user && user.email && user.email.includes("@")) {
+		if (user && user.email != undefined && user.email.includes("@")) {
 			authService.getMoney()
 				.then(res => {
-					console.log("money:", res.data.money);
 					window.localStorage.setItem("money", res.data.money);
 					setMoney(parseInt(res.data.money))
 				})
@@ -117,8 +116,8 @@ function App() {
 							<div>
 								You have {money ? money / 40000 : 0} coffee
 							</div>
-							<Link to='/payment' style={{textDecoration: "none", fontSize: "1.25em"}}>Payment</Link>
-							{user && user.email.includes("@")
+							<Link to='/payment' style={{textDecoration: "none", fontSize: "1.25em"}}>Nạp tiền</Link>
+							{user && user.email != undefined && user.email.includes("@")
 								? (<div className='narbar-brand logout-btn' onClick={() => logOut()}>Logout</div>)
 								: (<Link className='navbar-brand' to="/login">Login</Link>)}
 						</div>
@@ -128,7 +127,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Home user={user} />} />
 						<Route path="/about" element={<About />} />
-						<Route path='/payment' element={<PaymentForm />} />
+						<Route path='/payment' element={<PaymentForm user={user}/>} />
 						<Route path='/success' element={<SuccessPage />} />
 						<Route path='/failed' element={<FailPage />} />
 						<Route path="/login" element={<DirectRouter path="/" element={<Login />} />} />

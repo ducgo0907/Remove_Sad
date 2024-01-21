@@ -30,7 +30,7 @@ const UserChat = ({
 			.then(res => {
 				setMess([])
 			})
-			.err(err => {
+			.catch(err => {
 				alert("Have errors")
 				console.log(err);
 			})
@@ -39,7 +39,6 @@ const UserChat = ({
 	return (
 		<div div className="row justify-content-center">
 			<div className="col-sm-12 justify-content-center">
-				{!isConnect && <TextNoti text={"watiting ...."} />}
 			</div>
 			<div className="col-sm-3">
 				<TicTacToe />
