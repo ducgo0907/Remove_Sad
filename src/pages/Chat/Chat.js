@@ -114,7 +114,7 @@ function Chat({ userLogged, setSocket, socket }) {
 	}, [user])
 
 	const sendMessage = async () => {
-		if (message !== null) {
+		if (message !== null && message !== "") {
 			const msg = {
 				message: message,
 				sender: userLogged.email,
