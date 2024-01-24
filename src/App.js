@@ -25,8 +25,6 @@ function App() {
 	const [socket, setSocket] = useState(null);
 	const [money, setMoney] = useState(authService.getCurrentMoney() || 0)
 	const [isFree, setisFree] = useState("true");
-	localStorage.setItem("isFree", isFree)
-
 
 	useEffect(() => {
 		if (localStorage.getItem("isFree") === null) {
@@ -110,12 +108,12 @@ function App() {
 						<div className="container">
 							<Link className="navbar-brand" to="/">Pilyr</Link>
 							<div>
-								You have {money ? money / 40000 : 0} coffee
+								Bạn đang có {money ? money / 20000 : 0} cốc coffee
 							</div>
 							<Link to='/payment' style={{textDecoration: "none", fontSize: "1.25em"}}>Nạp tiền</Link>
 							{user && user.email != undefined && user.email.includes("@")
-								? (<div className='narbar-brand logout-btn' onClick={() => logOut()}>Logout</div>)
-								: (<Link className='navbar-brand' to="/login">Login</Link>)}
+								? (<div className='narbar-brand logout-btn' onClick={() => logOut()}>Đăng xuất</div>)
+								: (<Link className='navbar-brand' to="/login">Đăng nhập</Link>)}
 						</div>
 					</nav>
 				</header>

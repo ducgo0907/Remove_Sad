@@ -50,7 +50,7 @@ const AdminChat = ({
 									<div className="msg left-msg" key={uuidv4()}>
 										<div
 											className="msg-img"
-											style={{ backgroundImage: "url(https://ih1.redbubble.net/image.2610089591.4691/pp,504x498-pad,600x600,f8f8f8.jpg)" }}
+											style={{ backgroundImage: "url(/mascot.jpg)" }}
 										></div>
 
 										<div className="msg-bubble">

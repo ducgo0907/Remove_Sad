@@ -41,8 +41,12 @@ class AuthService {
 		return axios.get(API_URL + "money", { headers: authHeader() });
 	}
 
-	goToChat() {
-		return axios.post(API_URL + "goToChat", {}, { headers: authHeader() });
+	goToChat(param) {
+		return axios.post(API_URL + "goToChat", param, { headers: authHeader() });
+	}
+
+	checkExistedChat(param) {
+		return axios.post(API_URL + "checkExsitedChat", param, { headers: authHeader() });
 	}
 }
 

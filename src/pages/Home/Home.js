@@ -5,14 +5,17 @@ import avatar from "../../asset/O2.jpg";
 import CONSTANT from "../../utils/Iconstant";
 import socketIOClient from "socket.io-client";
 import authService from "../../services/auth.service";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
 
 const host = CONSTANT.host;
+const MySwal = withReactContent(Swal);
 
 function Home({ user }) {
 	const [isAdmin, setIsAdmin] = useState(false);
 	const [userName, setUserName] = useState("");
 	const [socket, setSocket] = useState(null);
-    const [isFree, setIsFree] = useState(localStorage.getItem("isFree") === "true");
+	const [isFree, setIsFree] = useState(localStorage.getItem("isFree") === "true");
 	const nav = useNavigate();
 	useEffect(() => {
 		const newSocket = socketIOClient.connect(host);
@@ -26,7 +29,7 @@ function Home({ user }) {
 			setUserName("");
 		}
 
-		if(localStorage.getItem("isFree") === null){
+		if (localStorage.getItem("isFree") === null) {
 			setIsFree(true);
 		}
 
@@ -52,36 +55,72 @@ function Home({ user }) {
 	};
 	const goToChat = (e, path) => {
 		e.preventDefault(); // Prevent the default form submission behavior
-		
-		const title = isFree ? "Do you want use 30 minutes free?" : "Do you want to use coffe go to chat with pylir?"; 
+
+		const title = isFree
+			? "Bạn có muốn sử dụng 30 phút dùng thử miễn phí?"
+			: "Bạn có muốn sử dụng một cốc cà phê để trò chuyện với Pilyr?";
 		if (!isAdmin) {
-			if (!window.confirm(title)) {
-				return;
-			}
-		}
-		if (userName.trim() !== "" || isAdmin) {
-			if (!isAdmin && !isFree) {
-				authService.goToChat()
+			if (userName.trim() !== "" || isAdmin) {
+				authService.checkExistedChat({ email: user.email })
 					.then(res => {
-						console.log(res);
-						if (res.data === 'Go to chat') {
-							nav(path, { state: { userName } });
-						}else{
-							alert("You should go to payment to buy some coffe!");
+						const data = res.data;
+						localStorage.setItem("isFree", false)
+						setIsFree(false);
+						if (data.status === 0) {
+							MySwal.fire({
+								title: "Chat cùng Pilyr",
+								text: title,
+								icon: 'info',
+								confirmButtonText: "Đồng ý",
+								cancelButtonText: "Quay lại",
+								cancelButtonColor: "red",
+								showCancelButton: true,
+								customClass: {
+									confirmButton: 'col-6',
+									cancelButton: 'col-6'
+								}
+							})
+								.then((response) => {
+									if (response.isConfirmed) {
+										authService.goToChat({ isFree, email: user.email })
+											.then(response => {
+												const data = response.data;
+												if (data.status === 0) {
+													Swal.fire("Bạn không có đủ tiền mua cà phê");
+												} else {
+													const twentyMinutesFromNow = new Date();
+													const startDate = new Date(data.timeStart);
+													startDate.setMinutes(startDate.getMinutes() + 20);
+													const remainingMilliseconds = Math.floor((startDate - twentyMinutesFromNow) / 1000);
+													localStorage.setItem("remainTime", remainingMilliseconds);
+													nav(path, { state: { userName } })
+												}
+											})
+											.catch(error => {
+
+											})
+									}
+								})
+						} else {
+							const twentyMinutesFromNow = new Date();
+							const startDate = new Date(data.timeStart);
+							startDate.setMinutes(startDate.getMinutes() + 20);
+							if (startDate > twentyMinutesFromNow) {
+								const remainingMilliseconds = Math.floor((startDate - twentyMinutesFromNow) / 1000);
+								localStorage.setItem("remainTime", remainingMilliseconds);
+								nav(path, { state: { userName } });
+							}
 						}
 					})
 					.catch(err => {
-						alert("You should go to payment to buy some coffe!");
+						Swal.fire("Lỗi hệ thống, vui lòng thử lại sau");
 						console.log(err);
 					})
 			} else {
-				localStorage.setItem("isFree", false);
-				setIsFree(false);
-				nav(path, { state: { userName } });
+				Swal.fire("Vui lòng điền tên của bạn");
 			}
-			// You can also pass the username and selected avatar to the chat route
 		} else {
-			alert("Please enter your name.");
+			nav(path, { state: { userName } });
 		}
 	};
 
@@ -90,7 +129,7 @@ function Home({ user }) {
 			<div className="row-auto">
 				<div className="text-center">
 					<h1>Pilyr online chat</h1>
-					{!user || !user.isAdmin ? <h3>You can chat with pylir as guest without login now</h3> : <></>}
+					{!user || !user.isAdmin ? <h3>Bạn có thể trò chuyện với Pylir như là khách ngay bây giờ</h3> : <></>}
 				</div>
 				{!isAdmin ? (
 					<div className="login">
@@ -106,7 +145,7 @@ function Home({ user }) {
 							<hr />
 							<div className="user-photos flex-col gap">
 								<div className="col-span-12">
-									<h3 className="text-center mt-4">Pick your avatar.</h3>
+									<h3 className="text-center mt-4">Chọn cho mình một avatar nào.</h3>
 								</div>
 								<div className="photo-gallery grid grid-cols-3 gap-4 p-5">
 									{/* You can map through an array of avatars and generate the elements */}
@@ -128,7 +167,7 @@ function Home({ user }) {
 					</div>
 				) : (
 					<div>
-						<p>Welcome to admin doashboard</p>
+						<p>Chào mừng tới admin dashboard</p>
 						<input type="button" onClick={(e) => goToChat(e, '/chat')} className="btn btn-success mr-3" value="Go to chat" />
 						<input type="button" onClick={(e) => goToChat(e, '/listPending')} className="btn btn-warning mr-3" value="Go to pending" />
 					</div>)}
