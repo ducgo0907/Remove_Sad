@@ -1,4 +1,4 @@
-import ScrollToBottom from "react-scroll-to-bottom";
+import ScrollToBottom, { useScrollTo } from "react-scroll-to-bottom";
 import TextNoti from "../TextNofitication/TextNoti";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
@@ -6,7 +6,8 @@ import { v4 as uuidv4 } from "uuid";
 import TicTacToe from "../Game/TicTacToe";
 import "../ChatPage/chat.css"
 import messageService from "../../services/message.service";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Timer from "./Timer";
 
 const UserChat = ({
 	userLogged,
@@ -22,7 +23,14 @@ const UserChat = ({
 	setMessage,
 	sendMessage,
 	setMess }) => {
-
+	const [time, setTime] = useState(() => {
+		const timeR = localStorage.getItem("remainTime");
+		if(timeR){
+			return timeR;
+		}else{
+			return 20*60;
+		}
+	})
 
 	const handleDeleteChat = async () => {
 		if (!window.confirm("Are you want to delete this chat?")) {
@@ -73,6 +81,7 @@ const UserChat = ({
 					<header className="msger-header">
 						<div className="msger-header-title">
 							<i className="fas fa-comment-alt text-left">Pilyr Chat</i>
+							<span><Timer initialTimeInSeconds={time} isStart={isConnect}/></span>
 							<button className="btn-delete" onClick={handleDeleteChat}>Delete Chat</button>
 						</div>
 						<div className="msger-header-options">
@@ -88,7 +97,7 @@ const UserChat = ({
 										<div className="msg left-msg" key={uuidv4()}>
 											<div
 												className="msg-img"
-												style={{ backgroundImage: "url(https://ih1.redbubble.net/image.2610089591.4691/pp,504x498-pad,600x600,f8f8f8.jpg)" }}
+												style={{ backgroundImage: "url(/mascot.jpg)" }}
 											></div>
 
 											<div className="msg-bubble">
@@ -144,7 +153,7 @@ const UserChat = ({
 									<div className="msg left-msg" key={uuidv4()}>
 										<div
 											className="msg-img"
-											style={{ backgroundImage: "url(https://ih1.redbubble.net/image.2610089591.4691/pp,504x498-pad,600x600,f8f8f8.jpg)" }}
+											style={{ backgroundImage: "url(/mascot.jpg)" }}
 										></div>
 
 										<div className="msg-bubble">
