@@ -1,0 +1,201 @@
+/* CSS for Banner */
+.banner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #CFF4EC;
+    position: relative;
+    margin: 3rem;
+}
+
+.banner-content {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.banner-content h1 {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    overflow-wrap: break-word;
+    width: 50%;
+    font-size: 5em;
+}
+
+.banner-content p {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5em;
+}
+
+.banner img {
+    width: 40%;
+    vertical-align: middle;
+    object-fit: cover;
+    object-position: 50% 50%;
+}
+
+/*CSS for About */
+.about {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem;
+    margin-top: 5rem;
+    background-color: rgb(234, 234, 232);
+    padding-top: 3em;
+    overflow: visible;
+}
+
+.about h1 {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 2em;
+}
+
+.about-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+
+.about-content p:first-child {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 5em;
+}
+
+.about-content p:nth-child(2) {
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.about-img {
+    width: 100%;
+    height: 15em;
+    position: relative;
+}
+
+.about img {
+    width: 20%;
+    object-fit: cover;
+    object-position: 30% 30%;
+    position: absolute;
+    top: 0;
+    left: 40%;
+}
+
+/* CSS for Therapy */
+.therapy {
+    margin: 3rem;
+    margin-top: 20rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.therapy-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 30rem;
+}
+
+.therapy-content p:first-child {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 2em;
+}
+
+.therapy-content h1 {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 3.5em;
+    width: 50%;
+    overflow-wrap: break-word;
+    text-align: center;
+    margin-bottom: 0.5em;
+}
+
+.therapy-content p:last-child {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    width: 60%;
+    overflow-wrap: break-word;
+    text-align: center;
+}
+
+
+/* CSS for article */
+.article {
+    margin: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(234, 234, 232);
+    padding: 2em;
+}
+
+.article h1{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 2em;
+    margin: 1em;
+}
+
+.article-container{
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background-color: white;
+    padding-top: 2em;
+    padding-bottom: 2em;
+
+}
+
+.cards{
+    border: 1px lightgray solid;
+}
+
+.article-content{
+    display: flex;
+    flex-direction: column;
+}
+
+.article-content img{
+    width: 100%;
+}
+
+.article-content p{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.25em;
+    font-style: italic;
+    padding: 10px;
+}
+
+.article-detail{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between  ;
+    padding: 10px;
+}
+
+/* CSS for footer */
+
+.footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 3em;
+
+}

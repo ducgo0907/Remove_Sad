@@ -18,6 +18,7 @@ import socketIOClient from 'socket.io-client';
 import PaymentForm from './pages/Order/Order';
 import SuccessPage from './pages/Status/Success';
 import FailPage from './pages/Status/Failed';
+import Homepage from './pages/Homepage/Homepage';
 
 function App() {
 	const [user, setUser] = useState(authService.getCurrentUser());
@@ -103,7 +104,7 @@ function App() {
 	return (
 		<Router basename='/'>
 			<div className="App">
-				<header>
+				{/* <header>
 					<nav className="navbar navbar-expand-lg navbar-light bg-light">
 						<div className="container">
 							<Link className="navbar-brand" to="/">Pilyr</Link>
@@ -116,10 +117,11 @@ function App() {
 								: (<Link className='navbar-brand' to="/login">Đăng nhập</Link>)}
 						</div>
 					</nav>
-				</header>
+				</header> */}
 				<main>
 					<Routes>
 						<Route path="/" element={<Home user={user} />} />
+						<Route path="/home" element={<Homepage/>} />
 						<Route path="/about" element={<About />} />
 						<Route path='/payment' element={<PaymentForm user={user}/>} />
 						<Route path='/success' element={<SuccessPage />} />
@@ -131,11 +133,11 @@ function App() {
 						<Route path='/listPending' element={<ListPending users={users} socket={socket} setUsers={setUsers} user={user} />} />
 					</Routes>
 				</main>
-				<footer className="bg-dark text-light py-3">
+				{/* <footer className="bg-dark text-light py-3">
 					<div className="container text-center">
 						&copy; {new Date().getFullYear()} Pilyr. All Rights Reserved.
 					</div>
-				</footer>
+				</footer> */}
 			</div>
 		</Router>
 	);
