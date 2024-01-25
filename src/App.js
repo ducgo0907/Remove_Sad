@@ -107,15 +107,15 @@ function App() {
 				<header className="relative">
 					<nav className="navbar navbar-expand-lg navbar-light bg-light fixed top-0 left-0 right-0">
 						<div className="container ">
-							<Link className="navbar-brand" to="/"><img className='w-24' src='pilyr-logo.png'/></Link>
+							<Link className="navbar-brand" to="/home"><img className='w-24' src='pilyr-logo.png'/></Link>
 							<div className='flex flex-row space-x-10'>
-								<Link className="navbar-brand font-thin" to="/home">Home</Link>
-								<Link className="navbar-brand font-thin" to="/about">About</Link>
-								<Link className="navbar-brand font-thin" to="/">Service</Link>
+								<Link className="navbar-brand font-thin" to="/home">Trang Chủ</Link>
+								<Link className="navbar-brand font-thin" to="/about">Giới Thiệu</Link>
+								<Link className="navbar-brand font-thin" to="/">Dịch Vụ</Link>
 								<div className='navbar-brand font-thin'>
 									Bạn đang có {money ? money / 20000 : 0} cốc coffee
 								</div>
-								<Link to='/payment' className='font-semibold text-xl	' style={{ textDecoration: "none", fontSize: "" }}>Nạp tiền</Link>
+								<Link to='/payment' className='font-semibold text-xl	' style={{ textDecoration: "none", fontSize: "" , padding: "5px 0px"}}>Nạp tiền</Link>
 								{user && user.email != undefined && user.email.includes("@")
 									? (<div className='narbar-brand logout-btn font-thin text-xl' onClick={() => logOut()}>Đăng xuất</div>)
 									: (<Link className='navbar-brand font-thin' to="/login">Đăng nhập</Link>)}

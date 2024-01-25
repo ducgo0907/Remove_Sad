@@ -6,52 +6,48 @@ function About() {
 	return (
 		<div>
 			<div className="about">
-				<h1>About</h1>
+				<h1>Giới Thiệu</h1>
 				<div className="about-content">
 					<p>Pilyr</p>
-					<p>I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. Feel free to drag and drop me anywhere you like on your page. I’m a great place for you to tell a story and let your users know a little more about you.</p>
+					<p>Dịch vụ kinh doanh, “Gom nỗi niềm, trả thảnh thơi”.
+
+						Chúng tôi gom lại, thu vén mọi nỗi niềm của bạn. Chúng tôi là những người lắng nghe, tâm sự, không đánh giá, không phát xét.
+
+						Chúng tôi sẽ chỉ đưa lời khuyên nếu như khách hàng cần.
+
+						Cảm ơn và Pilyr luôn bên bạn <i class="fa-solid fa-heart"></i></p>
 				</div>
 				<div className="about-img">
-					<img src="https://static.wixstatic.com/media/9c608a_2a78cf5937414d0e9a597504d68daafc~mv2_d_6046_4035_s_4_2.jpg/v1/crop/x_776,y_0,w_3647,h_4035/fill/w_519,h_572,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/9c608a_2a78cf5937414d0e9a597504d68daafc~mv2_d_6046_4035_s_4_2.jpg" alt="img" />
+					<img src="/pilyr-logo.png" alt="img" />
 				</div>
 			</div>
 
 			<div className="about-detail">
-				<h1>Experience</h1>
+				<h1>Pilyr xin chào!</h1>
 				<div className="exp">
-					<p>I'm a title.
-						Click here to edit.
-					</p>
+					<p>Chào mọi người, chúng mình thuộc dự án "Gom nỗi niềm, trả thảnh thơi".</p>
 					<p>
-						I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. Feel free to drag and drop me anywhere you like on your page. I’m a great place for you to tell a story and let your users know a little more about you.
+						Nhận thấy rằng trong xã hội hiện nay, nhu cầu được lắng nghe, được giải tỏa, là nhu cầu "Cần", "Thầm kín" ai cũng đã hoặc sẽ có, nhưng không phải ai cũng sẵn sàng để nói ra. Ý tưởng khởi nghiệp "Pilyr ở đây lắng nghe bạn" được hình thành để làm phong phú tài sản tinh thần cho những ai có nhu cầu giãi bày, tâm sự nhưng lại không sẵn sàng chia sẻ vì ngại một ánh nhìn, ngại bị đánh giá hoặc sợ rằng ai đó lợi dụng vấn đề ấy.
+
+						Pilyr sẽ sẽ trở thành người lạ đáng tin cậy để mọi người thể chia sẻ bất kỳ điều gì - một cách ẩn danh. Pilyr sẽ không đánh giá, không phán xét và chỉ đưa lời khuyên khi bạn thực sự cần.
+
+						Dự án của chúng mình sẽ không thể thành công nếu thiếu đi sự yêu thương của tất cả mọi người. Cảm ơn vì mọi người đã đã ghé tới website.
 					</p>
 				</div>
 
-				<h1>Qualifications</h1>
+				<h1>Liên hệ với chúng mình: </h1>
 				<div className="qual">
 					<div className="milestone">
-						<p>2023 - Present</p>
-						<p>I am a description. Click here to edit.</p>
+						<p>Địa chỉ:</p>
+						<p>Đại học FPT Hà Nội.</p>
 					</div>
 					<div className="milestone">
-						<p>2014 - 2023</p>
-						<p>I am a description. Click here to edit.</p>
+						<p>Website:</p>
+						<p>https://pilyr.netlify.app/.</p>
 					</div>
 					<div className="milestone">
-						<p>2009 - 2013</p>
-						<p>I am a description. Click here to edit.</p>
-					</div>
-					<div className="milestone">
-						<p>2008</p>
-						<p>I am a description. Click here to edit.</p>
-					</div>
-					<div className="milestone">
-						<p>2004 - 2007</p>
-						<p>I am a description. Click here to edit.</p>
-					</div>
-					<div className="milestone">
-						<p>2003</p>
-						<p>I am a description. Click here to edit.</p>
+						<p>Gmail:</p>
+						<p>pilyrpp@gmail.com.</p>
 					</div>
 				</div>
 			</div>
