@@ -48,6 +48,10 @@ class AuthService {
 	checkExistedChat(param) {
 		return axios.post(API_URL + "checkExsitedChat", param, { headers: authHeader() });
 	}
+
+	genGuest(){
+		return axios.post(API_URL + "genGuest", {}, {headers: authHeader()});
+	}
 }
 
 export default new AuthService();

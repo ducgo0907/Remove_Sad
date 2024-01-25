@@ -17,8 +17,6 @@ const AdminChat = ({
 	setMessage,
 	sendMessage }) => {
 
-	console.log(users);
-
 	return (
 		<div className="flex justify-center w-full">
 			{!userLogged.isAdmin && !isConnect && <TextNoti text={"watiting ...."} />}

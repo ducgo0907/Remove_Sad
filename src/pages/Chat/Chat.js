@@ -45,7 +45,8 @@ function Chat({ userLogged, setSocket, socket }) {
 			if (userLogged.isAdmin) {
 				messageService.getListUser(userLogged.email)
 					.then(res => {
-						setUsers(res.data.data);
+						const list = res.data.data;
+						setUsers(list);
 					})
 					.catch(err => {
 						console.log(err);
@@ -70,9 +71,16 @@ function Chat({ userLogged, setSocket, socket }) {
 			setMess(oldMsg => [...oldMsg, dataGot]);
 
 			// Remove dataGot.sender from the current users array (if it exists)
-			const updatedUsers = users.filter(user => user.sender !== dataGot.sender);
-			// Add dataGot.sender to the beginning of the updated users array
-			setUsers([{ sender: dataGot.sender }, ...updatedUsers]);
+			if (users.length > 0) {
+				const updatedUsers = users.filter(user => {
+					return user.sender !== dataGot.sender
+				}
+				);
+				const newList = [{ sender: dataGot.sender }, ...updatedUsers]
+				console.log(newList, dataGot);
+				// Add dataGot.sender to the beginning of the updated users array
+				setUsers(newList);
+			}
 			if (dataGot.sender !== 'admin') {
 				setUser(dataGot.sender);
 			}
@@ -84,8 +92,8 @@ function Chat({ userLogged, setSocket, socket }) {
 			setIsConnect(true);
 			MySwal.fire("Pylir is connected with you. Have fun ^^!");
 		})
-		
-		if(user && user !== ""){
+
+		if (user && user !== "") {
 			// setIsConnect(true);
 		}
 

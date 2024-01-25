@@ -43,13 +43,21 @@ function App() {
 
 	const genGuestAccount = () => {
 		const guestUser = {
-			email: "guest" + makeid(50),
+			email: "Khách-" + makeid(10),
 			id: makeid(20),
 			isAdmin: false,
 			accessToken: ""
 		}
-		localStorage.setItem("user", JSON.stringify(guestUser));
-		setUser(guestUser);
+		authService.genGuest()
+			.then(res => {
+				guestUser.email = res.data;
+				localStorage.setItem("user", JSON.stringify(guestUser));
+				setUser(guestUser);
+			})
+			.catch(err => {
+				console.log(err)
+			})
+		
 	}
 
 	useEffect(() => {
@@ -121,9 +129,9 @@ function App() {
 				<main>
 					<Routes>
 						<Route path="/" element={<Home user={user} />} />
-						<Route path="/home" element={<Homepage/>} />
+						<Route path="/home" element={<Homepage />} />
 						<Route path="/about" element={<About />} />
-						<Route path='/payment' element={<PaymentForm user={user}/>} />
+						<Route path='/payment' element={<PaymentForm user={user} />} />
 						<Route path='/success' element={<SuccessPage />} />
 						<Route path='/failed' element={<FailPage />} />
 						<Route path="/login" element={<DirectRouter path="/" element={<Login />} />} />
