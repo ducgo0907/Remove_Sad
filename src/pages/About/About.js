@@ -5,21 +5,6 @@ import "../About/About.css"
 function About() {
 	return (
 		<div>
-			<header className="relative">
-				<nav className="navbar navbar-expand-lg navbar-light bg-light fixed top-0 left-0 right-0">
-					<div className="container">
-						<Link className="navbar-brand" to="/">Pilyr</Link>
-						<div>
-							<Link className="navbar-brand font-thin" to="/home">Home</Link>
-							<Link className="navbar-brand font-thin" to="/about">About</Link>
-							<Link className="navbar-brand font-thin" to="/">Service</Link>
-							<Link className="navbar-brand font-thin" to="/">Blog</Link>
-							<Link className="navbar-brand font-thin" to="/">Contact</Link>
-						</div>
-					</div>
-				</nav>
-			</header>
-
 			<div className="about">
 				<h1>About</h1>
 				<div className="about-content">

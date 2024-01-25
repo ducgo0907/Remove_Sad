@@ -4,7 +4,7 @@ import "../Homepage/Homepage.css"
 function Homepage() {
     return (
         <div>
-            <header className="relative">
+            {/* <header className="relative">
                 <nav className="navbar navbar-expand-lg navbar-light bg-light fixed top-0 left-0 right-0">
                     <div className="container">
                         <Link className="navbar-brand" to="/">Pilyr</Link>
@@ -17,7 +17,7 @@ function Homepage() {
                         </div>
                     </div>
                 </nav>
-            </header>
+            </header> */}
 
             <div className="banner">
                 <div className="banner-content">
