@@ -14,9 +14,12 @@ import { v4 as uuidv4 } from "uuid";
 import TextNoti from "../TextNofitication/TextNoti";
 import AdminChat from "../ChatPage/AdminChat";
 import UserChat from "../ChatPage/UserChat";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
 
 // const host = "https://s9fyy9-3001.csb.app";
 const host = CONSTANT.host;
+const MySwal = withReactContent(Swal);
 
 function Chat({ userLogged, setSocket, socket }) {
 	const [message, setMessage] = useState('');
@@ -79,11 +82,11 @@ function Chat({ userLogged, setSocket, socket }) {
 			localStorage.setItem("pylirConnect", admin);
 			setUser(admin);
 			setIsConnect(true);
-			alert("Pylir is connected with you. Have fun ^^!");
+			MySwal.fire("Pylir is connected with you. Have fun ^^!");
 		})
 		
 		if(user && user !== ""){
-			setIsConnect(true);
+			// setIsConnect(true);
 		}
 
 		return () => {
@@ -114,7 +117,7 @@ function Chat({ userLogged, setSocket, socket }) {
 	}, [user])
 
 	const sendMessage = async () => {
-		if (message !== null) {
+		if (message !== null && message !== "") {
 			const msg = {
 				message: message,
 				sender: userLogged.email,
@@ -137,7 +140,7 @@ function Chat({ userLogged, setSocket, socket }) {
 	useEffect(() => {
 		if (socket) {
 			socket.on("getAdminId", (admin) => {
-				console.log("Day la chat", admin);
+				// console.log("Day la chat", admin);
 			})
 		}
 	}, [socket])

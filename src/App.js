@@ -18,6 +18,7 @@ import socketIOClient from 'socket.io-client';
 import PaymentForm from './pages/Order/Order';
 import SuccessPage from './pages/Status/Success';
 import FailPage from './pages/Status/Failed';
+import Homepage from './pages/Homepage/Homepage';
 
 function App() {
 	const [user, setUser] = useState(authService.getCurrentUser());
@@ -25,8 +26,6 @@ function App() {
 	const [socket, setSocket] = useState(null);
 	const [money, setMoney] = useState(authService.getCurrentMoney() || 0)
 	const [isFree, setisFree] = useState("true");
-	localStorage.setItem("isFree", isFree)
-
 
 	useEffect(() => {
 		if (localStorage.getItem("isFree") === null) {
@@ -61,10 +60,9 @@ function App() {
 	}, [])
 
 	useEffect(() => {
-		if (user && user.email && user.email.includes("@")) {
+		if (user && user.email != undefined && user.email.includes("@")) {
 			authService.getMoney()
 				.then(res => {
-					console.log("money:", res.data.money);
 					window.localStorage.setItem("money", res.data.money);
 					setMoney(parseInt(res.data.money))
 				})
@@ -106,25 +104,26 @@ function App() {
 	return (
 		<Router basename='/'>
 			<div className="App">
-				<header>
+				{/* <header>
 					<nav className="navbar navbar-expand-lg navbar-light bg-light">
 						<div className="container">
 							<Link className="navbar-brand" to="/">Pilyr</Link>
 							<div>
-								You have {money ? money / 40000 : 0} coffee
+								Bạn đang có {money ? money / 20000 : 0} cốc coffee
 							</div>
-							<Link to='/payment' style={{textDecoration: "none", fontSize: "1.25em"}}>Payment</Link>
-							{user && user.email.includes("@")
-								? (<div className='narbar-brand logout-btn' onClick={() => logOut()}>Logout</div>)
-								: (<Link className='navbar-brand' to="/login">Login</Link>)}
+							<Link to='/payment' style={{textDecoration: "none", fontSize: "1.25em"}}>Nạp tiền</Link>
+							{user && user.email != undefined && user.email.includes("@")
+								? (<div className='narbar-brand logout-btn' onClick={() => logOut()}>Đăng xuất</div>)
+								: (<Link className='navbar-brand' to="/login">Đăng nhập</Link>)}
 						</div>
 					</nav>
-				</header>
+				</header> */}
 				<main>
 					<Routes>
 						<Route path="/" element={<Home user={user} />} />
+						<Route path="/home" element={<Homepage/>} />
 						<Route path="/about" element={<About />} />
-						<Route path='/payment' element={<PaymentForm />} />
+						<Route path='/payment' element={<PaymentForm user={user}/>} />
 						<Route path='/success' element={<SuccessPage />} />
 						<Route path='/failed' element={<FailPage />} />
 						<Route path="/login" element={<DirectRouter path="/" element={<Login />} />} />
@@ -134,11 +133,11 @@ function App() {
 						<Route path='/listPending' element={<ListPending users={users} socket={socket} setUsers={setUsers} user={user} />} />
 					</Routes>
 				</main>
-				<footer className="bg-dark text-light py-3">
+				{/* <footer className="bg-dark text-light py-3">
 					<div className="container text-center">
 						&copy; {new Date().getFullYear()} Pilyr. All Rights Reserved.
 					</div>
-				</footer>
+				</footer> */}
 			</div>
 		</Router>
 	);
