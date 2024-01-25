@@ -4,7 +4,7 @@ import "../Homepage/Homepage.css"
 function Homepage() {
     return (
         <div>
-            <header className="relative">
+            {/* <header className="relative">
                 <nav className="navbar navbar-expand-lg navbar-light bg-light fixed top-0 left-0 right-0">
                     <div className="container">
                         <Link className="navbar-brand" to="/">Pilyr</Link>
@@ -17,48 +17,54 @@ function Homepage() {
                         </div>
                     </div>
                 </nav>
-            </header>
+            </header> */}
 
             <div className="banner">
                 <div className="banner-content">
-                    <h1>Online Therapy for Emotional Health</h1>
-                    <p>I am a description. Click here to edit.</p>
+                    <h1>Gom nỗi niềm, trả thảnh thơi.</h1>
+                    <p>Pilyr - người lạ đáng tin cậy.</p>
                 </div>
-                <img src="https://static.wixstatic.com/media/9c608a_350f9ef8ecf44916abe7927699962ae3~mv2_d_3000_2000_s_2.jpeg/v1/fill/w_872,h_998,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/9c608a_350f9ef8ecf44916abe7927699962ae3~mv2_d_3000_2000_s_2.jpeg" alt="img" />
+                <img src="mascot.jpg" alt="img" />
             </div>
 
             <div className="about">
-                <h1>About</h1>
+                <h1>Giới Thiệu</h1>
                 <div className="about-content">
                     <p>Pilyr</p>
-                    <p>I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. Feel free to drag and drop me anywhere you like on your page. I’m a great place for you to tell a story and let your users know a little more about you.</p>
+                    <p>Dịch vụ kinh doanh, “Gom nỗi niềm, trả thảnh thơi”.
+
+                        Chúng tôi gom lại, thu vén mọi nỗi niềm của bạn. Chúng tôi là những người lắng nghe, tâm sự, không đánh giá, không phát xét.
+
+                        Chúng tôi sẽ chỉ đưa lời khuyên nếu như khách hàng cần.
+
+                        Cảm ơn và Pilyr luôn bên bạn <i class="fa-solid fa-heart"></i></p>
                 </div>
                 <div className="about-img">
-                    <img src="https://static.wixstatic.com/media/9c608a_2a78cf5937414d0e9a597504d68daafc~mv2_d_6046_4035_s_4_2.jpg/v1/crop/x_776,y_0,w_3647,h_4035/fill/w_519,h_572,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/9c608a_2a78cf5937414d0e9a597504d68daafc~mv2_d_6046_4035_s_4_2.jpg" alt="img" />
+                    <img src="/pilyr-logo.png" alt="img" />
                 </div>
             </div>
 
             <div className="therapy">
                 <div className="therapy-content bg-lime-100">
                     <p>01.</p>
-                    <h1>Individual Therapy</h1>
-                    <p>I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font.</p>
+                    <h1>Tầm Nhìn</h1>
+                    <p>Pilyr không chỉ là một dịch vụ lắng nghe, mà là người bạn đồng hành tin cậy của thế hệ Millennials, gen Y và gen Z ở khu vực Hà Nội. Chúng tôi mong muốn trở thành một “người lạ đáng tin cậy” sẵn sàng lắng nghe, chia sẻ và hiểu được mọi niềm vui và nỗi buồn của bạn.</p>
                 </div>
                 <div className="therapy-content bg-gray-100">
                     <p>02.</p>
-                    <h1>Group Therapy</h1>
-                    <p>I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font.</p>
+                    <h1>Sứ Mệnh</h1>
+                    <p>"Sự hài lòng của bạn là niềm vinh hạnh của chúng tôi." Pilyr cam kết đem đến cho cộng đồng dịch vụ lắng nghe tốt nhất, không chỉ thông qua sự chuyên nghiệp mà còn qua sự trân trọng, tình yêu và trách nhiệm cao với cuộc sống con người và xã hội. Chúng tôi là nơi bạn có thể tìm thấy sự chân thành và sự chia sẻ.</p>
                     {/* <button>View More Service</button> */}
                 </div>
                 <div className="therapy-content bg-teal-100">
                     <p>03.</p>
-                    <h1>Couple Therapy</h1>
-                    <p>I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font.</p>
+                    <h1>Giá Trị Cốt Lõi</h1>
+                    <p>Chân Thành - Tận Tâm - Tín Nhiệm - Sáng Tạo - Tốc Độ</p>
                 </div>
             </div>
 
             <div className="article">
-                <h1>Articles about Psychology</h1>
+                <h1>Bài Viết Của Pilyr</h1>
                 <div className="article-container">
                     <div className="cards">
                         <div className="article-content">
@@ -102,7 +108,7 @@ function Homepage() {
             <div className="footer">
                 <div className="flex-row space-x-5">
                     <i class="fa-brands fa-twitter"></i>
-                    <i class="fa-brands fa-facebook"></i>
+                    <a href="https://www.facebook.com/profile.php?id=61555981224289"><i class="fa-brands fa-facebook"></i></a>
                 </div>
                 <p>© 2024 Pilyr. All Rights Reserved.</p>
             </div>
