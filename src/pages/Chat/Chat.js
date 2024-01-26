@@ -28,6 +28,7 @@ function Chat({ userLogged, setSocket, socket }) {
 	const [users, setUsers] = useState([]);
 	const [isAdmin, setIsAdmin] = useState(false);
 	const [isConnect, setIsConnect] = useState(false);
+	const [avatar, setAvatar] = useState("/1.png");
 	const nav = useNavigate();
 	const location = useLocation();
 	const socketRef = useRef();
@@ -43,6 +44,10 @@ function Chat({ userLogged, setSocket, socket }) {
 		const isAccess = localStorage.getItem("isAccess");
 		if(!isAccess || isAccess == undefined){
 			nav('/')
+		}
+		const newAvatar = localStorage.getItem("avatar");
+		if(newAvatar && newAvatar != undefined){
+			setAvatar(newAvatar);
 		}
 	}, [])
 
@@ -183,7 +188,9 @@ function Chat({ userLogged, setSocket, socket }) {
 					message={message}
 					onEnterPerss={onEnterPerss}
 					setMessage={setMessage}
-					sendMessage={sendMessage} />
+					sendMessage={sendMessage} 
+					avatar={avatar}
+					/>
 				:
 				<UserChat
 					userLogged={userLogged}
@@ -198,7 +205,9 @@ function Chat({ userLogged, setSocket, socket }) {
 					onEnterPerss={onEnterPerss}
 					setMessage={setMessage}
 					sendMessage={sendMessage}
-					setMess={setMess} />
+					setMess={setMess} 
+					avatar={avatar}
+					/>
 			}
 
 		</div>

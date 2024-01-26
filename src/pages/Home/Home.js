@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../Home/home.css";
-import avatar from "../../asset/O2.jpg";
 import CONSTANT from "../../utils/Iconstant";
 import socketIOClient from "socket.io-client";
 import authService from "../../services/auth.service";
@@ -16,7 +15,19 @@ function Home({ user }) {
 	const [userName, setUserName] = useState("");
 	const [socket, setSocket] = useState(null);
 	const [isFree, setIsFree] = useState(localStorage.getItem("isFree") === "true");
+	const [currentAvatar, setCurrentAvatar] = useState("");
 	const nav = useNavigate();
+	const imageArrays = [
+		"/1.png",
+		"/2.png",
+		"/3.png",
+		"/4.png",
+		"/5.png",
+		"/6.png",
+		"/7.png",
+		"/8.png",
+		"/9.png",
+	]
 	useEffect(() => {
 		const newSocket = socketIOClient.connect(host);
 		setSocket(newSocket);
@@ -49,6 +60,12 @@ function Home({ user }) {
 			setIsAdmin(user.isAdmin);
 		}
 	}, [user])
+
+	useEffect(() => {
+		if(currentAvatar){
+			localStorage.setItem("avatar", currentAvatar);
+		}
+	})
 
 	const handleNameChange = (e) => {
 		setUserName(e.target.value);
@@ -153,8 +170,8 @@ function Home({ user }) {
 								</div>
 								<div className="photo-gallery grid grid-cols-3 gap-4 p-5">
 									{/* You can map through an array of avatars and generate the elements */}
-									{Array.from({ length: 9 }).map((_, index) => (
-										<div key={index} className="flex justify-center">
+									{imageArrays.map((avatar, index) => (
+										<div key={index} style={{ backgroundColor: currentAvatar == avatar ? 'rgb(217 244 248)' : ''}} className="flex justify-center" onClick={() => setCurrentAvatar(avatar)}>
 											<div className="flex justify-center w-auto">
 												<img className="rounded-full" src={avatar} alt={`Avatar ${index + 1}`} />
 											</div>

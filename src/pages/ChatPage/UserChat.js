@@ -23,7 +23,8 @@ const UserChat = ({
 	onEnterPerss,
 	setMessage,
 	sendMessage,
-	setMess }) => {
+	setMess,
+	avatar }) => {
 	const [time, setTime] = useState(() => {
 		const timeR = localStorage.getItem("remainTime");
 		if(timeR){
@@ -32,7 +33,6 @@ const UserChat = ({
 			return 20*60;
 		}
 	})
-	const nav = useNavigate();
 
 	useEffect(() => {
 		
@@ -122,6 +122,7 @@ const UserChat = ({
 										<div className="msg right-msg" key={uuidv4()}>
 											<div
 												className="msg-img"
+												style={{ backgroundImage: `url(${avatar})`}}
 											></div>
 
 											<div className="msg-bubble">
@@ -178,6 +179,7 @@ const UserChat = ({
 									<div className="msg right-msg" key={uuidv4()}>
 										<div
 											className="msg-img"
+											style={{ backgroundImage: `url(${avatar})`}}
 										></div>
 
 										<div className="msg-bubble">
