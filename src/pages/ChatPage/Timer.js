@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Timer = ({ initialTimeInSeconds, isStart }) => {
   const [timeRemaining, setTimeRemaining] = useState(initialTimeInSeconds);
+  const nav = useNavigate();
 
   useEffect(() => {
     let timerId;
@@ -17,7 +19,10 @@ const Timer = ({ initialTimeInSeconds, isStart }) => {
   }, [timeRemaining, isStart]);
 
   const formatTime = (seconds) => {
-    localStorage.setItem("remainTime", seconds)
+    localStorage.setItem("remainTime", seconds);
+    if(seconds <= 0){
+      nav('/')
+    }
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
 

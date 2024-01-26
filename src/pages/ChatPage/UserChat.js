@@ -8,6 +8,7 @@ import "../ChatPage/chat.css"
 import messageService from "../../services/message.service";
 import { useEffect, useState } from "react";
 import Timer from "./Timer";
+import { useNavigate } from "react-router-dom";
 
 const UserChat = ({
 	userLogged,
@@ -31,6 +32,11 @@ const UserChat = ({
 			return 20*60;
 		}
 	})
+	const nav = useNavigate();
+
+	useEffect(() => {
+		
+	}, [])
 
 	const handleDeleteChat = async () => {
 		if (!window.confirm("Are you want to delete this chat?")) {

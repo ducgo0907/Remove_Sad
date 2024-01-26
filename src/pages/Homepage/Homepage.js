@@ -48,7 +48,7 @@ function Homepage() {
                 <div className="therapy-content bg-lime-100">
                     <p>01.</p>
                     <h1>Tầm Nhìn</h1>
-                    <p>Pilyr không chỉ là một dịch vụ lắng nghe, mà là người bạn đồng hành tin cậy của thế hệ Millennials, gen Y và gen Z ở khu vực Hà Nội. Chúng tôi mong muốn trở thành một “người lạ đáng tin cậy” sẵn sàng lắng nghe, chia sẻ và hiểu được mọi niềm vui và nỗi buồn của bạn.</p>
+                    <p>Pilyr không chỉ là một dịch vụ lắng nghe, mà là người bạn đồng hành tin cậy của thế hệ gen Y và gen Z ở khu vực Hà Nội. Chúng tôi mong muốn trở thành một “người lạ đáng tin cậy” sẵn sàng lắng nghe, chia sẻ và hiểu được mọi niềm vui và nỗi buồn của bạn.</p>
                 </div>
                 <div className="therapy-content bg-gray-100">
                     <p>02.</p>

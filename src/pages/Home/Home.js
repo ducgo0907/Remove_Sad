@@ -57,7 +57,7 @@ function Home({ user }) {
 		e.preventDefault(); // Prevent the default form submission behavior
 
 		const title = isFree
-			? "Bạn có muốn sử dụng 30 phút dùng thử miễn phí?"
+			? "Bạn có muốn sử dụng 20 phút dùng thử miễn phí?"
 			: "Bạn có muốn sử dụng một cốc cà phê để trò chuyện với Pilyr?";
 		if (!isAdmin) {
 			if (userName.trim() !== "" || isAdmin) {
@@ -87,12 +87,14 @@ function Home({ user }) {
 												const data = response.data;
 												if (data.status === 0) {
 													Swal.fire("Bạn không có đủ tiền mua cà phê");
+													localStorage.setItem("isAccess", false);
 												} else {
 													const twentyMinutesFromNow = new Date();
 													const startDate = new Date(data.timeStart);
 													startDate.setMinutes(startDate.getMinutes() + 20);
 													const remainingMilliseconds = Math.floor((startDate - twentyMinutesFromNow) / 1000);
 													localStorage.setItem("remainTime", remainingMilliseconds);
+													localStorage.setItem("isAccess", true);
 													nav(path, { state: { userName } })
 												}
 											})
@@ -108,6 +110,7 @@ function Home({ user }) {
 							if (startDate > twentyMinutesFromNow) {
 								const remainingMilliseconds = Math.floor((startDate - twentyMinutesFromNow) / 1000);
 								localStorage.setItem("remainTime", remainingMilliseconds);
+								localStorage.setItem("isAccess", true);
 								nav(path, { state: { userName } });
 							}
 						}
@@ -121,6 +124,7 @@ function Home({ user }) {
 			}
 		} else {
 			nav(path, { state: { userName } });
+			localStorage.setItem("isAccess", true)
 		}
 	};
 

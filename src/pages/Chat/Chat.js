@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../Chat/chat.css"
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import socketIOClient from "socket.io-client";
 import ScrollToBottom from "react-scroll-to-bottom";
 import axios from "axios";
@@ -28,15 +28,23 @@ function Chat({ userLogged, setSocket, socket }) {
 	const [users, setUsers] = useState([]);
 	const [isAdmin, setIsAdmin] = useState(false);
 	const [isConnect, setIsConnect] = useState(false);
+	const nav = useNavigate();
 	const location = useLocation();
 	const socketRef = useRef();
 
-	let userName = location.state.userName;
+	let userName = location?.state?.userName;
 
 	// if (userInfo && userInfo !== null) {
 	// 	let userInformation = JSON.parse(userInfo);
 	// 	userName = userInformation.name; // change email => name
 	// }
+
+	useEffect(() => {
+		const isAccess = localStorage.getItem("isAccess");
+		if(!isAccess || isAccess == undefined){
+			nav('/')
+		}
+	}, [])
 
 	useEffect(() => {
 		socketRef.current = socketIOClient.connect(host);
@@ -74,12 +82,20 @@ function Chat({ userLogged, setSocket, socket }) {
 			if (users.length > 0) {
 				const updatedUsers = users.filter(user => {
 					return user.sender !== dataGot.sender
-				}
-				);
+				});
 				const newList = [{ sender: dataGot.sender }, ...updatedUsers]
 				console.log(newList, dataGot);
 				// Add dataGot.sender to the beginning of the updated users array
 				setUsers(newList);
+			}else{
+				messageService.getListUser(userLogged.email)
+					.then(res => {
+						const list = res.data.data;
+						setUsers(list);
+					})
+					.catch(err => {
+						console.log(err);
+					})
 			}
 			if (dataGot.sender !== 'admin') {
 				setUser(dataGot.sender);
