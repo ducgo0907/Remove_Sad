@@ -19,6 +19,7 @@ import PaymentForm from './pages/Order/Order';
 import SuccessPage from './pages/Status/Success';
 import FailPage from './pages/Status/Failed';
 import Homepage from './pages/Homepage/Homepage';
+import { Chart } from './pages/Chart/Chart';
 
 function App() {
 	const [user, setUser] = useState(authService.getCurrentUser());
@@ -133,21 +134,6 @@ function App() {
 						</div>
 					</nav>
 				</header>
-
-				{/* <header>
-					<nav className="navbar navbar-expand-lg navbar-light bg-light">
-						<div className="container">
-							<Link className="navbar-brand" to="/">Pilyr</Link>
-							<div>
-								Bạn đang có {money ? money / 20000 : 0} cốc coffee
-							</div>
-							<Link to='/payment' style={{ textDecoration: "none", fontSize: "1.25em" }}>Nạp tiền</Link>
-							{user && user.email != undefined && user.email.includes("@")
-								? (<div className='narbar-brand logout-btn' onClick={() => logOut()}>Đăng xuất</div>)
-								: (<Link className='navbar-brand' to="/login">Đăng nhập</Link>)}
-						</div>
-					</nav>
-				</header> */}
 				<main>
 					<Routes>
 						<Route path="/" element={<Home user={user} />} />
@@ -161,6 +147,7 @@ function App() {
 						<Route path='/register' element={<DirectRouter path="/" element={<Register />} />} />
 						<Route path='/schedule' element={<Schedule user={user} />} />
 						<Route path='/listPending' element={<ListPending users={users} socket={socket} setUsers={setUsers} user={user} />} />
+						<Route path='/dashboard' element={<Chart />} />
 					</Routes>
 				</main>
 				{/* <footer className="bg-dark text-light py-3">

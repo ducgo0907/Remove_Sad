@@ -8,8 +8,12 @@ class OrderService {
 		return axios.post(`${API_URL}/create_payment_url`, formData, { headers: authHeader() })
 	}
 
-	createOrder(money){
-		return axios.post(`${API_URL}/create`, {money}, {headers: authHeader()})
+	createOrder(body){
+		return axios.post(`${API_URL}/create`, body, {headers: authHeader()})
+	}
+
+	getOrder(param){
+		return axios.get(`${API_URL}/getData`, {params: param}, {headers: authHeader()})
 	}
 }
 
