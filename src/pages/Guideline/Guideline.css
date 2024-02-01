@@ -9,30 +9,22 @@
 .guideline h1 {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-style: italic;
-    font-size: 2em;
+    font-size: 4em;
 }
 
-/* CSS for step 1 */
-.step1 {
-    background-color: #cff4ec;
+.guideline img{
+    width: 60%;
+    border: lightblue 1px solid;
 }
 
 
-/* CSS for step 2 */
-.step2 {
-    background-color: #B3ECF2;
+/* CSS for step */
+.step{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-/* CSS for step 3 */
-
-
-/* CSS for step 4 */
-
-
-/* CSS for step 5 */
-
-
-/* CSS for step 6 */
 
 
 

@@ -120,6 +120,7 @@ function App() {
 							<div className='flex flex-row space-x-10'>
 								<Link className="navbar-brand font-thin" to="/">Trang Chủ</Link>
 								<Link className="navbar-brand font-thin" to="/about">Giới Thiệu</Link>
+								<Link className="navbar-brand font-thin" to="/guideline">Guideline</Link>
 								<Link className="navbar-brand font-thin" to="/home">Dịch Vụ</Link>
 								<div className='navbar-brand font-thin'>
 									Bạn đang có {money ? money / 20000 : 0} cốc coffee
