@@ -20,6 +20,7 @@ import SuccessPage from './pages/Status/Success';
 import FailPage from './pages/Status/Failed';
 import Homepage from './pages/Homepage/Homepage';
 import { Chart } from './pages/Chart/Chart';
+import Guideline from './pages/Guideline/Guideline';
 
 function App() {
 	const [user, setUser] = useState(authService.getCurrentUser());
@@ -116,11 +117,12 @@ function App() {
 				<header className="relative">
 					<nav className="navbar navbar-expand-lg navbar-light bg-light fixed top-0 left-0 right-0">
 						<div className="container ">
-							<Link className="navbar-brand" to="/home"><img className='w-24' src='pilyr-logo.png'/></Link>
+							<Link className="navbar-brand" to="/"><img className='w-24' src='pilyr-logo.png'/></Link>
 							<div className='flex flex-row space-x-10'>
-								<Link className="navbar-brand font-thin" to="/home">Trang Chủ</Link>
+								<Link className="navbar-brand font-thin" to="/">Trang Chủ</Link>
 								<Link className="navbar-brand font-thin" to="/about">Giới Thiệu</Link>
-								<Link className="navbar-brand font-thin" to="/">Dịch Vụ</Link>
+								<Link className="navbar-brand font-thin" to="/guideline">Guideline</Link>
+								<Link className="navbar-brand font-thin" to="/home">Dịch Vụ</Link>
 								<div className='navbar-brand font-thin'>
 									Bạn đang có {money ? money / 20000 : 0} cốc coffee
 								</div>
@@ -136,9 +138,11 @@ function App() {
 				</header>
 				<main>
 					<Routes>
-						<Route path="/" element={<Home user={user} />} />
-						<Route path="/home" element={<Homepage />} />
+						<Route path="/home" element={<Home user={user} />} />
+						<Route path="/" element={<Homepage />} />
+						{/* <Route path="/home" element={<Homepage />} /> */}
 						<Route path="/about" element={<About />} />
+						<Route path="/guideline" element={<Guideline />} />
 						<Route path='/payment' element={<PaymentForm user={user} />} />
 						<Route path='/success' element={<SuccessPage />} />
 						<Route path='/failed' element={<FailPage />} />

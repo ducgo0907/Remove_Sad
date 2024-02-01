@@ -1,0 +1,38 @@
+/* CSS for guideline */
+.guideline {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 3em;
+}
+
+.guideline h1 {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 4em;
+}
+
+.guideline img{
+    width: 60%;
+    border: lightblue 1px solid;
+}
+
+
+/* CSS for step */
+.step{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+/* CSS for footer */
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 3em;
+
+}
