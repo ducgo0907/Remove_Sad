@@ -13,10 +13,11 @@ function WeekSelect({ selectedStartDate, setSelectedStartDate, selectedEndDate, 
 
     useEffect(() => {
         const today = new Date();
-        const monday = new Date(today);
-        monday.setDate(today.getDate() - today.getDay() + (today.getDay() === 0 ? -6 : 1)); // Adjust when day is Sunday
-        const sunday = new Date(monday);
-        sunday.setDate(monday.getDate() + 6);
+        today.setHours(7);
+        today.setMinutes(0);
+        today.setSeconds(0);
+        const monday = getMonday(today);
+        const sunday = getSunday(today);
 
         setSelectedStartDate(monday.toISOString().split('T')[0]);
         setSelectedEndDate(sunday.toISOString().split('T')[0]);
