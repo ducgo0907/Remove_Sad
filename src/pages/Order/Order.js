@@ -65,7 +65,7 @@ const PaymentForm = (props) => {
 
 	const handleOptionChange = (event) => {
 		setSelectedOption(event.target.value);
-		switch(event.target.value){
+		switch (event.target.value) {
 			case 'CUSTOM':
 				setCoffee(0);
 				break;
@@ -75,7 +75,7 @@ const PaymentForm = (props) => {
 			case 'COMBO7':
 				setCoffee(7);
 				break;
-			default: 
+			default:
 				break;
 		}
 	};
@@ -87,12 +87,16 @@ const PaymentForm = (props) => {
 				<div>
 					<Row xs={12}>
 						<Col xs={6}>
-							<img src='QR_BIDV.jpg' />
+							<img style={{ width: "70%" }} src='QR_BIDV.jpg' />
 						</Col>
 						<Col xs={6}>
-							<h2>Để mua cà phê, vui lòng chuyển khoản số tiền: {coffee * 20000} đến tài khoản bên cạnh với nội dung chuyển khoản: <span style={{color: 'red'}}>{code}</span> để nạp tiền</h2>
-							<div>Số Tài Khoản: 4270787394</div>
-							<div>Ngân hàng: BIDV</div>
+							<h2>Để mua cà phê, vui lòng chuyển khoản số tiền: {coffee * 20000} đến tài khoản bên cạnh với nội dung chuyển khoản: <span style={{ color: 'red' }}>{code}</span> để nạp tiền</h2>
+							<div style={{fontSize:"1.5em"}}>
+								<div>Số Tài Khoản: 4270787394</div>
+								<div>Ngân hàng: BIDV</div>
+							</div>
+							<h2 style={{ marginTop: "2rem" }}>Pilyr đang pha coffee, vui lòng đợi ít phút...</h2>
+							<img style={{ width: "100%" }} src='https://kenh14cdn.com/thumb_w/600/203336854389633024/2021/8/31/photo1630402190645-1630402190840825942204.gif' />
 						</Col>
 					</Row>
 				</div>
@@ -119,7 +123,7 @@ const PaymentForm = (props) => {
 											placeholder="Number of coffees"
 											value={coffee}
 											onChange={(e) => setCoffee(e.target.value)}
-											disabled={selectedOption !=='CUSTOM'}
+											disabled={selectedOption !== 'CUSTOM'}
 										/>
 									</Col>
 								</Row>
