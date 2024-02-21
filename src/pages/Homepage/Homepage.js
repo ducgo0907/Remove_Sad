@@ -23,6 +23,7 @@ function Homepage() {
                 <div className="banner-content">
                     <h1>Gom nỗi niềm, trả thảnh thơi.</h1>
                     <p>Pilyr - người lạ đáng tin cậy.</p>
+                    <button style={{width: "fit-content", borderRadius:"15px"}}><Link style={{fontSize: "1.5em"}} className="navbar-brand" to="/home">Dịch vụ của Pilyr <i style={{marginLeft:"10px"}} class="fa-solid fa-arrow-right"></i></Link></button>
                 </div>
                 <img src="mascot.jpg" alt="img" />
             </div>
@@ -68,8 +69,9 @@ function Homepage() {
                 <div className="article-container">
                     <div className="cards">
                         <div className="article-content">
-                            <img src="https://static.wixstatic.com/media/84770f_6ae94823ccef48a5bf0ac4650fe562fa~mv2_d_3000_2000_s_2.jpeg/v1/fill/w_292,h_165,fp_0.50_0.50,q_90,enc_auto/84770f_6ae94823ccef48a5bf0ac4650fe562fa~mv2_d_3000_2000_s_2.jpeg" alt="img" />
-                            <p>Understanding PTSD</p>
+                            <img src="postcard1.png" alt="img" />
+                            {/* <p>Understanding PTSD</p> */}
+                            <a style={{textDecoration: "none"}} href="https://www.facebook.com/61555981224289/videos/414192127836456" target="_blank"><p>Postcard 01</p></a>
                         </div>
                         <hr />
                         <div className="article-detail">
@@ -80,8 +82,8 @@ function Homepage() {
                     </div>
                     <div className="cards">
                         <div className="article-content">
-                            <img src="https://static.wixstatic.com/media/03f22a3cb4d543b9b7ffcaae2f53a15f.jpg/v1/fill/w_292,h_165,fp_0.50_0.50,q_90,enc_auto/03f22a3cb4d543b9b7ffcaae2f53a15f.jpg" alt="img" />
-                            <p>Why it's okay to argue</p>
+                            <img src="postcard2.png" alt="img" />
+                            <a style={{textDecoration: "none"}} href="https://www.facebook.com/61555981224289/videos/414192127836456" target="_blank"><p>Postcard 02</p></a>
                         </div>
                         <hr />
                         <div className="article-detail">
