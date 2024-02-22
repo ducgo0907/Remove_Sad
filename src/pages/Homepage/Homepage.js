@@ -72,31 +72,31 @@ function Homepage() {
                         <div className="article-content">
                             <img src="postcard1.png" alt="img" />
                             {/* <p>Understanding PTSD</p> */}
-                            <a style={{textDecoration: "none"}} href="https://www.facebook.com/61555981224289/videos/414192127836456" target="_blank"><p>Postcard 01</p></a>
+                            <a style={{textDecoration: "none"}} href="https://www.facebook.com/61555981224289/videos/414192127836456" target="_blank" rel="noreferrer"><p>Postcard 01</p></a>
                         </div>
                         <hr />
                         <div className="article-detail">
-                            <i class="fa-regular fa-eye"> 250</i>
-                            <i class="fa-regular fa-comment"> 6</i>
-                            <i class="fa-regular fa-heart text-red-500"> 10</i>
+                            <i class="fa-regular fa-eye"> 210</i>
+                            <i class="fa-regular fa-comment"> 17</i>
+                            <i class="fa-regular fa-heart text-red-500"> 538</i>
                         </div>
                     </div>
                     <div className="cards">
                         <div className="article-content">
                             <img src="postcard2.png" alt="img" />
-                            <a style={{textDecoration: "none"}} href="https://www.facebook.com/61555981224289/videos/414192127836456" target="_blank"><p>Postcard 02</p></a>
+                            <a style={{textDecoration: "none"}} href="https://www.facebook.com/61555981224289/videos/1528945971014409" target="_blank" rel="noreferrer"><p>Postcard 02</p></a>
                         </div>
                         <hr />
                         <div className="article-detail">
-                            <i class="fa-regular fa-eye"> 130</i>
+                            <i class="fa-regular fa-eye"> 83</i>
                             <i class="fa-regular fa-comment"> 0</i>
-                            <i class="fa-regular fa-heart text-red-500"> 4</i>
+                            <i class="fa-regular fa-heart text-red-500"> 514</i>
                         </div>
                     </div>
                     <div className="cards">
                         <div className="article-content">
                             <img src="https://static.wixstatic.com/media/40c2397700984377a8d5a841d6b818ef.jpg/v1/fill/w_292,h_165,fp_0.50_0.50,q_90,enc_auto/40c2397700984377a8d5a841d6b818ef.jpg" alt="img" />
-                            <p>10 ways to de-strees</p>
+                            <a style={{textDecoration: "none"}} href="https://www.facebook.com/photo?fbid=122119415192199374&set=a.122095462868199374" target="_blank" rel="noreferrer"><p>5 ways to de-strees</p></a>
                         </div>
                         <hr />
                         <div className="article-detail">
