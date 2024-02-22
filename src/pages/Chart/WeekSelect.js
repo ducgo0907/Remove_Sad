@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './week-select.css'
+
 function WeekSelect({ selectedStartDate, setSelectedStartDate, selectedEndDate, setSelectedEndDate }) {
+
     const handleStartDateChange = (event) => {
         const selectedDate = new Date(event.target.value);
         const monday = getMonday(selectedDate);
