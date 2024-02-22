@@ -23,6 +23,7 @@ function Homepage() {
                 <div className="banner-content">
                     <h1>Gom nỗi niềm, trả thảnh thơi.</h1>
                     <p>Pilyr - người lạ đáng tin cậy.</p>
+                    <p>(7:00 p.m - 2:00 a.m)</p>
                     <button style={{width: "fit-content", borderRadius:"15px"}}><Link style={{fontSize: "1.5em"}} className="navbar-brand" to="/home">Khám phá Pilyr <i style={{marginLeft:"10px"}} class="fa-solid fa-arrow-right"></i></Link></button>
                     <button style={{width: "fit-content", borderRadius:"15px", marginTop:"1em"}}><Link style={{fontSize: "1.5em"}} className="navbar-brand" to="/guideline">Hướng dẫn <i style={{marginLeft:"10px"}} class="fa-solid fa-arrow-right"></i></Link></button>
                 </div>
