@@ -55,7 +55,7 @@ function About() {
 			<div className="footer">
 				<div className="flex-row space-x-5">
 					<i class="fa-brands fa-twitter"></i>
-					<i class="fa-brands fa-facebook"></i>
+					<a href="https://www.facebook.com/profile.php?id=61555981224289"><i class="fa-brands fa-facebook"></i></a>
 				</div>
 				<p>© 2024 Pilyr. All Rights Reserved.</p>
 			</div>
