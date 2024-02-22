@@ -121,14 +121,14 @@ function App() {
 							<div className='flex flex-row space-x-10'>
 								<Link className="navbar-brand font-thin" to="/">Trang Chủ</Link>
 								<Link className="navbar-brand font-thin" to="/about">Giới Thiệu</Link>
-								<Link className="navbar-brand font-thin" to="/guideline">Guideline</Link>
+								<Link className="navbar-brand font-thin" to="/guideline">Hướng dẫn</Link>
 								<Link className="navbar-brand font-thin" to="/home">Dịch Vụ</Link>
 								<div className='navbar-brand font-thin'>
 									Bạn đang có {money ? money / 20000 : 0} cốc coffee
 								</div>
 								<Link to='/payment' className='font-semibold text-xl	' style={{ textDecoration: "none", fontSize: "" , padding: "5px 0px"}}>Nạp tiền</Link>
 								{user && user.email != undefined && user.email.includes("@")
-									? (<div className='narbar-brand logout-btn font-thin text-xl' onClick={() => logOut()}>Đăng xuất</div>)
+									? (<div className='narbar-brand logout-btn font-thin text-xl justify-center' style={{alignItems: "center", display: "flex", flexDirection: "column", justifyContent: "center"}} onClick={() => logOut()}>Đăng xuất</div>)
 									: (<Link className='navbar-brand font-thin' to="/login">Đăng nhập</Link>)}
 								{/* <Link className="navbar-brand font-thin" to="/">Blog</Link>
 								<Link className="navbar-brand font-thin" to="/">Contact</Link> */}

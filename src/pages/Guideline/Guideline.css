@@ -9,7 +9,7 @@
 .guideline h1 {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-style: italic;
-    font-size: 4em;
+    font-size: 3.75em;
 }
 
 .guideline img{
@@ -22,11 +22,18 @@
 .step{
     width: 40%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-
+.step p{
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5em;
+    width: 80%;
+}
 
 /* CSS for footer */
 .footer {
