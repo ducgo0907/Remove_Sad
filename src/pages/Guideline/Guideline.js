@@ -64,6 +64,7 @@ function Guideline() {
                         Chọn "Đồng ý" để xác nhận sử dụng 1 ly coffee. 
                         Và đương nhiên, Pilyr luôn miễn phí cho lần trải nghiệm đầu tiên.
                     </p>
+                    <button style={{width: "fit-content", borderRadius:"15px"}}><Link style={{fontSize: "1.5em"}} className="navbar-brand" to="/home">Khám phá Pilyr <i style={{marginLeft:"10px"}} class="fa-solid fa-arrow-right"></i></Link></button>
                 </div>
             </div>
 
