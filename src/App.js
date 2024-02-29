@@ -21,6 +21,7 @@ import FailPage from './pages/Status/Failed';
 import Homepage from './pages/Homepage/Homepage';
 import { Chart } from './pages/Chart/Chart';
 import Guideline from './pages/Guideline/Guideline';
+import ServiceChoice from './pages/ServiceChoice/ServiceChoice';
 
 function App() {
 	const [user, setUser] = useState(authService.getCurrentUser());
@@ -28,6 +29,7 @@ function App() {
 	const [socket, setSocket] = useState(null);
 	const [money, setMoney] = useState(authService.getCurrentMoney() || 0)
 	const [isFree, setisFree] = useState("true");
+	const [meeting, setMeeting] = useState(0);
 
 	useEffect(() => {
 		if (localStorage.getItem("isFree") === null) {
@@ -73,8 +75,13 @@ function App() {
 		if (user && user.email != undefined && user.email.includes("@")) {
 			authService.getMoney()
 				.then(res => {
-					window.localStorage.setItem("money", res.data.money);
-					setMoney(parseInt(res.data.money))
+					const money = res.data.money.money;
+					const item = res.data.money.item;
+					window.localStorage.setItem("money", money);
+					setMoney(parseInt(money))
+					if(item){
+						setMeeting(item.amount);
+					}
 				})
 				.catch(err => {
 					console.log(err);
@@ -122,9 +129,9 @@ function App() {
 								<Link className="navbar-brand font-thin" to="/">Trang Chủ</Link>
 								<Link className="navbar-brand font-thin" to="/about">Giới Thiệu</Link>
 								<Link className="navbar-brand font-thin" to="/guideline">Hướng dẫn</Link>
-								<Link className="navbar-brand font-thin" to="/home">Dịch Vụ</Link>
-								<div className='navbar-brand font-thin'>
-									Bạn đang có {money ? money / 20000 : 0} cốc coffee
+								<Link className="navbar-brand font-thin" to="/choice">Dịch Vụ</Link>
+								<div className='navbar-brand font-thin' style={{wordBreak: 'break-word'}}>
+									Bạn đang có {money ? money / 20000 : 0} coffe, {meeting} coffe trò chuyện
 								</div>
 								<Link to='/payment' className='font-semibold text-xl	' style={{ textDecoration: "none", fontSize: "" , padding: "5px 0px"}}>Nạp tiền</Link>
 								{user && user.email != undefined && user.email.includes("@")
@@ -152,6 +159,7 @@ function App() {
 						<Route path='/schedule' element={<Schedule user={user} />} />
 						<Route path='/listPending' element={<ListPending users={users} socket={socket} setUsers={setUsers} user={user} />} />
 						<Route path='/dashboard' element={<Chart />} />
+						<Route path='/choice' element={<ServiceChoice />} />
 					</Routes>
 				</main>
 				{/* <footer className="bg-dark text-light py-3">

@@ -1,0 +1,31 @@
+.rectangle {
+    height: 200px;
+    text-align: center;
+    line-height: 200px; /* Center content vertically */
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .rectangle1 {
+    background-color: #007bff; /* Bootstrap primary color */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .rectangle2 {
+    background-color: #28a745; /* Bootstrap success color */
+  }
+  
+  .rectangle3 {
+    background-color: #dc3545; /* Bootstrap danger color */
+  }
+
+  .img-service {
+    /* width: 60%; */
+  }
+
+  .text-service {
+    color: black;
+  }
+  

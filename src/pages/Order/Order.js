@@ -12,6 +12,7 @@ const PaymentForm = (props) => {
 	const [coffee, setCoffee] = useState(0);
 	const [selectedOption, setSelectedOption] = useState('CUSTOM');
 	const [code, setCode] = useState(null);
+	const [coffeFee, setCoffeFee] = useState(20000);
 	const nav = useNavigate();
 
 	const handleFormSubmit = (event) => {
@@ -46,7 +47,7 @@ const PaymentForm = (props) => {
 			return;
 		}
 		// Convert coffee to VNĐ before submission if needed
-		const amountInVND = coffee * 20000;
+		const amountInVND = coffee * coffeFee;
 		const body = {
 			money: amountInVND,
 			type: selectedOption
@@ -71,10 +72,15 @@ const PaymentForm = (props) => {
 				break;
 			case 'COMBO3':
 				setCoffee(3);
+				setCoffeFee(19000);
 				break;
 			case 'COMBO7':
+				setCoffeFee(18000);
 				setCoffee(7);
 				break;
+			case 'MEETING':
+				setCoffee(1);
+				setCoffeFee(150000);
 			default:
 				break;
 		}
@@ -90,7 +96,7 @@ const PaymentForm = (props) => {
 							<img style={{ width: "70%" }} src='QR_BIDV.jpg' />
 						</Col>
 						<Col xs={6}>
-							<h2>Để mua cà phê, vui lòng chuyển khoản số tiền: {coffee * 20000} đến tài khoản bên cạnh với nội dung chuyển khoản: <span style={{ color: 'red' }}>{code}</span> để nạp tiền</h2>
+							<h2>Để mua cà phê, vui lòng chuyển khoản số tiền: {(coffee * coffeFee).toLocaleString()} đến tài khoản bên cạnh với nội dung chuyển khoản: <span style={{ color: 'red' }}>{code}</span> để nạp tiền</h2>
 							<div style={{fontSize:"1.5em"}}>
 								<div>Số Tài Khoản: 4270787394</div>
 								<div>Ngân hàng: BIDV</div>
@@ -159,12 +165,26 @@ const PaymentForm = (props) => {
 								</Row>
 								<img src='/combo7.png' alt="coffe" />
 							</Col>
+							<Col xs={3}>
+								<Row>
+									<label>
+										<input
+											type="radio"
+											value="MEETING"
+											checked={selectedOption === 'MEETING'}
+											onChange={handleOptionChange}
+										/>&nbsp;
+										Gói cà phê gặp mặt
+									</label>
+								</Row>
+								<img src='/chat.png' alt="coffe" />
+							</Col>
 						</Row>
 					</FormGroup>
 
 					<Button className='mt-2' type="submit" id="btnPopup">Thanh toán</Button>
 					<Col xs={12} className='align-middle text-center justify-content-center'>
-						Tổng tiền = {coffee * 20000} VNĐ
+						Tổng tiền = {(coffee * coffeFee).toLocaleString()} VNĐ
 					</Col>
 				</Form>
 			}

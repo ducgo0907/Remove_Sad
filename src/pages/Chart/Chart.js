@@ -114,7 +114,6 @@ export function Chart() {
                             dataMoneyObject[type][index] += data.money;
                         })
                     }
-                    console.log(dataMoneyObject);
                     setMainData({
                         labels,
                         datasets: [
