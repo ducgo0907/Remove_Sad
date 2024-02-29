@@ -18,7 +18,7 @@ function ServiceChoice() {
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <div className="rectangle rectangle3">Gặp mặt trực tiếp</div>
+                    <div className="rectangle rectangle3" onClick={() => goToAnotherPage("/meet")}>Gặp mặt trực tiếp</div>
                 </div>
             </div>
         </div>

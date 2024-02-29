@@ -192,6 +192,7 @@ function Home({ user }) {
 						<input type="button" onClick={(e) => goToChat(e, '/chat')} className="btn btn-success mr-3" value="Go to chat" />
 						<input type="button" onClick={(e) => goToChat(e, '/listPending')} className="btn btn-warning mr-3" value="Go to pending" />
 						<input type="button" onClick={(e) => goToChat(e, '/dashboard')} className="btn btn-primary mr-3" value="Dashboard" />
+						<input type="button" onClick={(e) => goToChat(e, '/pending-meeting')} className="btn btn-primary mr-3" value="List Meeting" />
 					</div>)}
 			</div>
 		</div>

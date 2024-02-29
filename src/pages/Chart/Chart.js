@@ -53,9 +53,10 @@ export function Chart() {
     const [mainData, setMainData] = useState(initData1);
     const [moneyData, setMoneyData] = useState(initData1);
     const [amount, setAmount] = useState(0);
+    const [specialAmount, setSpecialAmount] = useState(0);
     const [revenue, setRevenue] = useState(0);
     const [option, setOption] = useState(1);
-    const listType = ["CUSTOM", "COMBO3", "COMBO7"];
+    const listType = ["CUSTOM", "COMBO3", "COMBO7", "MEETING"];
     const dataObject = {};
     const dataMoneyObject = {};
     let labelMonth = []
@@ -107,9 +108,12 @@ export function Chart() {
                             } else if (type === "COMBO7") {
                                 setAmount(prevAmount => prevAmount + 7);
                                 dataObject[type][index]++;
-                            } else {
+                            } else if (type === "CUSTOM"){
                                 setAmount(prevAmount => prevAmount + data.money / 20000);
                                 dataObject[type][index] += data.money / 20000;
+                            }else {
+                                setSpecialAmount(prevAmount => prevAmount + 1);
+                                dataObject[type][index]++;
                             }
                             dataMoneyObject[type][index] += data.money;
                         })
@@ -132,6 +136,11 @@ export function Chart() {
                                 data: dataObject["COMBO7"],
                                 backgroundColor: 'rgba(100, 90, 132, 0.5)',
                             },
+                            {
+                                label: 'Gặp mặt',
+                                data: dataObject["MEETING"],
+                                backgroundColor: 'rgba(130, 70, 20, 0.5)',
+                            },
                         ],
                     })
                     setMoneyData({
@@ -151,6 +160,11 @@ export function Chart() {
                                 label: 'Combo 7 cốc',
                                 data: dataMoneyObject["COMBO7"],
                                 backgroundColor: 'rgba(100, 90, 132, 0.5)',
+                            },
+                            {
+                                label: 'Gặp mặt',
+                                data: dataMoneyObject["MEETING"],
+                                backgroundColor: 'rgba(130, 70, 20, 0.5)',
                             },
                         ],
                     })
@@ -237,7 +251,7 @@ export function Chart() {
             </div>
             <div className='row'>
                 <div className='col-6'>
-                    <h3>Tổng số lượng bán ra: {amount} </h3>
+                    <h3>Tổng số lượng bán ra: {amount} cà phê, {specialAmount} gặp mặt </h3>
                     <Bar options={options} data={mainData} />;
                 </div>
                 <div className='col-6'>

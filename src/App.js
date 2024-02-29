@@ -22,6 +22,8 @@ import Homepage from './pages/Homepage/Homepage';
 import { Chart } from './pages/Chart/Chart';
 import Guideline from './pages/Guideline/Guideline';
 import ServiceChoice from './pages/ServiceChoice/ServiceChoice';
+import Meet from './pages/Meet/Meet';
+import ListPendingMeeting from './pages/ListPending/ListPendingMeeting';
 
 function App() {
 	const [user, setUser] = useState(authService.getCurrentUser());
@@ -160,6 +162,8 @@ function App() {
 						<Route path='/listPending' element={<ListPending users={users} socket={socket} setUsers={setUsers} user={user} />} />
 						<Route path='/dashboard' element={<Chart />} />
 						<Route path='/choice' element={<ServiceChoice />} />
+						<Route path='/meet' element={<Meet />} />
+						<Route path='/pending-meeting' element={<ListPendingMeeting />} />
 					</Routes>
 				</main>
 				{/* <footer className="bg-dark text-light py-3">
