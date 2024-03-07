@@ -4,6 +4,7 @@ import orderService from '../../services/order.service';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { logRoles } from '@testing-library/react';
 
 
 const MySwal = withReactContent(Swal);
@@ -79,8 +80,13 @@ const PaymentForm = (props) => {
 				setCoffee(7);
 				break;
 			case 'MEETING':
-				setCoffee(1);
 				setCoffeFee(150000);
+				setCoffee(1);
+				break;
+			case 'MEMBER':
+				setCoffeFee(100000)
+				setCoffee(1);
+				break;
 			default:
 				break;
 		}
@@ -165,7 +171,7 @@ const PaymentForm = (props) => {
 								</Row>
 								<img src='/combo7.png' alt="coffe" />
 							</Col>
-							<Col xs={3}>
+							<Col xs={4}>
 								<Row>
 									<label>
 										<input
@@ -178,6 +184,20 @@ const PaymentForm = (props) => {
 									</label>
 								</Row>
 								<img src='/chat.png' alt="coffe" />
+							</Col>
+							<Col xs={3}>
+								<Row>
+									<label>
+										<input
+											type="radio"
+											value="MEMBER"
+											checked={selectedOption === 'MEMBER'}
+											onChange={handleOptionChange}
+										/>&nbsp;
+										Gói hội viên tháng
+									</label>
+								</Row>
+								<img src='/membership-tag.png' alt="coffe" />
 							</Col>
 						</Row>
 					</FormGroup>

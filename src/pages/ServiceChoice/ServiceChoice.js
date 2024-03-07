@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './service_choice.css'; // Custom CSS file for additional styling if needed
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,16 @@ function ServiceChoice({user}) {
     const goToAnotherPage = (path) => {
         nav(path);
     }
+
+    useEffect(() => {
+        const user = localStorage.getItem("user");
+        if(user && user != undefined && user != ""){
+            const userObject = JSON.parse(user);
+            if(userObject.isAdmin){
+                nav("/home")
+            }
+        }
+    }, [])
     return (
         <>
         <div className="container">

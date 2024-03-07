@@ -9,10 +9,16 @@ function Meet() {
     const [selectedStartTime, setSelectedStartTime] = useState('');
     const [selectedEndTime, setSelectedEndTime] = useState('');
     const [address, setAddress] = useState('');
+    const [phone, setPhone] = useState('');
+    const [isSubmit, setSubmit] = useState(false);
     const [history, setHistory] = useState([])
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        if (selectedDate === '' || selectedEndTime == '' || selectedStartTime === '' || address === '' || phone === '') {
+            setSubmit(true);
+            return;
+        }
         // Handle form submission here
         const startDateString = `${selectedDate}T${selectedStartTime}:00`;
         const endDateString = `${selectedDate}T${selectedEndTime}:00`;
@@ -22,10 +28,9 @@ function Meet() {
         const meet = {
             timeStart: startDate.toISOString(),
             timeEnd: endDate.toISOString(),
-            address: address
+            address: address,
+            phone: phone
         }
-        console.log(startDateString);
-        console.log(meet);
         meetService.createMeet(meet)
             .then(response => {
                 const data = response.data.data;
@@ -76,6 +81,7 @@ function Meet() {
                         value={selectedDate}
                         onChange={(e) => setSelectedDate(e.target.value)}
                     />
+                    <div style={{ color: 'red' }}>{selectedDate === '' && isSubmit ? 'Vui lòng chọn ngày bắt đầu' : ''}</div>
                 </Form.Group>
 
                 <Form.Group controlId="selectedStartTime">
@@ -90,6 +96,7 @@ function Meet() {
                             <option key={hour} value={`${hour < 10 ? '0' + hour : hour}:00`}>{`${hour}:00`}</option>
                         ))}
                     </Form.Control>
+                    <div style={{ color: 'red' }}>{selectedStartTime === '' && isSubmit ? 'Vui lòng chọn giờ bắt đầu' : ''}</div>
                 </Form.Group>
 
                 <Form.Group controlId="selectedEndTime">
@@ -104,6 +111,7 @@ function Meet() {
                             <option key={hour} value={`${hour < 10 ? '0' + hour : hour}:00`}>{`${hour}:00`}</option>
                         ))}
                     </Form.Control>
+                    <div style={{ color: 'red' }}>{selectedEndTime === '' && isSubmit ? 'Vui lòng chọn giờ kết thúc' : ''}</div>
                 </Form.Group>
 
                 <Form.Group controlId="address">
@@ -113,6 +121,17 @@ function Meet() {
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
                     />
+                    <div style={{ color: 'red' }}>{address === '' && isSubmit ? 'Vui lòng nhập địa chỉ gặp mặt' : ''}</div>
+                </Form.Group>
+
+                <Form.Group controlId="address">
+                    <Form.Label>Số điện thoại:</Form.Label>
+                    <Form.Control
+                        type="text"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                    />
+                    <div style={{ color: 'red' }}>{phone === '' && isSubmit ? 'Vui lòng nhập số điện thoại của bạn' : ''}</div>
                 </Form.Group>
 
                 <Button variant="primary" type="submit">
@@ -152,7 +171,6 @@ function Meet() {
                 </a>
             </div>
         </>
-
     );
 }
 
