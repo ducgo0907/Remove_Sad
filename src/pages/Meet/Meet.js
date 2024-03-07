@@ -144,6 +144,7 @@ function Meet() {
                             <th>Thời gian bắt đầu</th>
                             <th>Thời gian kết thúc</th>
                             <th>Địa chỉ</th>
+                            <th>Số điện thoại</th>
                             <th>Tình trạng</th>
                         </tr>
                     </thead>
@@ -153,6 +154,7 @@ function Meet() {
                                 <td>{convertDate(meet.timeStart)}</td>
                                 <td>{convertDate(meet.timeEnd)}</td>
                                 <td>{meet.address}</td>
+                                <td>{meet.phone}</td>
                                 <td className={meet.status}>{meet.status}</td>
                             </tr>
                         ))}
