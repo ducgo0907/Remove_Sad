@@ -4,7 +4,7 @@ import meetService from '../../services/meet.service';
 import Swal from 'sweetalert2';
 import './meet.css'
 
-function Meet() {
+function Meet({ user }) {
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedStartTime, setSelectedStartTime] = useState('');
     const [selectedEndTime, setSelectedEndTime] = useState('');
@@ -161,7 +161,7 @@ function Meet() {
                     </tbody>
                 </Table>
             </Form>
-            <div className='advertis'>
+            {!user.isVipMember && <div className='advertis'>
                 <a className='nonfat' href="https://www.facebook.com/profile.php?id=61555888590527" target="_blank" rel="noreferrer">
                     <img src='nonFatBakery.png' alt='img' />
                 </a>
@@ -172,6 +172,7 @@ function Meet() {
                     <img src='owlBeauty.png' alt='img' />
                 </a>
             </div>
+            }
         </>
     );
 }
