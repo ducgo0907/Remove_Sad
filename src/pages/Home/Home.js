@@ -16,6 +16,7 @@ function Home({ user }) {
 	const [socket, setSocket] = useState(null);
 	const [isFree, setIsFree] = useState(localStorage.getItem("isFree") === "true");
 	const [currentAvatar, setCurrentAvatar] = useState("");
+	const [time, setTime] = useState(20);
 	const nav = useNavigate();
 	const imageArrays = [
 		"/1.png",
@@ -39,7 +40,9 @@ function Home({ user }) {
 		} else {
 			setUserName("");
 		}
-
+		if(user && user.isMemberVip){
+			setTime(30);
+		}
 		if (localStorage.getItem("isFree") === null) {
 			setIsFree(true);
 		}
@@ -108,7 +111,7 @@ function Home({ user }) {
 												} else {
 													const twentyMinutesFromNow = new Date();
 													const startDate = new Date(data.timeStart);
-													startDate.setMinutes(startDate.getMinutes() + 20);
+													startDate.setMinutes(startDate.getMinutes() + time);
 													const remainingMilliseconds = Math.floor((startDate - twentyMinutesFromNow) / 1000);
 													localStorage.setItem("remainTime", remainingMilliseconds);
 													localStorage.setItem("isAccess", true);
@@ -123,7 +126,7 @@ function Home({ user }) {
 						} else {
 							const twentyMinutesFromNow = new Date();
 							const startDate = new Date(data.timeStart);
-							startDate.setMinutes(startDate.getMinutes() + 20);
+							startDate.setMinutes(startDate.getMinutes() + time);
 							if (startDate > twentyMinutesFromNow) {
 								const remainingMilliseconds = Math.floor((startDate - twentyMinutesFromNow) / 1000);
 								localStorage.setItem("remainTime", remainingMilliseconds);
