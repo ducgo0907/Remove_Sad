@@ -29,3 +29,34 @@
     color: black;
   }
   
+/* css for advertisement */
+.advertis{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+}
+
+.nonfat{
+  width: 15%;
+  height: 10%;
+}
+
+.wonder{
+  width: 35%;
+  height: 20%;
+  position: fixed;
+  bottom: 0;
+  left: 33%;
+  right: 33%;
+}
+
+.owl{
+  width: 15%;
+  display: flex;
+  justify-content: end;
+}
+
+.advertis a{
+  width: 100%;
+}

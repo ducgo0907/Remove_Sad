@@ -97,7 +97,7 @@ const PaymentForm = (props) => {
 						</Col>
 						<Col xs={6}>
 							<h2>Để mua cà phê, vui lòng chuyển khoản số tiền: {(coffee * coffeFee).toLocaleString()} đến tài khoản bên cạnh với nội dung chuyển khoản: <span style={{ color: 'red' }}>{code}</span> để nạp tiền</h2>
-							<div style={{fontSize:"1.5em"}}>
+							<div style={{ fontSize: "1.5em" }}>
 								<div>Số Tài Khoản: 4270787394</div>
 								<div>Ngân hàng: BIDV</div>
 							</div>
@@ -189,6 +189,17 @@ const PaymentForm = (props) => {
 				</Form>
 			}
 			<p>&nbsp;</p>
+			<div className='advertis'>
+				<a className='nonfat' href="https://www.facebook.com/profile.php?id=61555888590527" target="_blank" rel="noreferrer">
+					<img src='nonFatBakery.png' alt='img' />
+				</a>
+				<a className='wonder' href="https://www.facebook.com/Wonderlandstoreexe" target="_blank" rel="noreferrer">
+					<img src='wonderlandStore.png' alt='img' />
+				</a>
+				<a className='owl' href="https://www.facebook.com/profile.php?id=61555679864702" target="_blank" rel="noreferrer">
+					<img src='owlBeauty.png' alt='img' />
+				</a>
+			</div>
 		</Container>
 	);
 };

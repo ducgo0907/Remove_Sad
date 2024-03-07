@@ -42,11 +42,11 @@ function Chat({ userLogged, setSocket, socket }) {
 
 	useEffect(() => {
 		const isAccess = localStorage.getItem("isAccess");
-		if(!isAccess || isAccess == undefined){
+		if (!isAccess || isAccess == undefined) {
 			nav('/')
 		}
 		const newAvatar = localStorage.getItem("avatar");
-		if(newAvatar && newAvatar != undefined){
+		if (newAvatar && newAvatar != undefined) {
 			setAvatar(newAvatar);
 		}
 	}, [])
@@ -92,7 +92,7 @@ function Chat({ userLogged, setSocket, socket }) {
 				console.log(newList, dataGot);
 				// Add dataGot.sender to the beginning of the updated users array
 				setUsers(newList);
-			}else{
+			} else {
 				messageService.getListUser(userLogged.email)
 					.then(res => {
 						const list = res.data.data;
@@ -188,9 +188,9 @@ function Chat({ userLogged, setSocket, socket }) {
 					message={message}
 					onEnterPerss={onEnterPerss}
 					setMessage={setMessage}
-					sendMessage={sendMessage} 
+					sendMessage={sendMessage}
 					avatar={avatar}
-					/>
+				/>
 				:
 				<UserChat
 					userLogged={userLogged}
@@ -205,11 +205,21 @@ function Chat({ userLogged, setSocket, socket }) {
 					onEnterPerss={onEnterPerss}
 					setMessage={setMessage}
 					sendMessage={sendMessage}
-					setMess={setMess} 
+					setMess={setMess}
 					avatar={avatar}
-					/>
+				/>
 			}
-
+			<div className='advertis'>
+				<a className='nonfat' href="https://www.facebook.com/profile.php?id=61555888590527" target="_blank" rel="noreferrer">
+					<img src='nonFatBakery.png' alt='img' />
+				</a>
+				<a className='wonder' href="https://www.facebook.com/Wonderlandstoreexe" target="_blank" rel="noreferrer">
+					<img src='wonderlandStore.png' alt='img' />
+				</a>
+				<a className='owl' href="https://www.facebook.com/profile.php?id=61555679864702" target="_blank" rel="noreferrer">
+					<img src='owlBeauty.png' alt='img' />
+				</a>
+			</div>
 		</div>
 	);
 }

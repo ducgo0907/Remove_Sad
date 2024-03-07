@@ -66,79 +66,93 @@ function Meet() {
     }
 
     return (
-        <Form onSubmit={handleSubmit} className='container'>
-            <h2 className='text-center'>Chọn ngày giờ gặp mặt với Pilyr nào!</h2>
-            <Form.Group controlId="selectedDate">
-                <Form.Label>Chọn ngày:</Form.Label>
-                <Form.Control
-                    type="date"
-                    value={selectedDate}
-                    onChange={(e) => setSelectedDate(e.target.value)}
-                />
-            </Form.Group>
+        <>
+            <Form onSubmit={handleSubmit} className='container'>
+                <h2 className='text-center'>Chọn ngày giờ gặp mặt với Pilyr nào!</h2>
+                <Form.Group controlId="selectedDate">
+                    <Form.Label>Chọn ngày:</Form.Label>
+                    <Form.Control
+                        type="date"
+                        value={selectedDate}
+                        onChange={(e) => setSelectedDate(e.target.value)}
+                    />
+                </Form.Group>
 
-            <Form.Group controlId="selectedStartTime">
-                <Form.Label>Chọn giờ bắt đầu:</Form.Label>
-                <Form.Control
-                    as="select"
-                    value={selectedStartTime}
-                    onChange={(e) => setSelectedStartTime(e.target.value)}
-                >
-                    <option value="">Chọn giờ</option>
-                    {[...Array(24).keys()].map((hour) => (
-                        <option key={hour} value={`${hour < 10 ? '0' + hour : hour}:00`}>{`${hour}:00`}</option>
-                    ))}
-                </Form.Control>
-            </Form.Group>
+                <Form.Group controlId="selectedStartTime">
+                    <Form.Label>Chọn giờ bắt đầu:</Form.Label>
+                    <Form.Control
+                        as="select"
+                        value={selectedStartTime}
+                        onChange={(e) => setSelectedStartTime(e.target.value)}
+                    >
+                        <option value="">Chọn giờ</option>
+                        {[...Array(24).keys()].map((hour) => (
+                            <option key={hour} value={`${hour < 10 ? '0' + hour : hour}:00`}>{`${hour}:00`}</option>
+                        ))}
+                    </Form.Control>
+                </Form.Group>
 
-            <Form.Group controlId="selectedEndTime">
-                <Form.Label>Chọn giờ kết thúc:</Form.Label>
-                <Form.Control
-                    as="select"
-                    value={selectedEndTime}
-                    onChange={(e) => setSelectedEndTime(e.target.value)}
-                >
-                    <option value="">Chọn giờ</option>
-                    {[...Array(24).keys()].map((hour) => (
-                        <option key={hour} value={`${hour < 10 ? '0' + hour : hour}:00`}>{`${hour}:00`}</option>
-                    ))}
-                </Form.Control>
-            </Form.Group>
+                <Form.Group controlId="selectedEndTime">
+                    <Form.Label>Chọn giờ kết thúc:</Form.Label>
+                    <Form.Control
+                        as="select"
+                        value={selectedEndTime}
+                        onChange={(e) => setSelectedEndTime(e.target.value)}
+                    >
+                        <option value="">Chọn giờ</option>
+                        {[...Array(24).keys()].map((hour) => (
+                            <option key={hour} value={`${hour < 10 ? '0' + hour : hour}:00`}>{`${hour}:00`}</option>
+                        ))}
+                    </Form.Control>
+                </Form.Group>
 
-            <Form.Group controlId="address">
-                <Form.Label>Địa chỉ:</Form.Label>
-                <Form.Control
-                    type="text"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                />
-            </Form.Group>
+                <Form.Group controlId="address">
+                    <Form.Label>Địa chỉ:</Form.Label>
+                    <Form.Control
+                        type="text"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                    />
+                </Form.Group>
 
-            <Button variant="primary" type="submit">
-                Submit
-            </Button>
-            <h3>Lịch sử đặt cuộc nói chuyện</h3>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Thời gian bắt đầu</th>
-                        <th>Thời gian kết thúc</th>
-                        <th>Địa chỉ</th>
-                        <th>Tình trạng</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {history.map((meet) => (
-                        <tr key={meet._id}>
-                            <td>{convertDate(meet.timeStart)}</td>
-                            <td>{convertDate(meet.timeEnd)}</td>
-                            <td>{meet.address}</td>
-                            <td className={meet.status}>{meet.status}</td>
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
+                <h3>Lịch sử đặt cuộc nói chuyện</h3>
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Thời gian bắt đầu</th>
+                            <th>Thời gian kết thúc</th>
+                            <th>Địa chỉ</th>
+                            <th>Tình trạng</th>
                         </tr>
-                    ))}
-                </tbody>
-            </Table>
-        </Form>
+                    </thead>
+                    <tbody>
+                        {history.map((meet) => (
+                            <tr key={meet._id}>
+                                <td>{convertDate(meet.timeStart)}</td>
+                                <td>{convertDate(meet.timeEnd)}</td>
+                                <td>{meet.address}</td>
+                                <td className={meet.status}>{meet.status}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </Form>
+            <div className='advertis'>
+                <a className='nonfat' href="https://www.facebook.com/profile.php?id=61555888590527" target="_blank" rel="noreferrer">
+                    <img src='nonFatBakery.png' alt='img' />
+                </a>
+                <a className='wonder' href="https://www.facebook.com/Wonderlandstoreexe" target="_blank" rel="noreferrer">
+                    <img src='wonderlandStore.png' alt='img' />
+                </a>
+                <a className='owl' href="https://www.facebook.com/profile.php?id=61555679864702" target="_blank" rel="noreferrer">
+                    <img src='owlBeauty.png' alt='img' />
+                </a>
+            </div>
+        </>
+
     );
 }
 
