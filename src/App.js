@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
 import Chat from './pages/Chat/Chat';
-import PrivateRoute from './components/PrivateRoute';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import DirectRouter from './components/DirectRouter';
@@ -24,18 +22,30 @@ import Guideline from './pages/Guideline/Guideline';
 import ServiceChoice from './pages/ServiceChoice/ServiceChoice';
 import Meet from './pages/Meet/Meet';
 import ListPendingMeeting from './pages/ListPending/ListPendingMeeting';
+import { jwtDecode } from 'jwt-decode';
 
 function App() {
 	const [user, setUser] = useState(authService.getCurrentUser());
 	const [users, setUsers] = useState([]);
 	const [socket, setSocket] = useState(null);
 	const [money, setMoney] = useState(authService.getCurrentMoney() || 0)
-	const [isFree, setisFree] = useState("true");
 	const [meeting, setMeeting] = useState(0);
 
 	useEffect(() => {
 		if (localStorage.getItem("isFree") === null) {
-			localStorage.setItem("isFree", true);
+			localStorage.setItem("isFree", false);
+		}
+		const user = localStorage.getItem("user");
+		if(user && user != null){
+			const newUser = JSON.parse(user);
+			if(newUser.accessToken){
+				const decoded = jwtDecode(newUser.accessToken);
+				const currentTime = Date.now();
+				if(decoded.exp * 1000 < currentTime){
+					logOut();
+					window.location.reload();
+				}
+			}
 		}
 	}, [])
 
