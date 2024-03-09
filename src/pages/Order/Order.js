@@ -209,17 +209,18 @@ const PaymentForm = (props) => {
 				</Form>
 			}
 			<p>&nbsp;</p>
-			<div className='advertis'>
-				<a className='nonfat' href="https://www.facebook.com/profile.php?id=61555888590527" target="_blank" rel="noreferrer">
-					<img src='nonFatBakery.png' alt='img' />
-				</a>
-				<a className='wonder' href="https://www.facebook.com/Wonderlandstoreexe" target="_blank" rel="noreferrer">
-					<img src='wonderlandStore.png' alt='img' />
-				</a>
-				<a className='owl' href="https://www.facebook.com/profile.php?id=61555679864702" target="_blank" rel="noreferrer">
-					<img src='owlBeauty.png' alt='img' />
-				</a>
-			</div>
+			{!props.user.isVipMember && <div className='advertis'>
+            <a className='nonfat' href="https://www.facebook.com/profile.php?id=61555888590527" target="_blank" rel="noreferrer">
+                <img src='nonFatBakery.png' alt='img'/>
+            </a>
+            <a className='wonder' href="https://www.facebook.com/Wonderlandstoreexe" target="_blank" rel="noreferrer">
+                <img src='wonderlandStore.png' alt='img'/>
+            </a>
+            <a className='owl' href="https://www.facebook.com/profile.php?id=61555679864702" target="_blank" rel="noreferrer">
+                <img  src='owlBeauty.png' alt='img'/>
+            </a>
+        </div>
+        }
 		</Container>
 	);
 };

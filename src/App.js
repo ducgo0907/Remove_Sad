@@ -172,7 +172,7 @@ function App() {
 						<Route path='/listPending' element={<ListPending users={users} socket={socket} setUsers={setUsers} user={user} />} />
 						<Route path='/dashboard' element={<Chart />} />
 						<Route path='/choice' element={<ServiceChoice user={user} />} />
-						<Route path='/meet' element={<Meet />} />
+						<Route path='/meet' element={<Meet user={user} />} />
 						<Route path='/pending-meeting' element={<ListPendingMeeting />} />
 					</Routes>
 				</main>

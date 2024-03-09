@@ -209,7 +209,7 @@ function Chat({ userLogged, setSocket, socket }) {
 					avatar={avatar}
 				/>
 			}
-			<div className='advertis'>
+			{!userLogged.isVipMember && <div className='advertis'>
 				<a className='nonfat' href="https://www.facebook.com/profile.php?id=61555888590527" target="_blank" rel="noreferrer">
 					<img src='nonFatBakery.png' alt='img' />
 				</a>
@@ -220,6 +220,7 @@ function Chat({ userLogged, setSocket, socket }) {
 					<img src='owlBeauty.png' alt='img' />
 				</a>
 			</div>
+			}
 		</div>
 	);
 }

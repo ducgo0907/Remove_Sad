@@ -33,14 +33,7 @@ function ServiceChoice({user}) {
                 </div>
             </div>
         </div>
-        {/* {user.isVipMember && <div className='advertis'>
-            <img src='nonFatBakery.png' alt='img'/>
-            <img src='wonderlandStore.png' alt='img'/>
-            <img src='owlBeauty.png' alt='img'/>
-        </div>
-        } */}
-
-        <div className='advertis'>
+        {!user.isVipMember && <div className='advertis'>
             <a className='nonfat' href="https://www.facebook.com/profile.php?id=61555888590527" target="_blank" rel="noreferrer">
                 <img src='nonFatBakery.png' alt='img'/>
             </a>
@@ -51,6 +44,8 @@ function ServiceChoice({user}) {
                 <img  src='owlBeauty.png' alt='img'/>
             </a>
         </div>
+        }
+        
         </>
     );
 }
