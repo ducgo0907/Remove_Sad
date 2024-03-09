@@ -75,6 +75,7 @@ export function Chart() {
         }
         setAmount(0);
         setRevenue(0);
+        setSpecialAmount(0);
         listType.forEach((type, index) => {
             const param = {
                 type: type,

@@ -70,6 +70,7 @@ const PaymentForm = (props) => {
 		switch (event.target.value) {
 			case 'CUSTOM':
 				setCoffee(0);
+				setCoffeFee(20000);
 				break;
 			case 'COMBO3':
 				setCoffee(3);
