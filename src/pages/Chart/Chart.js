@@ -54,9 +54,10 @@ export function Chart() {
     const [moneyData, setMoneyData] = useState(initData1);
     const [amount, setAmount] = useState(0);
     const [specialAmount, setSpecialAmount] = useState(0);
+    const [memberAmount, setMemberAmount] = useState(0);
     const [revenue, setRevenue] = useState(0);
     const [option, setOption] = useState(1);
-    const listType = ["CUSTOM", "COMBO3", "COMBO7", "MEETING"];
+    const listType = ["CUSTOM", "COMBO3", "COMBO7", "MEETING", "MEMBER"];
     const dataObject = {};
     const dataMoneyObject = {};
     let labelMonth = []
@@ -76,6 +77,7 @@ export function Chart() {
         setAmount(0);
         setRevenue(0);
         setSpecialAmount(0);
+        setMemberAmount(0);
         listType.forEach((type, index) => {
             const param = {
                 type: type,
@@ -142,6 +144,11 @@ export function Chart() {
                                 data: dataObject["MEETING"],
                                 backgroundColor: 'rgba(130, 70, 20, 0.5)',
                             },
+                            {
+                                label: 'Gói thành viên',
+                                data: dataObject["MEMBER"],
+                                backgroundColor: 'rgba(60, 150, 80, 2)',
+                            },
                         ],
                     })
                     setMoneyData({
@@ -166,6 +173,11 @@ export function Chart() {
                                 label: 'Gặp mặt',
                                 data: dataMoneyObject["MEETING"],
                                 backgroundColor: 'rgba(130, 70, 20, 0.5)',
+                            },
+                            {
+                                label: 'Gói thành viên',
+                                data: dataMoneyObject["MEETING"],
+                                backgroundColor: 'rgba(60, 150, 80, 2)',
                             },
                         ],
                     })

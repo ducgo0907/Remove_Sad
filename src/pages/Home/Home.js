@@ -40,7 +40,7 @@ function Home({ user }) {
 		} else {
 			setUserName("");
 		}
-		if(user && user.isMemberVip){
+		if(user && user?.isMemberVip){
 			setTime(30);
 		}
 		if (localStorage.getItem("isFree") === null) {
