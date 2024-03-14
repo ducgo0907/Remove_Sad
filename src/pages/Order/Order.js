@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Form, FormGroup, FormLabel, FormControl, Button, Row, Col } from 'react-bootstrap';
 import orderService from '../../services/order.service';
 import withReactContent from 'sweetalert2-react-content';
@@ -14,6 +14,7 @@ const PaymentForm = (props) => {
 	const [selectedOption, setSelectedOption] = useState('CUSTOM');
 	const [code, setCode] = useState(null);
 	const [coffeFee, setCoffeFee] = useState(20000);
+	const [imageData, setImageData] = useState(null);
 	const nav = useNavigate();
 
 	const handleFormSubmit = (event) => {
@@ -100,7 +101,7 @@ const PaymentForm = (props) => {
 				<div>
 					<Row xs={12}>
 						<Col xs={6}>
-							<img style={{ width: "70%" }} src='QR_BIDV.jpg' />
+							<img style={{ width: "70%" }} src={`https://img.vietqr.io/image/BIDV-4270787394-compact.png?amount=${coffee * coffeFee}&addInfo=${code}`}/>
 						</Col>
 						<Col xs={6}>
 							<h2>Để mua cà phê, vui lòng chuyển khoản số tiền: {(coffee * coffeFee).toLocaleString()} đến tài khoản bên cạnh với nội dung chuyển khoản: <span style={{ color: 'red' }}>{code}</span> để nạp tiền</h2>
@@ -211,17 +212,17 @@ const PaymentForm = (props) => {
 			}
 			<p>&nbsp;</p>
 			{!props.user.isVipMember && <div className='advertis'>
-            <a className='nonfat' href="https://www.facebook.com/profile.php?id=61555888590527" target="_blank" rel="noreferrer">
-                <img src='nonFatBakery.png' alt='img'/>
-            </a>
-            <a className='wonder' href="https://www.facebook.com/Wonderlandstoreexe" target="_blank" rel="noreferrer">
-                <img src='wonderlandStore.png' alt='img'/>
-            </a>
-            <a className='owl' href="https://www.facebook.com/profile.php?id=61555679864702" target="_blank" rel="noreferrer">
-                <img  src='owlBeauty.png' alt='img'/>
-            </a>
-        </div>
-        }
+				<a className='nonfat' href="https://www.facebook.com/profile.php?id=61555888590527" target="_blank" rel="noreferrer">
+					<img src='nonFatBakery.png' alt='img' />
+				</a>
+				<a className='wonder' href="https://www.facebook.com/Wonderlandstoreexe" target="_blank" rel="noreferrer">
+					<img src='wonderlandStore.png' alt='img' />
+				</a>
+				<a className='owl' href="https://www.facebook.com/profile.php?id=61555679864702" target="_blank" rel="noreferrer">
+					<img src='owlBeauty.png' alt='img' />
+				</a>
+			</div>
+			}
 		</Container>
 	);
 };
