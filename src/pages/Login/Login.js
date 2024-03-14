@@ -90,7 +90,10 @@ function Login() {
 	return (
 		<>
 			{/* <Header /> */}
-			<div className="p-10">
+			<div className="p-10 login-container">
+				<a className='bana-left' href="https://www.facebook.com/profile.php?id=100068469255789" target="_blank" rel="noreferrer">
+					<img src='BanaCrochetLeft.jpg' alt='img' />
+				</a>
 				<div className="login-form">
 					<div className="login-wrap">
 						<div className="container p-0">
@@ -134,8 +137,17 @@ function Login() {
 						</div>
 					</div>
 				</div>
+				<a className='bana-right' href="https://www.facebook.com/profile.php?id=100068469255789" target="_blank" rel="noreferrer">
+					<img src='BanaCrochetRight.jpg' alt='img' />
+				</a>
+
 			</div>
 			<ToastContainer />
+			<div className="login-adv">
+				<a className='bana-center' href="https://www.facebook.com/profile.php?id=100068469255789" target="_blank" rel="noreferrer">
+					<img src='BanaCrochet.jpg' alt='img' />
+				</a>
+			</div>
 		</>
 	)
 

@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 // const host = 'https://s9fyy9-3001.csb.app/users'
 
-const host= `${process.env.REACT_APP_BASE_URL}users`;
+const host = `${process.env.REACT_APP_BASE_URL}users`;
 
 function Register() {
 	const [name, setName] = useState('');
@@ -64,7 +64,7 @@ function Register() {
 						draggable: true,
 						progress: undefined,
 						theme: "light",
-						});
+					});
 				}
 			})
 			.catch(error => {
@@ -169,72 +169,86 @@ function Register() {
 	// );
 
 	return (
-		<div className='p-10'>
-			<div className='register-form'>
-				<div className='register-wrap'>
-					<div className='container p-0'>
-						<div className='register'>
-							Register
-						</div>
-						<div className='register-form'>
-							<form className="register-form" onSubmit={handleSubmit}>
-								{/* Name */}
-								<div className='wrap-input'>
-									<label htmlFor="name"></label>
-									<input
-										className='register-input'
-										type="text"
-										id="name"
-										name="name"
-										value={name}
-										onChange={handleNameChange}
-										required
-										placeholder='Name'
-									/>
-								</div>
+		<>
+			<div className='p-10 login-container'>
+				<a className='bana-left' href="https://www.facebook.com/profile.php?id=100068469255789" target="_blank" rel="noreferrer">
+					<img src='BanaCrochetLeft.jpg' alt='img' />
+				</a>
+				<div className='register-form'>
+					<div className='register-wrap'>
+						<div className='container p-0'>
+							<div className='register'>
+								Register
+							</div>
+							<div className='register-form'>
+								<form className="register-form" onSubmit={handleSubmit}>
+									{/* Name */}
+									<div className='wrap-input'>
+										<label htmlFor="name"></label>
+										<input
+											className='register-input'
+											type="text"
+											id="name"
+											name="name"
+											value={name}
+											onChange={handleNameChange}
+											required
+											placeholder='Name'
+										/>
+									</div>
 
-								{/* Email */}
-								<div className='wrap-input'>
-									<label htmlFor="email"></label>
-									<input
-										className='register-input'
-										type="email"
-										id="email"
-										name="email"
-										value={email}
-										onChange={handleEmailChange}
-										required
-										placeholder='Email'
-									/>
-								</div>
+									{/* Email */}
+									<div className='wrap-input'>
+										<label htmlFor="email"></label>
+										<input
+											className='register-input'
+											type="email"
+											id="email"
+											name="email"
+											value={email}
+											onChange={handleEmailChange}
+											required
+											placeholder='Email'
+										/>
+									</div>
 
-								{/* Password */}
-								<div className='wrap-input'>
-									<label htmlFor="password"></label>
-									<input
-										className='register-input'
-										type="password"
-										id="password"
-										name="password"
-										value={password}
-										onChange={handlePasswordChange}
-										required
-										placeholder='Password'
-									/>
-								</div>
+									{/* Password */}
+									<div className='wrap-input'>
+										<label htmlFor="password"></label>
+										<input
+											className='register-input'
+											type="password"
+											id="password"
+											name="password"
+											value={password}
+											onChange={handlePasswordChange}
+											required
+											placeholder='Password'
+										/>
+									</div>
 
-								{/* Submit Button */}
-								<div className='mt-3'>
-									<button className='register-btn' type="submit">Register</button><br />
-									<Link className='link-login' to='/login'>Already have account? Back to login</Link>
-								</div>
-							</form>
+									{/* Submit Button */}
+									<div className='mt-3'>
+										<button className='register-btn' type="submit">Register</button><br />
+										<Link className='link-login' to='/login'>Already have account? Back to login</Link>
+									</div>
+								</form>
+							</div>
 						</div>
 					</div>
+
+				</div>
+				<a className='bana-right' href="https://www.facebook.com/profile.php?id=100068469255789" target="_blank" rel="noreferrer">
+					<img src='BanaCrochetRight.jpg' alt='img' />
+				</a>
+				<ToastContainer />
+				<div className="login-adv">
+					<a className='bana-center' href="https://www.facebook.com/profile.php?id=100068469255789" target="_blank" rel="noreferrer">
+						<img src='BanaCrochet.jpg' alt='img' />
+					</a>
 				</div>
 			</div>
-			<ToastContainer/>
-		</div>
+		</>
 	)
 }
 
