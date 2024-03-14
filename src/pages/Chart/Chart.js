@@ -69,9 +69,9 @@ export function Chart() {
     }
 
     useEffect(() => {
-        if(option == 1){
+        if (option == 1) {
             labels = getDaysInMonth();
-        }else{
+        } else {
             labels = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ nhật'];
         }
         setAmount(0);
@@ -84,24 +84,24 @@ export function Chart() {
                 dateFrom: selectedStartDate,
                 dateTo: selectedEndDate
             }
-            if(option == 0){
+            if (option == 0) {
                 dataObject[type] = Array.from({ length: 7 }).fill(0);
                 dataMoneyObject[type] = Array.from({ length: 7 }).fill(0);
-            }else{
+            } else {
                 dataObject[type] = Array.from({ length: labels.length }).fill(0);
                 dataMoneyObject[type] = Array.from({ length: labels.length }).fill(0);
             }
-
             orderService.getOrder(param)
                 .then(res => {
                     const data = res.data;
                     if (data.statusCode == 1) {
                         const listData = data.data;
+                        console.log("List data: ", listData);
                         listData.forEach(data => {
                             let index;
-                            if(option == 0){
+                            if (option == 0) {
                                 index = convertDate(data.createdAt) == 0 ? 6 : convertDate(data.createdAt) - 1;
-                            }else{
+                            } else {
                                 index = convertDateToDay(data.createdAt) - 1;
                             }
                             setRevenue(prevRevenue => prevRevenue + data.money);
@@ -111,11 +111,14 @@ export function Chart() {
                             } else if (type === "COMBO7") {
                                 setAmount(prevAmount => prevAmount + 7);
                                 dataObject[type][index]++;
-                            } else if (type === "CUSTOM"){
+                            } else if (type === "CUSTOM") {
                                 setAmount(prevAmount => prevAmount + data.money / 20000);
                                 dataObject[type][index] += data.money / 20000;
-                            }else {
+                            } else if (type === "MEETING") {
                                 setSpecialAmount(prevAmount => prevAmount + 1);
+                                dataObject[type][index]++;
+                            } else if(type === "MEMBER"){
+                                setMemberAmount(prevAmount => prevAmount + 1);
                                 dataObject[type][index]++;
                             }
                             dataMoneyObject[type][index] += data.money;
@@ -218,7 +221,7 @@ export function Chart() {
         // Convert to Vietnam time
         date.setHours(date.getHours() + 7); // Assuming Vietnam is 7 hours ahead of UTC
         // Get the day of the week as a number (0 for Sunday, 1 for Monday, etc.)
-        const dayOfWeekNumber = date.getDay();
+        const dayOfWeekNumber = date.getDay() > 0 ? date.getDay() - 1 : 6;
         return dayOfWeekNumber;
     }
 
@@ -238,7 +241,7 @@ export function Chart() {
         <div className='container'>
             <div className='row'>
                 <h2>Chọn doanh thu của
-                    <select style={{border: 'solid 1px black'}} value={option} onChange={handleChange}>
+                    <select style={{ border: 'solid 1px black' }} value={option} onChange={handleChange}>
                         <option value={0}>tuần</option>
                         <option value={1}>tháng</option>
                     </select>
@@ -264,7 +267,7 @@ export function Chart() {
             </div>
             <div className='row'>
                 <div className='col-6'>
-                    <h3>Tổng số lượng bán ra: {amount} cà phê, {specialAmount} gặp mặt </h3>
+                    <h3>Tổng số lượng bán ra: {amount} cà phê, {specialAmount} gặp mặt, {memberAmount} hội viên </h3>
                     <Bar options={options} data={mainData} />;
                 </div>
                 <div className='col-6'>
